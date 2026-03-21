@@ -219,3 +219,53 @@ addTask("Walk dog");
 console.log("tasks array after pushing two tasks: ", tasks, "\n");
 
 
+
+// Day 1 recovery review
+
+// core pattern 1: build a result from an array
+
+// ex:
+
+// const numbers = [1, 2, 3];
+// let result = [];
+
+// for (let num of numbers) {
+//     result.push(num * 2);
+// }
+
+// console.log(result);
+
+
+// loop over items
+// do something with each item
+// push into a new result
+
+
+
+
+
+
+// core pattern 2: count things with an object
+
+// ex:
+
+const fruits = ["apple", "banana", "apple"];
+let counts = {};
+
+// loop over items
+for (let fruit of fruits) {
+    // do something with each item
+    if (counts[fruit]) {
+        // push into new result
+        counts[fruit] += 1;
+    } else {
+        // do something with each item
+        // push into new result
+        counts[fruit] = 1;
+    }
+    // same as: counts[fruit] = (counts[fruit] || 0) + 1;
+}
+
+console.log("fruit counts: ", counts, "\n");
+
+
