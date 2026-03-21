@@ -269,3 +269,36 @@ for (let fruit of fruits) {
 console.log("fruit counts: ", counts, "\n");
 
 
+
+
+
+// Core pattern 3: group things with an object
+// just like counting but instead of numbers each key stores an array
+
+// ex:
+
+const items = [
+    { name: "milk", category: "food" },
+    { name: "shirt", category: "clothing" },
+    { name: "apple", category: "food" }
+];
+
+
+let grouped = {};
+
+for (let item of items) {
+    const category = item.category;
+
+    if (!grouped[category]) {
+        grouped[category] = [];
+    }
+
+    grouped[category].push(item);
+}
+
+console.log("items: ", items, "\n\n", "grouped: ", grouped, "\n")
+
+// this is the grouping pattern
+// check if bucket exists
+// if not, create bucket
+// put item in bucket
