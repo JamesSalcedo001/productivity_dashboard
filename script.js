@@ -608,11 +608,15 @@ function renderTasks() {
             // call renderTasks to update the visual state
             renderTasks();
         })
-
+        // append the li to the UL
         list.appendChild(li);
 
     }
 }
+
+
+
+// need 3 buttons, all completed and incomplete
 
 
 

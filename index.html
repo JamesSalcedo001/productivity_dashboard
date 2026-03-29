@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
     <header></header>
     <main>
         <section id="tasks">
+            <div id="filter-container">
+                <button class="filter-buttons" id="all">All</button>
+                <button class="filter-buttons" id="completed">Completed</button>
+                <button class="filter-buttons" id="incomplete">Incomplete</button>
+            </div>
             <input id="task-input">
             <button id="task-button">Task Button</button>
             <ul id="task-list"></ul>
