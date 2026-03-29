@@ -238,10 +238,7 @@ console.log("tasks array after pushing two tasks: ", tasks, "\n");
 
 // loop over items
 // do something with each item
-// push into a new result
-
-
-
+// push into a new result  
 
 
 
@@ -249,56 +246,89 @@ console.log("tasks array after pushing two tasks: ", tasks, "\n");
 
 // ex:
 
-const fruits = ["apple", "banana", "apple"];
-let counts = {};
+// const fruits = ["apple", "banana", "apple"];
+// let counts = {};
 
-// loop over items
-for (let fruit of fruits) {
-    // do something with each item
-    if (counts[fruit]) {
-        // push into new result
-        counts[fruit] += 1;
-    } else {
-        // do something with each item
-        // push into new result
-        counts[fruit] = 1;
-    }
-    // same as: counts[fruit] = (counts[fruit] || 0) + 1;
-}
+// for (let fruit of fruits) {
+//     if (counts[fruit]) {
+//         counts[fruit] += 1;
+//     } else {
+//         counts[fruit] = 1;
+//     }
+// }
 
-console.log("fruit counts: ", counts, "\n");
+// console.log(counts);
+
+// this is the same as counts[fruit] = (counts[fruit] || 0) + 1; - shortcut
 
 
 
-
-
-// Core pattern 3: group things with an object
-// just like counting but instead of numbers each key stores an array
+// core pattern 3: group things with an object - instead of numbers each key stores an array
 
 // ex:
 
-const items = [
-    { name: "milk", category: "food" },
-    { name: "shirt", category: "clothing" },
-    { name: "apple", category: "food" }
-];
+// const items = [
+//     { name: "milk", category: "food" },
+//     { name: "shirt", category: "clothing" },
+//     { name: "apple", category: "food" }
+// ];
+
+// let grouped = {};
+
+// for (let item of items) {
+//     const category = item.category;
+
+//     if (!grouped[category]) {
+//         grouped[category] = [];
+//     }
+
+//     grouped[category].push(item);
+// }
+
+// console.log("object with grouped array items\n", grouped, "\n");
 
 
-let grouped = {};
-
-for (let item of items) {
-    const category = item.category;
-
-    if (!grouped[category]) {
-        grouped[category] = [];
-    }
-
-    grouped[category].push(item);
-}
-
-console.log("items: ", items, "\n\n", "grouped: ", grouped, "\n")
-
-// this is the grouping pattern
 // check if bucket exists
 // if not, create bucket
 // put item in bucket
+
+
+
+// core pattern 4: update one object inside an array
+
+// ex:
+
+// let tasks2 = [
+//     { id: 1, text: "Buy milk", completed: false },
+//     { id: 2, text: "Walk dog", completed: false }
+// ]
+
+// for (let task of tasks) {
+//     if (task.id === 2) {
+//         task.completed = !task.completed;
+//     }
+// }
+
+// pattern for toggling, editing, marking complete etc
+
+
+// create a task object
+// const task = {
+//     id: 1,
+//     text: "Buy milk",
+//     completed: false
+// };
+
+// add a task to an array
+// tasks.push(task);
+
+// loop through tasks
+// for (let task of tasks) {
+//     console.log(task.text);
+// }
+
+// update one matching task
+// if (task.id === id) {
+//     task.completed = !task.completed;
+// }
+
