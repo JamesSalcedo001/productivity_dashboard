@@ -583,23 +583,26 @@ button.addEventListener("click", () => {
 
 // add click listeners to filter buttons
 all.addEventListener("click", () => {
+    // update filter variable
     filter = "all";
+    // call rendertasks to update visual state
     renderTasks();
-    console.log(filter);
 });
 
 
 completed.addEventListener("click", () => {
+    // update filter variable
     filter = "completed";
+    // call rendertasks to update visual state
     renderTasks();
-    console.log(filter);
 });
 
 
 incomplete.addEventListener("click", () => {
+    // update filter variable
     filter = "incomplete";
+    // call rendertasks to update visual state
     renderTasks();
-    console.log(filter);
 });
 
 
@@ -649,7 +652,6 @@ function renderTasks() {
 
 // need 3 buttons, all completed and incomplete
 
+// add search - user types - tasks get filter by text
 
-
-
-
+// create search input - separate from task input - used only for filtering

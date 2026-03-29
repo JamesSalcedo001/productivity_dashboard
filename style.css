@@ -5,3 +5,7 @@
 .filter-buttons {
     min-width: 100px;
 }
+
+#search {
+    margin-bottom: 1rem;
+}
