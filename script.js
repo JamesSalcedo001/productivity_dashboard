@@ -553,6 +553,17 @@ const button = document.querySelector("#task-button");
 // task list
 const list = document.querySelector("#task-list");
 
+// select filter buttons
+
+// all
+const all = document.querySelector("#all");
+
+// completed
+const completed = document.querySelector("#completed");
+
+// incomplete
+const incomplete = document.querySelector("#incomplete");
+
 
 
 // add click event listener to button
@@ -570,6 +581,26 @@ button.addEventListener("click", () => {
 })
 
 
+// add click listeners to filter buttons
+all.addEventListener("click", () => {
+    filter = "all";
+    renderTasks();
+    console.log(filter);
+});
+
+
+completed.addEventListener("click", () => {
+    filter = "completed";
+    renderTasks();
+    console.log(filter);
+});
+
+
+incomplete.addEventListener("click", () => {
+    filter = "incomplete";
+    renderTasks();
+    console.log(filter);
+});
 
 
 // create render function that draws the task list onto the page
@@ -583,7 +614,7 @@ function renderTasks() {
         tasksToShow = tasks.filter(task => task.completed)
     } else if (filter === "incomplete") {
         // set variable to equal the tasks array filtered to only show INCOMPLETE tasks
-        tasksToShow = tasks.filter(task => !task.complete);
+        tasksToShow = tasks.filter(task => !task.completed);
     } else {
         // set variable to equal the normal tasks array
         tasksToShow = tasks;
