@@ -332,3 +332,45 @@ console.log("tasks array after pushing two tasks: ", tasks, "\n");
 //     task.completed = !task.completed;
 // }
 
+// ex a: create an array called tasks
+//  add two task objects manually
+
+const tasks2 = [
+    { id: 1, text: "Buy milk", completed: false },
+    { id: 2, text: "Walk dog", completed: false }
+];
+
+// ex b: write a loop that logs only the task text:
+
+for (let task of tasks2) {
+    console.log("\n", task.text, "\n");
+}
+
+
+// ex c: write an addTask(text) function using: id: tasks.length + 1
+
+function addTask2(text) {
+    const newTask = {
+        id: tasks2.length + 1,
+        text: text,
+        completed: false
+    }
+
+    tasks2.push(newTask);
+}
+
+addTask2("remember you have a cat");
+console.log("\n add new task: ", tasks2, "\n");
+
+// ex d: write toggleTask(id) and test it on one task:
+
+function toggleTask2(id) {
+   for (let task of tasks2) {
+        if (task.id === id) {
+            task.completed = !task.completed;
+        }
+   }
+}
+
+toggleTask2(1);
+console.log('toggleTask on task with id of 1: \n', tasks2, "\n");
