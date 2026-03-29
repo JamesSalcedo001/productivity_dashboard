@@ -512,6 +512,9 @@ const tasks = [];
 // create all filter variable
 let filter = "all";
 
+// create a search word variable
+let searchWord = "";
+
 // function to add a new task, accepts task text as argument
 
 function addTask(text) {
@@ -564,6 +567,9 @@ const completed = document.querySelector("#completed");
 // incomplete
 const incomplete = document.querySelector("#incomplete");
 
+// select search element
+const search = document.querySelector("#search")
+
 
 
 // add click event listener to button
@@ -579,6 +585,17 @@ button.addEventListener("click", () => {
     // call render function to update screen after data change
     renderTasks();
 })
+
+
+
+// add event listener to search input
+search.addEventListener("input", (event) => {
+    const searchText = event.target.value;
+    searchWord = searchText;
+    renderTasks();
+    console.log(searchWord);
+})
+
 
 
 // add click listeners to filter buttons
@@ -610,6 +627,14 @@ incomplete.addEventListener("click", () => {
 function renderTasks() {
     // clear out current list contents
     list.textContent = "";
+    
+    // total amount of tasks
+    const total = tasks.length;
+    // total amount of completed tasks
+    const completedCount = tasks.filter(task => task.completed).length;
+    // total amount of incomplete tasks
+    const remainingCount = tasks.filter(task => !task.completed).length;
+
     // create variable
     let tasksToShow;
     if (filter === "completed") {
@@ -621,6 +646,17 @@ function renderTasks() {
     } else {
         // set variable to equal the normal tasks array
         tasksToShow = tasks;
+    }
+
+
+    if (searchWord !== "") {
+        tasksToShow = tasksToShow.filter(task => task.text.toLowerCase().includes(searchWord.toLowerCase()));
+    }
+
+    if (tasksToShow.length === 0) {
+        const p = document.createElement("p");
+        p.textContent = "No tasks found";
+        list.appendChild(p);
     }
 
     // loop through the task array - changed tasks to tasksToShow
@@ -655,3 +691,9 @@ function renderTasks() {
 // add search - user types - tasks get filter by text
 
 // create search input - separate from task input - used only for filtering
+
+// task statistics
+
+// show total tasks
+//  completed tasks
+// remaining tasks
