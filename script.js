@@ -8,34 +8,34 @@
 
 // answer:
 
-const input = [1, 2, 2, 3, 4, 4, 5];
+// const input = [1, 2, 2, 3, 4, 4, 5];
 
 
 // set:
-const set = new Set(input);
-console.log("Set remove dupes: ", set, "\n");
+// const set = new Set(input);
+// console.log("Set remove dupes: ", set, "\n");
 
 
 // filter:
-const filtered = input.filter((item, index) => {
-    return input.indexOf(item) === index;
-})
+// const filtered = input.filter((item, index) => {
+//     return input.indexOf(item) === index;
+// })
 
-console.log("Filter remove dupes: ", filtered, "\n");
+// console.log("Filter remove dupes: ", filtered, "\n");
 
 
 // object track seen values:
-let seen = {};
-let unique = [];
+// let seen = {};
+// let unique = [];
 
-input.forEach(item => {
-    if (!seen[item]) {
-        unique.push(item);
-        seen[item] = true;
-    }
-})
+// input.forEach(item => {
+//     if (!seen[item]) {
+//         unique.push(item);
+//         seen[item] = true;
+//     }
+// })
 
-console.log("use object track seen: ", seen, "\n", unique, "\n");
+// console.log("use object track seen: ", seen, "\n", unique, "\n");
 
 
 
@@ -60,8 +60,8 @@ console.log("use object track seen: ", seen, "\n", unique, "\n");
 // object accumulator??
 
 
-const input2 = ["apple", "banana", "apple", "orange", "banana", "apple"];
-const count = {};
+// const input2 = ["apple", "banana", "apple", "orange", "banana", "apple"];
+// const count = {};
 
 // input2.forEach(item => {
 //     count[item] = (count[item] || 0) + 1;
@@ -72,22 +72,22 @@ const count = {};
 
 
 // loop
-const count2 = {};
+// const count2 = {};
 
-for (let item of input2) {
-    count2[item] = (count2[item] || 0) + 1;
-}
-console.log("using a loop: ", count2, "\n")
+// for (let item of input2) {
+//     count2[item] = (count2[item] || 0) + 1;
+// }
+// console.log("using a loop: ", count2, "\n")
 
 
 
 // reduce
-const itemCount = input2.reduce((accumulator, currentVal) => {
-    accumulator[currentVal] = (accumulator[currentVal] || 0) + 1;
-    return accumulator;
-}, {});
+// const itemCount = input2.reduce((accumulator, currentVal) => {
+//     accumulator[currentVal] = (accumulator[currentVal] || 0) + 1;
+//     return accumulator;
+// }, {});
 
-console.log("using reduce: ", itemCount, "\n");
+// console.log("using reduce: ", itemCount, "\n");
 
 
 
@@ -101,7 +101,7 @@ console.log("using reduce: ", itemCount, "\n");
 
 // answer: 
 
-const input3 = [1, [2, 3], [4, [5, 6]]];
+// const input3 = [1, [2, 3], [4, [5, 6]]];
 
 // recursion
 
@@ -110,7 +110,7 @@ const input3 = [1, [2, 3], [4, [5, 6]]];
 
 
 // .flat()
-console.log("nested array flattened with flat method: ", input3.flat(input3.length), "\n")
+// console.log("nested array flattened with flat method: ", input3.flat(input3.length), "\n")
 
 
 // reduce
@@ -167,7 +167,7 @@ console.log("nested array flattened with flat method: ", input3.flat(input3.leng
 
 // how to store tasks
 
-let tasks = [];
+// let tasks = [];
 
 // each task might look like: 
 
@@ -189,34 +189,34 @@ let tasks = [];
 // ex: addTask("Buy milk"), addTask("Walk dog")
 
 
-function addTask(text) {
-    const newTask = {
-        id: tasks.length + 1,
-        text: text,
-        completed: false
-    };
+// function addTask(text) {
+//     const newTask = {
+//         id: tasks.length + 1,
+//         text: text,
+//         completed: false
+//     };
 
-    tasks.push(newTask);
-}
+//     tasks.push(newTask);
+// }
 
 
 
 // stretch challenge write toggleTask(id) that flips completed between true and false
 
-function toggleTask(id) {
-    for (let t of tasks) {
-        if (t.id === id) {
-            t.completed = !t.completed;
-        }
-    }
-}
+// function toggleTask(id) {
+//     for (let t of tasks) {
+//         if (t.id === id) {
+//             t.completed = !t.completed;
+//         }
+//     }
+// }
 
 
 
-addTask("Buy milk");
-addTask("Walk dog");
+// addTask("Buy milk");
+// addTask("Walk dog");
 
-console.log("tasks array after pushing two tasks: ", tasks, "\n");
+// console.log("tasks array after pushing two tasks: ", tasks, "\n");
 
 
 
@@ -335,42 +335,286 @@ console.log("tasks array after pushing two tasks: ", tasks, "\n");
 // ex a: create an array called tasks
 //  add two task objects manually
 
-const tasks2 = [
-    { id: 1, text: "Buy milk", completed: false },
-    { id: 2, text: "Walk dog", completed: false }
-];
+// const tasks2 = [
+//     { id: 1, text: "Buy milk", completed: false },
+//     { id: 2, text: "Walk dog", completed: false }
+// ];
 
 // ex b: write a loop that logs only the task text:
 
-for (let task of tasks2) {
-    console.log("\n", task.text, "\n");
-}
+// for (let task of tasks2) {
+//     console.log("\n", task.text, "\n");
+// }
 
 
 // ex c: write an addTask(text) function using: id: tasks.length + 1
 
-function addTask2(text) {
-    const newTask = {
-        id: tasks2.length + 1,
-        text: text,
-        completed: false
-    }
+// function addTask2(text) {
+//     const newTask = {
+//         id: tasks2.length + 1,
+//         text: text,
+//         completed: false
+//     }
 
-    tasks2.push(newTask);
-}
+//     tasks2.push(newTask);
+// }
 
-addTask2("remember you have a cat");
-console.log("\n add new task: ", tasks2, "\n");
+// addTask2("remember you have a cat");
+// console.log("\n add new task: ", tasks2, "\n");
 
 // ex d: write toggleTask(id) and test it on one task:
 
-function toggleTask2(id) {
-   for (let task of tasks2) {
-        if (task.id === id) {
-            task.completed = !task.completed;
-        }
-   }
+// function toggleTask2(id) {
+//    for (let task of tasks2) {
+//         if (task.id === id) {
+//             task.completed = !task.completed;
+//         }
+//    }
+// }
+
+// toggleTask2(1);
+// console.log('toggleTask on task with id of 1: \n', tasks2, "\n");
+
+
+
+
+// // week 1 day 2
+
+// const tasks = [];
+
+// function addTask(text) {
+//     const newTask = {
+//         id: tasks.length + 1,
+//         text: text,
+//         completed: false
+//     }
+
+//     tasks.push(newTask);
+// }
+
+
+// // challenge 1: mark complete visually
+
+// function toggleTask(id) {
+//     for (let task of tasks) {
+//         if (task.id === id) {
+//             task.completed = !task.completed;
+//         }
+//     }
+// }
+
+
+
+
+// // make tasks appear on screen
+
+// // type a task
+// // click a button 
+// // see it show up in the list
+
+// //  grab input, button and list(ul)
+
+// // write 3 variables using document.querySelector()
+
+// const input = document.querySelector("#task-input");
+// const button = document.querySelector("#task-button");
+// const list = document.querySelector("#task-list");
+
+
+
+// // button is clicked -> something happens
+
+// // button.addEventListener("click", () => {
+// //     console.log("clicked")
+// // })
+
+
+// // step 3: get input value
+
+// // after clicking button ->> log input value
+// // button.addEventListener("click", () => {
+// //     const text = input.value;
+// //     console.log(text);
+// // })
+
+
+// // step 4: connect to existing logic: addTask(text) => inside click event, get input value, and call addTask(text)
+
+// button.addEventListener("click", () => {
+//     const text = input.value.trim();
+//     if (text === "") return;
+//     addTask(text);
+//     // after adding task, clear input
+//     input.value = "";
+//     // after adding task, rerender task list with new task
+//     renderTasks();
+// })
+
+
+
+// // step 5: render tasks
+
+// // take the tasks array and display it in the ul
+
+
+// function renderTasks() {
+//     // clear list
+//     list.textContent = "";
+
+//     // loop through tasks array
+//     for (let task of tasks) {
+//         // create li
+//         const li = document.createElement("li");
+//         // put text inside
+//         li.textContent = task.text;
+
+//         // mark complete visually
+//         if (task.completed) {
+//             li.style.textDecoration = "line-through";
+//         }
+
+//         // challenge 2: click to toggle?
+//         li.addEventListener("click", () => {
+//             toggleTask(task.id);
+//             renderTasks();
+//         })
+
+//         // attach to DOM
+//         list.appendChild(li);
+//     }
+// }
+
+
+
+// // challenge 1: mark complete visually
+
+// // function toggleText(id) {
+// //     for (let task of tasks) {
+// //         if (task.id === id) {
+// //             task.completed = !task.completed;
+// //         }
+// //     }
+// // }
+
+
+
+// // challenge 2: click to toggle
+
+
+
+
+
+
+// rebuild
+// create empty array:
+const tasks = [];
+
+// create all filter variable
+let filter = "all";
+
+// function to add a new task, accepts task text as argument
+
+function addTask(text) {
+    // builds new task object with 3 properties
+    const newTask = {
+        // id based on current num of tasks plus one
+        id: tasks.length + 1,
+        // text that was passed in
+        text: text,
+        // completed value starting as false
+        completed: false
+    }
+    // push object into tasks array
+    tasks.push(newTask);
 }
 
-toggleTask2(1);
-console.log('toggleTask on task with id of 1: \n', tasks2, "\n");
+
+// second function to toggle a task
+// accepts id
+function toggleTask(id) {
+    // loops through every task
+    for (let task of tasks) {
+        // check which one matches that id
+        if (task.id === id) {
+            // if matches, flip completed value to oppposite
+            task.completed = !task.completed;
+        }
+    }
+}
+
+
+
+// select 3 DOM elements needed
+
+// task input
+const input = document.querySelector("#task-input");
+// task button
+const button = document.querySelector("#task-button");
+// task list
+const list = document.querySelector("#task-list");
+
+
+
+// add click event listener to button
+button.addEventListener("click", () => {
+    // read current input value, trim whitepace, and store as "text"
+    const text = input.value.trim();
+    // protect agaist empty submissions
+    if (text === "") return;
+    // if valid call addtask
+    addTask(text);
+    // after adding clear the input
+    input.value = "";
+    // call render function to update screen after data change
+    renderTasks();
+})
+
+
+
+
+// create render function that draws the task list onto the page
+function renderTasks() {
+    // clear out current list contents
+    list.textContent = "";
+    // create variable
+    let tasksToShow;
+    if (filter === "completed") {
+        // set variable to equal the tasks array filtered to only show completed tasks
+        tasksToShow = tasks.filter(task => task.completed)
+    } else if (filter === "incomplete") {
+        // set variable to equal the tasks array filtered to only show INCOMPLETE tasks
+        tasksToShow = tasks.filter(task => !task.complete);
+    } else {
+        // set variable to equal the normal tasks array
+        tasksToShow = tasks;
+    }
+
+    // loop through the task array - changed tasks to tasksToShow
+    for (let task of tasksToShow) {
+        // for each task, create a list item element
+        const li = document.createElement("li");
+        // put task's text inside it as visible content
+        li.textContent = task.text;
+        // check whether it's completed
+        if (task.completed) {
+            // apply line through visual to show checked off
+            li.style.textDecoration = "line-through";
+        }
+
+        // add click event to li
+        li.addEventListener("click", () => {
+            // call toggletask function using current task's id as argument
+            toggleTask(task.id);
+            // call renderTasks to update the visual state
+            renderTasks();
+        })
+
+        list.appendChild(li);
+
+    }
+}
+
+
+
+
+
