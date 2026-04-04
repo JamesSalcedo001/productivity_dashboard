@@ -789,3 +789,33 @@ addButton.addEventListener("click", () => {
     renderTasks();
 
 });
+
+
+// click event listener for all
+allTasks.addEventListener("click", () => {
+    filterMode = "all";
+    renderTasks();
+});
+
+// click event listener for completed
+completedTasks.addEventListener("click", () => {
+    filterMode = "completed";
+    renderTasks();
+});
+
+
+// click event listener for incomplete tasks
+incompleteTasks.addEventListener("click", () => {
+    filterMode = "incomplete";
+    renderTasks();
+});
+
+
+// input event listener for search input
+search.addEventListener("input", (e) => {
+    searchText = e.target.value;
+    renderTasks();
+});
+
+
+// function that draws the visible task list and updates task statistics
