@@ -756,9 +756,9 @@ function toggleCompleted(id) {
 
 // select all DOM elements needed
 // task input
-const input = document.querySelector("#task-input");
+const taskInput = document.querySelector("#task-input");
 // add button
-const button = document.querySelector("#task-button");
+const addButton = document.querySelector("#task-button");
 // task list
 const list = document.querySelector("#task-list");
 // all filter button
@@ -772,3 +772,20 @@ const search = document.querySelector("#search");
 
 
 
+// add click event listener to add button
+addButton.addEventListener("click", () => {
+    // read current task input value, trimming external white space, stored in a variable
+    const text = taskInput.value.trim();
+    // guard against empty submissions
+    if (text === "") return;
+
+    // call createTask function with the current text
+    createTask(text);
+
+    // clear the input
+    taskInput.value = "";
+
+    // call render function to update tasks to keep up with data changes
+    renderTasks();
+
+});
