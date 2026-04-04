@@ -505,184 +505,184 @@
 
 
 
-// rebuild
-// create empty array:
-const tasks = [];
+// // rebuild
+// // create empty array:
+// const tasks = [];
 
-// create all filter variable
-let filter = "all";
+// // create all filter variable
+// let filter = "all";
 
-// create a search word variable
-let searchWord = "";
+// // create a search word variable
+// let searchWord = "";
 
-// function to add a new task, accepts task text as argument
+// // function to add a new task, accepts task text as argument
 
-function addTask(text) {
-    // builds new task object with 3 properties
-    const newTask = {
-        // id based on current num of tasks plus one
-        id: tasks.length + 1,
-        // text that was passed in
-        text: text,
-        // completed value starting as false
-        completed: false
-    }
-    // push object into tasks array
-    tasks.push(newTask);
-}
-
-
-// second function to toggle a task
-// accepts id
-function toggleTask(id) {
-    // loops through every task
-    for (let task of tasks) {
-        // check which one matches that id
-        if (task.id === id) {
-            // if matches, flip completed value to oppposite
-            task.completed = !task.completed;
-        }
-    }
-}
+// function addTask(text) {
+//     // builds new task object with 3 properties
+//     const newTask = {
+//         // id based on current num of tasks plus one
+//         id: tasks.length + 1,
+//         // text that was passed in
+//         text: text,
+//         // completed value starting as false
+//         completed: false
+//     }
+//     // push object into tasks array
+//     tasks.push(newTask);
+// }
 
 
-
-// select 3 DOM elements needed
-
-// task input
-const input = document.querySelector("#task-input");
-// task button
-const button = document.querySelector("#task-button");
-// task list
-const list = document.querySelector("#task-list");
-
-// select filter buttons
-
-// all
-const all = document.querySelector("#all");
-
-// completed
-const completed = document.querySelector("#completed");
-
-// incomplete
-const incomplete = document.querySelector("#incomplete");
-
-// select search element
-const search = document.querySelector("#search")
+// // second function to toggle a task
+// // accepts id
+// function toggleTask(id) {
+//     // loops through every task
+//     for (let task of tasks) {
+//         // check which one matches that id
+//         if (task.id === id) {
+//             // if matches, flip completed value to oppposite
+//             task.completed = !task.completed;
+//         }
+//     }
+// }
 
 
 
-// add click event listener to button
-button.addEventListener("click", () => {
-    // read current input value, trim whitepace, and store as "text"
-    const text = input.value.trim();
-    // protect agaist empty submissions
-    if (text === "") return;
-    // if valid call addtask
-    addTask(text);
-    // after adding clear the input
-    input.value = "";
-    // call render function to update screen after data change
-    renderTasks();
-})
+// // select 3 DOM elements needed
+
+// // task input
+// const input = document.querySelector("#task-input");
+// // task button
+// const button = document.querySelector("#task-button");
+// // task list
+// const list = document.querySelector("#task-list");
+
+// // select filter buttons
+
+// // all
+// const all = document.querySelector("#all");
+
+// // completed
+// const completed = document.querySelector("#completed");
+
+// // incomplete
+// const incomplete = document.querySelector("#incomplete");
+
+// // select search element
+// const search = document.querySelector("#search")
 
 
 
-// add event listener to search input
-search.addEventListener("input", (event) => {
-    const searchText = event.target.value;
-    searchWord = searchText;
-    renderTasks();
-    console.log(searchWord);
-})
+// // add click event listener to button
+// button.addEventListener("click", () => {
+//     // read current input value, trim whitepace, and store as "text"
+//     const text = input.value.trim();
+//     // protect agaist empty submissions
+//     if (text === "") return;
+//     // if valid call addtask
+//     addTask(text);
+//     // after adding clear the input
+//     input.value = "";
+//     // call render function to update screen after data change
+//     renderTasks();
+// })
 
 
 
-// add click listeners to filter buttons
-all.addEventListener("click", () => {
-    // update filter variable
-    filter = "all";
-    // call rendertasks to update visual state
-    renderTasks();
-});
+// // add event listener to search input
+// search.addEventListener("input", (event) => {
+//     const searchText = event.target.value;
+//     searchWord = searchText;
+//     renderTasks();
+//     console.log(searchWord);
+// })
 
 
-completed.addEventListener("click", () => {
-    // update filter variable
-    filter = "completed";
-    // call rendertasks to update visual state
-    renderTasks();
-});
+
+// // add click listeners to filter buttons
+// all.addEventListener("click", () => {
+//     // update filter variable
+//     filter = "all";
+//     // call rendertasks to update visual state
+//     renderTasks();
+// });
 
 
-incomplete.addEventListener("click", () => {
-    // update filter variable
-    filter = "incomplete";
-    // call rendertasks to update visual state
-    renderTasks();
-});
+// completed.addEventListener("click", () => {
+//     // update filter variable
+//     filter = "completed";
+//     // call rendertasks to update visual state
+//     renderTasks();
+// });
 
 
-// create render function that draws the task list onto the page
-function renderTasks() {
-    // clear out current list contents
-    list.textContent = "";
+// incomplete.addEventListener("click", () => {
+//     // update filter variable
+//     filter = "incomplete";
+//     // call rendertasks to update visual state
+//     renderTasks();
+// });
+
+
+// // create render function that draws the task list onto the page
+// function renderTasks() {
+//     // clear out current list contents
+//     list.textContent = "";
     
-    // total amount of tasks
-    const total = tasks.length;
-    // total amount of completed tasks
-    const completedCount = tasks.filter(task => task.completed).length;
-    // total amount of incomplete tasks
-    const remainingCount = tasks.filter(task => !task.completed).length;
+//     // total amount of tasks
+//     const total = tasks.length;
+//     // total amount of completed tasks
+//     const completedCount = tasks.filter(task => task.completed).length;
+//     // total amount of incomplete tasks
+//     const remainingCount = tasks.filter(task => !task.completed).length;
 
-    // create variable
-    let tasksToShow;
-    if (filter === "completed") {
-        // set variable to equal the tasks array filtered to only show completed tasks
-        tasksToShow = tasks.filter(task => task.completed)
-    } else if (filter === "incomplete") {
-        // set variable to equal the tasks array filtered to only show INCOMPLETE tasks
-        tasksToShow = tasks.filter(task => !task.completed);
-    } else {
-        // set variable to equal the normal tasks array
-        tasksToShow = tasks;
-    }
+//     // create variable
+//     let tasksToShow;
+//     if (filter === "completed") {
+//         // set variable to equal the tasks array filtered to only show completed tasks
+//         tasksToShow = tasks.filter(task => task.completed)
+//     } else if (filter === "incomplete") {
+//         // set variable to equal the tasks array filtered to only show INCOMPLETE tasks
+//         tasksToShow = tasks.filter(task => !task.completed);
+//     } else {
+//         // set variable to equal the normal tasks array
+//         tasksToShow = tasks;
+//     }
 
 
-    if (searchWord !== "") {
-        tasksToShow = tasksToShow.filter(task => task.text.toLowerCase().includes(searchWord.toLowerCase()));
-    }
+//     if (searchWord !== "") {
+//         tasksToShow = tasksToShow.filter(task => task.text.toLowerCase().includes(searchWord.toLowerCase()));
+//     }
 
-    if (tasksToShow.length === 0) {
-        const p = document.createElement("p");
-        p.textContent = "No tasks found";
-        list.appendChild(p);
-    }
+//     if (tasksToShow.length === 0) {
+//         const p = document.createElement("p");
+//         p.textContent = "No tasks found";
+//         list.appendChild(p);
+//     }
 
-    // loop through the task array - changed tasks to tasksToShow
-    for (let task of tasksToShow) {
-        // for each task, create a list item element
-        const li = document.createElement("li");
-        // put task's text inside it as visible content
-        li.textContent = task.text;
-        // check whether it's completed
-        if (task.completed) {
-            // apply line through visual to show checked off
-            li.style.textDecoration = "line-through";
-        }
+//     // loop through the task array - changed tasks to tasksToShow
+//     for (let task of tasksToShow) {
+//         // for each task, create a list item element
+//         const li = document.createElement("li");
+//         // put task's text inside it as visible content
+//         li.textContent = task.text;
+//         // check whether it's completed
+//         if (task.completed) {
+//             // apply line through visual to show checked off
+//             li.style.textDecoration = "line-through";
+//         }
 
-        // add click event to li
-        li.addEventListener("click", () => {
-            // call toggletask function using current task's id as argument
-            toggleTask(task.id);
-            // call renderTasks to update the visual state
-            renderTasks();
-        })
-        // append the li to the UL
-        list.appendChild(li);
+//         // add click event to li
+//         li.addEventListener("click", () => {
+//             // call toggletask function using current task's id as argument
+//             toggleTask(task.id);
+//             // call renderTasks to update the visual state
+//             renderTasks();
+//         })
+//         // append the li to the UL
+//         list.appendChild(li);
 
-    }
-}
+//     }
+// }
 
 
 
@@ -697,3 +697,78 @@ function renderTasks() {
 // show total tasks
 //  completed tasks
 // remaining tasks
+
+
+
+
+
+
+
+
+// rebuild again
+// create empty array to hold all task objects for the page
+const tasks = [];
+
+// create state variable for current filter mode starts as the string 'all'
+let filterMode = "all";
+
+// create state variable for the current search text starting as empty string
+let searchText = "";
+
+// write function that accepts task text
+/**
+ * 
+ * @param {*} text 
+ * takes in a task in the form of text, builds a new task object that assigns a unique id by checking length of tasks array and incrementing by 1, sets a text attribute to store what the task given is, and sets a boolean, completed, tracking whether the task has been done or not, and finally takes that newly created task and pushes it into the tasks array
+ */
+function createTask(text) {
+    // builds new task object with 3 props
+    const newTask = {
+        // id determined by checking length of tasks array and incrementing
+        id: tasks.length + 1,
+        // passed in text stored
+        text: text,
+        // boolean indicating whether or not a task has been completed or not
+        completed: false,
+    }
+    // takes newly created task and pushes it into the task array
+    tasks.push(newTask);
+}
+
+
+// write function that accepts id and toggles completed boolean
+/**
+ * 
+ * @param {*} id
+ * takes in id, loops through tasks array, compares task id with the id given for a match, and toggles the completed boolean value of that task to the opposite
+ */
+function toggleCompleted(id) {
+    // loops through all tasks
+    for (let task of tasks) {
+        // find matching id
+        if (task.id === id) {
+            // flips tasks completed value to opposite
+            task.completed = !task.completed;
+        }
+    }
+}
+
+
+// select all DOM elements needed
+// task input
+const input = document.querySelector("#task-input");
+// add button
+const button = document.querySelector("#task-button");
+// task list
+const list = document.querySelector("#task-list");
+// all filter button
+const allTasks = document.querySelector("#all");
+// completed filter button
+const completedTasks = document.querySelector("#completed");
+// incomplete filter button
+const incompleteTasks = document.querySelector("#incomplete");
+// search input
+const search = document.querySelector("#search");
+
+
+
