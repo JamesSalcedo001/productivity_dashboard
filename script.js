@@ -770,11 +770,11 @@ const incompleteTasks = document.querySelector("#incomplete");
 // search input
 const search = document.querySelector("#search");
 // total task count 
-let totalTasks = document.querySelector("#total-tasks");
+const totalTasks = document.querySelector("#total-tasks");
 // complete task count
-let completed = document.querySelector("#completed-tasks");
+const completed = document.querySelector("#completed-tasks");
 // incomplete task count
-let notComplete = document.querySelector("#incomplete-tasks")
+const notComplete = document.querySelector("#incomplete-tasks")
 
 
 // add click event listener to add button
@@ -829,19 +829,19 @@ function renderTasks() {
     list.textContent = "";
 
     // total tasks count
-    let totalTasksCount = tasks.length;
+    const totalTasksCount = tasks.length;
     // update display
-    totalTasks.textContent = totalTasksCount;
+    totalTasks.textContent = "total tasks: " + totalTasksCount;
 
     // completed task count
-    let completedTaskCount = tasks.filter(task => task.completed).length;
+    const completedTaskCount = tasks.filter(task => task.completed).length;
     // update display
-    completed.textContent = completedTaskCount;
+    completed.textContent = "completed tasks: " + completedTaskCount;
 
     // incomplete task count
-    let incompleteTaskCount = tasks.filter(task => !task.completed).length;
+    const incompleteTaskCount = tasks.filter(task => !task.completed).length;
     // update display
-    notComplete.textContent = incompleteTaskCount;
+    notComplete.textContent = "incomplete tasks: " + incompleteTaskCount;
 
     // temp variable for tasks to show
     let shownTasks;
@@ -853,7 +853,7 @@ function renderTasks() {
         // if filter mode incomplete
     } else if (filterMode === "incomplete") {
         // only show tasks with completed value of false
-        shownTasks = tasks.filter(task => !task.complete);
+        shownTasks = tasks.filter(task => !task.completed);
         // if filter mode is all
     } else {
         // show all tasks complete or not
@@ -874,6 +874,8 @@ function renderTasks() {
         p.textContent = "No tasks found";
         // append it as a child element to list
         list.appendChild(p);
+
+        return;
     }
 
     // if there are tasks, loop through the filtered task list
@@ -888,12 +890,47 @@ function renderTasks() {
             li.style.textDecoration = "line-through";
         }
 
+        // check if there is a search value and if it matches that task text value
         if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
-            li.style.backgroundColor = "red";
+            // if so apply a background color
+            li.style.backgroundColor = "lightgrey";
         } else {
-            li.style.backgroundColor = "none";
+            // else remove that background color
+            li.style.backgroundColor = "";
         }
+
+        // click event for li so clicking it calls the toggle function and the render function so the visual state updates 
+        li.addEventListener("click", () => {
+            // pass in task's id to target it
+            toggleCompleted(task.id);
+            // call to update the visual state again of task list
+            renderTasks();
+        })
+
+        // append li to list element
+        list.appendChild(li);
+
     }
     
 
 }
+
+
+// Why is it better to calculate task statistics from tasks each render instead of manually incrementing and decrementing separate counters?
+
+// a: tasks is the main source of truth. if one calculates the counts from tasks each render, the numbers will always match the real data. manually incrementing and decrementing will become harder to track and fall out of sync. one source of truth, derive everything else from it
+
+
+// What is the difference between tasks and shownTasks?
+
+// a: tasks is the full original data set. shownTasks is the currently visible subset after applying the active filter mode and search text
+
+
+// Why does search happen after the filter mode is applied?
+
+// a: first decide te broader group of tasks to work with, and then narrow it down further using the search text. flow is: choose the category of results, then narrow within that category
+
+
+// Why is clicking a task and then calling renderTasks() not recursion?
+
+// a: because rendertasks is not repeatedly calling itself, a user click triggers an event listener, which updates the data, and then calls the function once to redraw the UI. this is event driven rerendering
