@@ -769,7 +769,12 @@ const completedTasks = document.querySelector("#completed");
 const incompleteTasks = document.querySelector("#incomplete");
 // search input
 const search = document.querySelector("#search");
-
+// total task count 
+let totalTasks = document.querySelector("#total-tasks");
+// complete task count
+let completed = document.querySelector("#completed-tasks");
+// incomplete task count
+let notComplete = document.querySelector("#incomplete-tasks")
 
 
 // add click event listener to add button
@@ -819,3 +824,76 @@ search.addEventListener("input", (e) => {
 
 
 // function that draws the visible task list and updates task statistics
+function renderTasks() {
+    // clear out current task list contents to rebuild from scratch
+    list.textContent = "";
+
+    // total tasks count
+    let totalTasksCount = tasks.length;
+    // update display
+    totalTasks.textContent = totalTasksCount;
+
+    // completed task count
+    let completedTaskCount = tasks.filter(task => task.completed).length;
+    // update display
+    completed.textContent = completedTaskCount;
+
+    // incomplete task count
+    let incompleteTaskCount = tasks.filter(task => !task.completed).length;
+    // update display
+    notComplete.textContent = incompleteTaskCount;
+
+    // temp variable for tasks to show
+    let shownTasks;
+
+    // if filter mode is completed
+    if (filterMode === "completed") {
+        // only show tasks with completed value of true
+        shownTasks = tasks.filter(task => task.completed);
+        // if filter mode incomplete
+    } else if (filterMode === "incomplete") {
+        // only show tasks with completed value of false
+        shownTasks = tasks.filter(task => !task.complete);
+        // if filter mode is all
+    } else {
+        // show all tasks complete or not
+        shownTasks = tasks;
+    }
+
+
+    // if there is a searchword, filter shownTasks, checking if the task object's text value lowercased contains the searchtext value lowercased  
+    if (searchText !== "") {
+        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
+    }
+
+    // if there are no shown tasks
+    if (shownTasks.length === 0) {
+        // create an element
+        const p = document.createElement("p");
+        // give it the text no tasks found
+        p.textContent = "No tasks found";
+        // append it as a child element to list
+        list.appendChild(p);
+    }
+
+    // if there are tasks, loop through the filtered task list
+    for (let task of shownTasks) {
+        // create a new list item element
+        const li = document.createElement("li");
+        // assign the task's text value to the li's text content
+        li.textContent = task.text;
+
+        // check whether task is completed and if so apply style line through
+        if (task.completed) {
+            li.style.textDecoration = "line-through";
+        }
+
+        if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
+            li.style.backgroundColor = "red";
+        } else {
+            li.style.backgroundColor = "none";
+        }
+    }
+    
+
+}
