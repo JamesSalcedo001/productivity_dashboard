@@ -627,7 +627,7 @@
 // function renderTasks() {
 //     // clear out current list contents
 //     list.textContent = "";
-    
+
 //     // total amount of tasks
 //     const total = tasks.length;
 //     // total amount of completed tasks
@@ -708,27 +708,27 @@
 // rebuild again
 
 // create empty array to hold all task objects for the page
-const tasks = [];
+let tasks = [];
 
 
 function saveTasks() {
     // takes task array, converts it to a string
-    let convertedTasks = JSON.stringify(tasks);
+    const convertedTasks = JSON.stringify(tasks);
     // takes the stringified array and stores the data in the browser as a string
     localStorage.setItem("tasks", convertedTasks);
 }
 
 function loadTasks() {
     // gets data from localstorage
-    let savedTasks = localStorage.getItem("tasks");
+    const savedTasks = localStorage.getItem("tasks");
     // checks if it exists
     if (!savedTasks) {
         console.log("No saved tasks yet");
         return;
     }
     // converts JSON data to an Object
-    let parsedTasks = JSON.parse(savedTasks);
-    tasks.push(...parsedTasks);
+    const parsedTasks = JSON.parse(savedTasks);
+    tasks = parsedTasks;
 }
 
 
@@ -740,7 +740,7 @@ function saveFilter() {
 
 function loadFilter() {
     // gets the stored filterStatus string from the browser
-    let savedFilter = localStorage.getItem("filterStatus");
+    const savedFilter = localStorage.getItem("filterStatus");
     // checks if exists and if not returns
     if (!savedFilter) {
         console.log("No filter yet");
@@ -759,7 +759,7 @@ function saveSearchText() {
 }
 
 function loadSearchText() {
-    let savedSearchText = localStorage.getItem("searchText");
+    const savedSearchText = localStorage.getItem("searchText");
 
     if (!savedSearchText) {
         console.log("no search yet");
@@ -767,8 +767,9 @@ function loadSearchText() {
     }
 
     searchText = savedSearchText;
+    search.value = searchText;
 }
- 
+
 
 
 // create state variable for current filter mode starts as the string 'all'
@@ -806,15 +807,18 @@ function createTask(text) {
  */
 function toggleCompleted(id) {
     // loops through all tasks
+    let taskFound = false;
     for (let task of tasks) {
         // find matching id
         if (task.id === id) {
             // flips tasks completed value to opposite
             task.completed = !task.completed;
-
-            // after flipping value, call saveTasks()
-            saveTasks();
+            taskFound = true;
         }
+    }
+    // after flipping value, call saveTasks()
+    if (taskFound) {
+        saveTasks();
     }
 }
 
@@ -824,6 +828,8 @@ function toggleCompleted(id) {
 const taskInput = document.querySelector("#task-input");
 // add button
 const addButton = document.querySelector("#task-button");
+// clear tasks button
+const clearButton = document.querySelector("#clear-button");
 // task list
 const list = document.querySelector("#task-list");
 // all filter button
@@ -862,6 +868,20 @@ addButton.addEventListener("click", () => {
     renderTasks();
 
 });
+
+// click event listener for clear tasks button
+clearButton.addEventListener("click", () => {
+    tasks = [];
+    filterMode = "all";
+    searchText = "";
+    search.value = "";
+    localStorage.removeItem("tasks");
+    localStorage.removeItem("filterStatus");
+    localStorage.removeItem("searchText");
+    renderTasks();
+})
+
+
 
 
 // click event listener for all
@@ -986,7 +1006,7 @@ function renderTasks() {
         list.appendChild(li);
 
     }
-    
+
 
 }
 
