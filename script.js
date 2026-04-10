@@ -707,6 +707,8 @@
 
 // rebuild again
 
+// tasks section
+
 // create empty array to hold all task objects for the page
 let tasks = [];
 
@@ -1035,3 +1037,11 @@ renderTasks();
 // Why is clicking a task and then calling renderTasks() not recursion?
 
 // a: because rendertasks is not repeatedly calling itself, a user click triggers an event listener, which updates the data, and then calls the function once to redraw the UI. this is event driven rerendering
+
+
+
+
+// weather section
+
+// weather button
+const weatherButton = document.querySelector("#weather-button")
