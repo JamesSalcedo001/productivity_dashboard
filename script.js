@@ -706,8 +706,70 @@
 
 
 // rebuild again
+
 // create empty array to hold all task objects for the page
 const tasks = [];
+
+
+function saveTasks() {
+    // takes task array, converts it to a string
+    let convertedTasks = JSON.stringify(tasks);
+    // takes the stringified array and stores the data in the browser as a string
+    localStorage.setItem("tasks", convertedTasks);
+}
+
+function loadTasks() {
+    // gets data from localstorage
+    let savedTasks = localStorage.getItem("tasks");
+    // checks if it exists
+    if (!savedTasks) {
+        console.log("No saved tasks yet");
+        return;
+    }
+    // converts JSON data to an Object
+    let parsedTasks = JSON.parse(savedTasks);
+    tasks.push(...parsedTasks);
+}
+
+
+function saveFilter() {
+    // takes filtermode string and stores it in the browser
+    localStorage.setItem("filterStatus", filterMode);
+}
+
+
+function loadFilter() {
+    // gets the stored filterStatus string from the browser
+    let savedFilter = localStorage.getItem("filterStatus");
+    // checks if exists and if not returns
+    if (!savedFilter) {
+        console.log("No filter yet");
+        return;
+    }
+    // assigns the filtermode state to match the savedFilter from localstorage
+    filterMode = savedFilter;
+}
+
+
+
+
+function saveSearchText() {
+    // takes current search input text and saves to browser
+    localStorage.setItem("searchText", searchText);
+}
+
+function loadSearchText() {
+    let savedSearchText = localStorage.getItem("searchText");
+
+    if (!savedSearchText) {
+        console.log("no search yet");
+        return;
+    }
+
+    searchText = savedSearchText;
+}
+ 
+
 
 // create state variable for current filter mode starts as the string 'all'
 let filterMode = "all";
@@ -749,6 +811,9 @@ function toggleCompleted(id) {
         if (task.id === id) {
             // flips tasks completed value to opposite
             task.completed = !task.completed;
+
+            // after flipping value, call saveTasks()
+            saveTasks();
         }
     }
 }
@@ -787,6 +852,9 @@ addButton.addEventListener("click", () => {
     // call createTask function with the current text
     createTask(text);
 
+    // call savetasks after adding task
+    saveTasks();
+
     // clear the input
     taskInput.value = "";
 
@@ -799,12 +867,16 @@ addButton.addEventListener("click", () => {
 // click event listener for all
 allTasks.addEventListener("click", () => {
     filterMode = "all";
+    // after changing filter state, save to localstorage
+    saveFilter();
     renderTasks();
 });
 
 // click event listener for completed
 completedTasks.addEventListener("click", () => {
     filterMode = "completed";
+    // after changing filter state, save to localstorage
+    saveFilter();
     renderTasks();
 });
 
@@ -812,6 +884,8 @@ completedTasks.addEventListener("click", () => {
 // click event listener for incomplete tasks
 incompleteTasks.addEventListener("click", () => {
     filterMode = "incomplete";
+    // after changing filter state, save to localstorage
+    saveFilter();
     renderTasks();
 });
 
@@ -819,6 +893,7 @@ incompleteTasks.addEventListener("click", () => {
 // input event listener for search input
 search.addEventListener("input", (e) => {
     searchText = e.target.value;
+    saveSearchText();
     renderTasks();
 });
 
@@ -914,6 +989,16 @@ function renderTasks() {
     
 
 }
+
+
+
+
+// when script first runs?
+loadTasks();
+loadFilter();
+loadSearchText();
+renderTasks();
+
 
 
 // Why is it better to calculate task statistics from tasks each render instead of manually incrementing and decrementing separate counters?
