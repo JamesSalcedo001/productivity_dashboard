@@ -1055,27 +1055,42 @@ const conditionLi = document.querySelector("#condition-li");
 const statusLi = document.querySelector("#status-li");
 
 
+
 // build weather function
 async function loadWeather() {
     try {
-        // loading state
         statusLi.textContent = "Loading Weather...";
+        weatherButton.disabled = true;
+        // loading state
+
+
+
+        locationLi.textContent = "Houston";
+        temperatureLi.textContent = "";
+        conditionLi.textContent = "";
+
 
         // fetch
         const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&hourly=temperature_2m,weather_code&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit");
         const data = await response.json();
         console.log(data);
         locationLi.textContent = "Houston";
-        temperatureLi.textContent = data.hourly.temperature_2m[0];
+        temperatureLi.textContent = `${data.hourly.temperature_2m[0]} ${data.hourly_units.temperature_2m}`;
         conditionLi.textContent = data.hourly.weather_code[0];
         statusLi.textContent = "";
+
+        weatherButton.disabled = false;
 
     } catch (error) {
         // error
         console.log(error);
         statusLi.textContent = "Could not load weather";
+        weatherButton.disabled = false;
     }
+
 }
 
-// weatherButton.addEventListener("click", loadWeather);
+weatherButton.addEventListener("click", loadWeather);
+
 loadWeather();
+
