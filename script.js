@@ -1009,10 +1009,6 @@ function renderTasks() {
 
 
 }
-
-
-console.log("test")
-
 // when script first runs?
 loadTasks();
 loadFilter();
