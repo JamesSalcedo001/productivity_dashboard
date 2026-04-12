@@ -702,320 +702,323 @@
 
 
 
-
+// script.js
 
 
 // rebuild again
 
+// import { saveTasks, loadTasks, saveFilter, loadFilter, saveSearchText, loadSearchText } from "./storage";
+// import { tasks, filterMode, searchText } from "./tasks";
+// import { loadWeather } from "./weather";
 // tasks section
 
-// create empty array to hold all task objects for the page
-let tasks = [];
+// // create empty array to hold all task objects for the page
+// let tasks = [];
 
 
-function saveTasks() {
-    // takes task array, converts it to a string
-    const convertedTasks = JSON.stringify(tasks);
-    // takes the stringified array and stores the data in the browser as a string
-    localStorage.setItem("tasks", convertedTasks);
-}
+// function saveTasks() {
+//     // takes task array, converts it to a string
+//     const convertedTasks = JSON.stringify(tasks);
+//     // takes the stringified array and stores the data in the browser as a string
+//     localStorage.setItem("tasks", convertedTasks);
+// }
 
-function loadTasks() {
-    // gets data from localstorage
-    const savedTasks = localStorage.getItem("tasks");
-    // checks if it exists
-    if (!savedTasks) {
-        console.log("No saved tasks yet");
-        return;
-    }
-    // converts JSON data to an Object
-    const parsedTasks = JSON.parse(savedTasks);
-    tasks = parsedTasks;
-}
-
-
-function saveFilter() {
-    // takes filtermode string and stores it in the browser
-    localStorage.setItem("filterStatus", filterMode);
-}
+// function loadTasks() {
+//     // gets data from localstorage
+//     const savedTasks = localStorage.getItem("tasks");
+//     // checks if it exists
+//     if (!savedTasks) {
+//         console.log("No saved tasks yet");
+//         return;
+//     }
+//     // converts JSON data to an Object
+//     const parsedTasks = JSON.parse(savedTasks);
+//     tasks = parsedTasks;
+// }
 
 
-function loadFilter() {
-    // gets the stored filterStatus string from the browser
-    const savedFilter = localStorage.getItem("filterStatus");
-    // checks if exists and if not returns
-    if (!savedFilter) {
-        console.log("No filter yet");
-        return;
-    }
-    // assigns the filtermode state to match the savedFilter from localstorage
-    filterMode = savedFilter;
-}
+// function saveFilter() {
+//     // takes filtermode string and stores it in the browser
+//     localStorage.setItem("filterStatus", filterMode);
+// }
 
 
-
-
-function saveSearchText() {
-    // takes current search input text and saves to browser
-    localStorage.setItem("searchText", searchText);
-}
-
-function loadSearchText() {
-    const savedSearchText = localStorage.getItem("searchText");
-
-    if (!savedSearchText) {
-        console.log("no search yet");
-        return;
-    }
-
-    searchText = savedSearchText;
-    search.value = searchText;
-}
-
-
-
-// create state variable for current filter mode starts as the string 'all'
-let filterMode = "all";
-
-// create state variable for the current search text starting as empty string
-let searchText = "";
-
-// write function that accepts task text
-/**
- * 
- * @param {*} text 
- * takes in a task in the form of text, builds a new task object that assigns a unique id by checking length of tasks array and incrementing by 1, sets a text attribute to store what the task given is, and sets a boolean, completed, tracking whether the task has been done or not, and finally takes that newly created task and pushes it into the tasks array
- */
-function createTask(text) {
-    // builds new task object with 3 props
-    const newTask = {
-        // id determined by checking length of tasks array and incrementing
-        id: tasks.length + 1,
-        // passed in text stored
-        text: text,
-        // boolean indicating whether or not a task has been completed or not
-        completed: false,
-    }
-    // takes newly created task and pushes it into the task array
-    tasks.push(newTask);
-}
-
-
-// write function that accepts id and toggles completed boolean
-/**
- * 
- * @param {*} id
- * takes in id, loops through tasks array, compares task id with the id given for a match, and toggles the completed boolean value of that task to the opposite
- */
-function toggleCompleted(id) {
-    // loops through all tasks
-    let taskFound = false;
-    for (let task of tasks) {
-        // find matching id
-        if (task.id === id) {
-            // flips tasks completed value to opposite
-            task.completed = !task.completed;
-            taskFound = true;
-        }
-    }
-    // after flipping value, call saveTasks()
-    if (taskFound) {
-        saveTasks();
-    }
-}
-
-
-// select all DOM elements needed
-// task input
-const taskInput = document.querySelector("#task-input");
-// add button
-const addButton = document.querySelector("#task-button");
-// clear tasks button
-const clearButton = document.querySelector("#clear-button");
-// task list
-const list = document.querySelector("#task-list");
-// all filter button
-const allTasks = document.querySelector("#all");
-// completed filter button
-const completedTasks = document.querySelector("#completed");
-// incomplete filter button
-const incompleteTasks = document.querySelector("#incomplete");
-// search input
-const search = document.querySelector("#search");
-// total task count 
-const totalTasks = document.querySelector("#total-tasks");
-// complete task count
-const completed = document.querySelector("#completed-tasks");
-// incomplete task count
-const notComplete = document.querySelector("#incomplete-tasks")
-
-
-// add click event listener to add button
-addButton.addEventListener("click", () => {
-    // read current task input value, trimming external white space, stored in a variable
-    const text = taskInput.value.trim();
-    // guard against empty submissions
-    if (text === "") return;
-
-    // call createTask function with the current text
-    createTask(text);
-
-    // call savetasks after adding task
-    saveTasks();
-
-    // clear the input
-    taskInput.value = "";
-
-    // call render function to update tasks to keep up with data changes
-    renderTasks();
-
-});
-
-// click event listener for clear tasks button
-clearButton.addEventListener("click", () => {
-    tasks = [];
-    filterMode = "all";
-    searchText = "";
-    search.value = "";
-    localStorage.removeItem("tasks");
-    localStorage.removeItem("filterStatus");
-    localStorage.removeItem("searchText");
-    renderTasks();
-})
+// function loadFilter() {
+//     // gets the stored filterStatus string from the browser
+//     const savedFilter = localStorage.getItem("filterStatus");
+//     // checks if exists and if not returns
+//     if (!savedFilter) {
+//         console.log("No filter yet");
+//         return;
+//     }
+//     // assigns the filtermode state to match the savedFilter from localstorage
+//     filterMode = savedFilter;
+// }
 
 
 
 
-// click event listener for all
-allTasks.addEventListener("click", () => {
-    filterMode = "all";
-    // after changing filter state, save to localstorage
-    saveFilter();
-    renderTasks();
-});
+// function saveSearchText() {
+//     // takes current search input text and saves to browser
+//     localStorage.setItem("searchText", searchText);
+// }
 
-// click event listener for completed
-completedTasks.addEventListener("click", () => {
-    filterMode = "completed";
-    // after changing filter state, save to localstorage
-    saveFilter();
-    renderTasks();
-});
+// function loadSearchText() {
+//     const savedSearchText = localStorage.getItem("searchText");
 
+//     if (!savedSearchText) {
+//         console.log("no search yet");
+//         return;
+//     }
 
-// click event listener for incomplete tasks
-incompleteTasks.addEventListener("click", () => {
-    filterMode = "incomplete";
-    // after changing filter state, save to localstorage
-    saveFilter();
-    renderTasks();
-});
+//     searchText = savedSearchText;
+//     search.value = searchText;
+// }
 
 
-// input event listener for search input
-search.addEventListener("input", (e) => {
-    searchText = e.target.value;
-    saveSearchText();
-    renderTasks();
-});
+
+// // create state variable for current filter mode starts as the string 'all'
+// let filterMode = "all";
+
+// // create state variable for the current search text starting as empty string
+// let searchText = "";
+
+// // write function that accepts task text
+// /**
+//  * 
+//  * @param {*} text 
+//  * takes in a task in the form of text, builds a new task object that assigns a unique id by checking length of tasks array and incrementing by 1, sets a text attribute to store what the task given is, and sets a boolean, completed, tracking whether the task has been done or not, and finally takes that newly created task and pushes it into the tasks array
+//  */
+// function createTask(text) {
+//     // builds new task object with 3 props
+//     const newTask = {
+//         // id determined by checking length of tasks array and incrementing
+//         id: tasks.length + 1,
+//         // passed in text stored
+//         text: text,
+//         // boolean indicating whether or not a task has been completed or not
+//         completed: false,
+//     }
+//     // takes newly created task and pushes it into the task array
+//     tasks.push(newTask);
+// }
 
 
-// function that draws the visible task list and updates task statistics
-function renderTasks() {
-    // clear out current task list contents to rebuild from scratch
-    list.textContent = "";
-
-    // total tasks count
-    const totalTasksCount = tasks.length;
-    // update display
-    totalTasks.textContent = "total tasks: " + totalTasksCount;
-
-    // completed task count
-    const completedTaskCount = tasks.filter(task => task.completed).length;
-    // update display
-    completed.textContent = "completed tasks: " + completedTaskCount;
-
-    // incomplete task count
-    const incompleteTaskCount = tasks.filter(task => !task.completed).length;
-    // update display
-    notComplete.textContent = "incomplete tasks: " + incompleteTaskCount;
-
-    // temp variable for tasks to show
-    let shownTasks;
-
-    // if filter mode is completed
-    if (filterMode === "completed") {
-        // only show tasks with completed value of true
-        shownTasks = tasks.filter(task => task.completed);
-        // if filter mode incomplete
-    } else if (filterMode === "incomplete") {
-        // only show tasks with completed value of false
-        shownTasks = tasks.filter(task => !task.completed);
-        // if filter mode is all
-    } else {
-        // show all tasks complete or not
-        shownTasks = tasks;
-    }
+// // write function that accepts id and toggles completed boolean
+// /**
+//  * 
+//  * @param {*} id
+//  * takes in id, loops through tasks array, compares task id with the id given for a match, and toggles the completed boolean value of that task to the opposite
+//  */
+// function toggleCompleted(id) {
+//     // loops through all tasks
+//     let taskFound = false;
+//     for (let task of tasks) {
+//         // find matching id
+//         if (task.id === id) {
+//             // flips tasks completed value to opposite
+//             task.completed = !task.completed;
+//             taskFound = true;
+//         }
+//     }
+//     // after flipping value, call saveTasks()
+//     if (taskFound) {
+//         saveTasks();
+//     }
+// }
 
 
-    // if there is a searchword, filter shownTasks, checking if the task object's text value lowercased contains the searchtext value lowercased  
-    if (searchText !== "") {
-        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
-    }
-
-    // if there are no shown tasks
-    if (shownTasks.length === 0) {
-        // create an element
-        const p = document.createElement("p");
-        // give it the text no tasks found
-        p.textContent = "No tasks found";
-        // append it as a child element to list
-        list.appendChild(p);
-
-        return;
-    }
-
-    // if there are tasks, loop through the filtered task list
-    for (let task of shownTasks) {
-        // create a new list item element
-        const li = document.createElement("li");
-        // assign the task's text value to the li's text content
-        li.textContent = task.text;
-
-        // check whether task is completed and if so apply style line through
-        if (task.completed) {
-            li.style.textDecoration = "line-through";
-        }
-
-        // check if there is a search value and if it matches that task text value
-        if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
-            // if so apply a background color
-            li.style.backgroundColor = "lightgrey";
-        } else {
-            // else remove that background color
-            li.style.backgroundColor = "";
-        }
-
-        // click event for li so clicking it calls the toggle function and the render function so the visual state updates 
-        li.addEventListener("click", () => {
-            // pass in task's id to target it
-            toggleCompleted(task.id);
-            // call to update the visual state again of task list
-            renderTasks();
-        })
-
-        // append li to list element
-        list.appendChild(li);
-
-    }
+// // select all DOM elements needed
+// // task input
+// const taskInput = document.querySelector("#task-input");
+// // add button
+// const addButton = document.querySelector("#task-button");
+// // clear tasks button
+// const clearButton = document.querySelector("#clear-button");
+// // task list
+// const list = document.querySelector("#task-list");
+// // all filter button
+// const allTasks = document.querySelector("#all");
+// // completed filter button
+// const completedTasks = document.querySelector("#completed");
+// // incomplete filter button
+// const incompleteTasks = document.querySelector("#incomplete");
+// // search input
+// const search = document.querySelector("#search");
+// // total task count 
+// const totalTasks = document.querySelector("#total-tasks");
+// // complete task count
+// const completed = document.querySelector("#completed-tasks");
+// // incomplete task count
+// const notComplete = document.querySelector("#incomplete-tasks")
 
 
-}
+// // add click event listener to add button
+// addButton.addEventListener("click", () => {
+//     // read current task input value, trimming external white space, stored in a variable
+//     const text = taskInput.value.trim();
+//     // guard against empty submissions
+//     if (text === "") return;
+
+//     // call createTask function with the current text
+//     createTask(text);
+
+//     // call savetasks after adding task
+//     saveTasks();
+
+//     // clear the input
+//     taskInput.value = "";
+
+//     // call render function to update tasks to keep up with data changes
+//     renderTasks();
+
+// });
+
+// // click event listener for clear tasks button
+// clearButton.addEventListener("click", () => {
+//     tasks = [];
+//     filterMode = "all";
+//     searchText = "";
+//     search.value = "";
+//     localStorage.removeItem("tasks");
+//     localStorage.removeItem("filterStatus");
+//     localStorage.removeItem("searchText");
+//     renderTasks();
+// })
+
+
+
+
+// // click event listener for all
+// allTasks.addEventListener("click", () => {
+//     filterMode = "all";
+//     // after changing filter state, save to localstorage
+//     saveFilter();
+//     renderTasks();
+// });
+
+// // click event listener for completed
+// completedTasks.addEventListener("click", () => {
+//     filterMode = "completed";
+//     // after changing filter state, save to localstorage
+//     saveFilter();
+//     renderTasks();
+// });
+
+
+// // click event listener for incomplete tasks
+// incompleteTasks.addEventListener("click", () => {
+//     filterMode = "incomplete";
+//     // after changing filter state, save to localstorage
+//     saveFilter();
+//     renderTasks();
+// });
+
+
+// // input event listener for search input
+// search.addEventListener("input", (e) => {
+//     searchText = e.target.value;
+//     saveSearchText();
+//     renderTasks();
+// });
+
+
+// // function that draws the visible task list and updates task statistics
+// function renderTasks() {
+//     // clear out current task list contents to rebuild from scratch
+//     list.textContent = "";
+
+//     // total tasks count
+//     const totalTasksCount = tasks.length;
+//     // update display
+//     totalTasks.textContent = "total tasks: " + totalTasksCount;
+
+//     // completed task count
+//     const completedTaskCount = tasks.filter(task => task.completed).length;
+//     // update display
+//     completed.textContent = "completed tasks: " + completedTaskCount;
+
+//     // incomplete task count
+//     const incompleteTaskCount = tasks.filter(task => !task.completed).length;
+//     // update display
+//     notComplete.textContent = "incomplete tasks: " + incompleteTaskCount;
+
+//     // temp variable for tasks to show
+//     let shownTasks;
+
+//     // if filter mode is completed
+//     if (filterMode === "completed") {
+//         // only show tasks with completed value of true
+//         shownTasks = tasks.filter(task => task.completed);
+//         // if filter mode incomplete
+//     } else if (filterMode === "incomplete") {
+//         // only show tasks with completed value of false
+//         shownTasks = tasks.filter(task => !task.completed);
+//         // if filter mode is all
+//     } else {
+//         // show all tasks complete or not
+//         shownTasks = tasks;
+//     }
+
+
+//     // if there is a searchword, filter shownTasks, checking if the task object's text value lowercased contains the searchtext value lowercased  
+//     if (searchText !== "") {
+//         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
+//     }
+
+//     // if there are no shown tasks
+//     if (shownTasks.length === 0) {
+//         // create an element
+//         const p = document.createElement("p");
+//         // give it the text no tasks found
+//         p.textContent = "No tasks found";
+//         // append it as a child element to list
+//         list.appendChild(p);
+
+//         return;
+//     }
+
+//     // if there are tasks, loop through the filtered task list
+//     for (let task of shownTasks) {
+//         // create a new list item element
+//         const li = document.createElement("li");
+//         // assign the task's text value to the li's text content
+//         li.textContent = task.text;
+
+//         // check whether task is completed and if so apply style line through
+//         if (task.completed) {
+//             li.style.textDecoration = "line-through";
+//         }
+
+//         // check if there is a search value and if it matches that task text value
+//         if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
+//             // if so apply a background color
+//             li.style.backgroundColor = "lightgrey";
+//         } else {
+//             // else remove that background color
+//             li.style.backgroundColor = "";
+//         }
+
+//         // click event for li so clicking it calls the toggle function and the render function so the visual state updates 
+//         li.addEventListener("click", () => {
+//             // pass in task's id to target it
+//             toggleCompleted(task.id);
+//             // call to update the visual state again of task list
+//             renderTasks();
+//         })
+
+//         // append li to list element
+//         list.appendChild(li);
+
+//     }
+
+
+// }
 // when script first runs?
-loadTasks();
-loadFilter();
-loadSearchText();
-renderTasks();
+// loadTasks();
+// loadFilter();
+// loadSearchText();
+// renderTasks();
 
 
 
@@ -1041,83 +1044,228 @@ renderTasks();
 
 
 
-// weather section
+// // weather section
 
-// weather button
-const weatherButton = document.querySelector("#weather-button")
-// location li
-const locationLi = document.querySelector("#location-li");
-// temperature li
-const temperatureLi = document.querySelector("#temperature-li");
-// condition li
-const conditionLi = document.querySelector("#condition-li");
-// status li
-const statusLi = document.querySelector("#status-li");
+// // weather button
+// const weatherButton = document.querySelector("#weather-button")
+// // location li
+// const locationLi = document.querySelector("#location-li");
+// // temperature li
+// const temperatureLi = document.querySelector("#temperature-li");
+// // condition li
+// const conditionLi = document.querySelector("#condition-li");
+// // status li
+// const statusLi = document.querySelector("#status-li");
 
 
-function getWeatherDescription(code) {
-    // accept a number
-    // return a string description
-    if (code === 0) {
-        return "Clear sky"
-    } else if (code === 1) {
-        return "Mainly clear";   
-    } else if (code === 2) {
-        return "Partly cloudy";   
-    } else if (code === 3) {
-        return "Overcast";  
-    } else if (code === 45 || code === 48) {
-        return "Fog";   
-    } else if (code === 51 || code === 53 || code === 55) {
-        return "Drizzle";
-    } else if (code === 61 || code === 63 || code === 65) {
-        return "Rain";   
-    } else if (code === 80 || code === 81 || code === 82) {
-        return "Rain showers";   
-    } else if (code === 95) {
-        return "Thunderstorm";
-    } else {
-        return "Unknown weather";
-    }
+// function getWeatherDescription(code) {
+//     // accept a number
+//     // return a string description
+//     if (code === 0) {
+//         return "Clear sky"
+//     } else if (code === 1) {
+//         return "Mainly clear";   
+//     } else if (code === 2) {
+//         return "Partly cloudy";   
+//     } else if (code === 3) {
+//         return "Overcast";  
+//     } else if (code === 45 || code === 48) {
+//         return "Fog";   
+//     } else if (code === 51 || code === 53 || code === 55) {
+//         return "Drizzle";
+//     } else if (code === 61 || code === 63 || code === 65) {
+//         return "Rain";   
+//     } else if (code === 80 || code === 81 || code === 82) {
+//         return "Rain showers";   
+//     } else if (code === 95) {
+//         return "Thunderstorm";
+//     } else {
+//         return "Unknown weather";
+//     }
+// }
+
+
+
+// // build weather function
+// async function loadWeather() {
+//     try {
+//         statusLi.textContent = "Loading Weather...";
+//         weatherButton.disabled = true;
+//         // loading state
+
+
+
+//         locationLi.textContent = "Houston";
+//         temperatureLi.textContent = "";
+//         conditionLi.textContent = "";
+
+
+//         // fetch
+//         const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit");
+//         const data = await response.json();
+//         console.log(data);
+//         temperatureLi.textContent = `${data.current.temperature_2m} ${data.current_units.temperature_2m}`;
+//         conditionLi.textContent = getWeatherDescription(data.current.weather_code);
+//         statusLi.textContent = "";
+
+
+//         weatherButton.disabled = false;
+
+//     } catch (error) {
+//         // error
+//         console.log(error);
+//         statusLi.textContent = "Could not load weather";
+//         weatherButton.disabled = false;
+//     }
+
+// }
+
+// weatherButton.addEventListener("click", loadWeather);
+
+// loadWeather();
+
+
+
+
+
+
+
+
+
+// new rebuild
+
+// create main task array to act as source of truth for rendering, filtering, searching, saving, and stats
+let tasks = [];
+
+// create filter mode variable to set all items visible by default
+let filterMode = "all";
+
+// create search text variable to set the state of the search input as "" by default
+let searchText = "";
+
+
+
+// select all task dom elements
+// Select the task input into taskInput
+const taskInput = document.querySelector("#task-input");
+// the add button into addButton
+const addButton = document.querySelector("#task-button");
+// the clear button into clearButton
+const clearButton = document.querySelector("#clear-button");
+// the task list into list
+const list = document.querySelector("#task-list");
+
+// Select the three filter buttons
+
+// into allTasks
+const allTasks = document.querySelector("#all");
+
+// into completedTasks
+const completedTasks = document.querySelector("#completed");
+
+// into incompleteTasks
+const incompleteTasks = document.querySelector("#incomplete");
+
+// searchinput into search
+const search = document.querySelector("#search");
+
+
+// select stat elements 
+
+// totalTasks
+const totalTasks = document.querySelector("#total-tasks");
+// completed
+const completed = document.querySelector("#completed-tasks");
+// notComplete
+const notComplete = document.querySelector("#incomplete-tasks");
+
+
+
+
+// create function saveTasks to:  
+function saveTasks() {
+    // convert tasks array into a string
+    const convertedTasks = JSON.stringify(tasks);
+    // and store it under the key 'tasks'
+    localStorage.setItem("tasks", convertedTasks);
+} 
+
+// create a function loadTasks to:
+function loadTasks() {
+    // read the key "tasks" from localStorage
+    const savedTasks = localStorage.getItem("tasks");
+    // check if value exists
+    if (!savedTasks) return;
+    // parse it if it does
+    const parsedTasks = JSON.parse(savedTasks);
+    // assign result back into tasks array
+    tasks = parsedTasks;
+}
+
+// create function saveFilter that:
+
+function saveFilter() {
+    // stores filtermode under key filterstatus
+    localStorage.setItem("filterStatus", filterMode);
+}
+
+// create function loadFilter that:
+function loadFilter() {
+    // retrieves filterstatus and 
+    const savedFilter = localStorage.getItem("filterStatus");
+    // reassigns it back to filtermode
+    filterMode = savedFilter;
 }
 
 
-
-// build weather function
-async function loadWeather() {
-    try {
-        statusLi.textContent = "Loading Weather...";
-        weatherButton.disabled = true;
-        // loading state
-
-
-
-        locationLi.textContent = "Houston";
-        temperatureLi.textContent = "";
-        conditionLi.textContent = "";
-
-
-        // fetch
-        const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit");
-        const data = await response.json();
-        console.log(data);
-        temperatureLi.textContent = `${data.current.temperature_2m} ${data.current_units.temperature_2m}`;
-        conditionLi.textContent = getWeatherDescription(data.current.weather_code);
-        statusLi.textContent = "";
-
-
-        weatherButton.disabled = false;
-
-    } catch (error) {
-        // error
-        console.log(error);
-        statusLi.textContent = "Could not load weather";
-        weatherButton.disabled = false;
-    }
-
+// create function saveSearchText that:
+function saveSearchText() {
+    // stores searchText in the browser under the key "searchText"
+    localStorage.setItem("searchText", searchText);
 }
 
-weatherButton.addEventListener("click", loadWeather);
+// create a function loadSearchText that: 
+function loadSearchText() {
+    // retrieves searchText from localstorage
+    const savedSearchText = localStorage.getItem("searchText");
+    // assigns it back into searchText
+    searchText = savedSearchText;
+    // updates search.value, because the visible input field must match what the state says.
+    search.value = searchText;
+    
+}
 
-loadWeather();
 
+// create function createTask that:
+// accepts a text argument 
+function createTask(text) {
+    // constructs one new task object with properties id, text and completed
+    const newTask = {
+        // set id using a simple generated identifier that increments for each new task
+        id: tasks.length + 1,
+        // text to passed in text
+        text: text,
+        // completed default false because every task starts unfinished
+        completed: false
+    }
+    // store newly created task object in the list of tasks
+    tasks.push(newTask);
+}
+
+
+// create function toggleCompleted that:
+// accepts an id to target one specific task: 
+function toggleCompleted(id) {
+    // Track the match using a boolean like taskFound
+    let taskFound = false;
+    // loop through tasks
+    for (const task of tasks) {
+        if (task.id === id) {
+            // flip task.completed (example of locating one object inside a collection and updating one property on it)
+            task.completed = !task.completed;
+            taskFound = true;
+        }
+    }
+    // only call saveTasks() if a task was actually updated
+    if (taskFound === true) saveTasks();
+}
