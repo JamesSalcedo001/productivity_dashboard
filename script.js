@@ -1269,3 +1269,92 @@ function toggleCompleted(id) {
     // only call saveTasks() if a task was actually updated
     if (taskFound === true) saveTasks();
 }
+
+
+// create function called renderTasks that: 
+function renderTasks() {
+    // rebuilds visible list from scratch using current state, starting by clearing it out
+    list.textContent = "";
+
+    // calculate totalTaskCount
+    const totalTaskCount = tasks.length;
+    // Update totalTasks visually
+    totalTasks.textContent = "Total Tasks: " + totalTaskCount;
+
+    // calculate completedTaskCount
+    const completedTaskCount = tasks.filter(task => task.completed).length;
+    // update completed visually,
+    completed.textContent = "Completed Tasks: " + completedTaskCount;
+
+
+    // calculate incompleteTaskCount
+    const incompleteTaskCount = tasks.filter(task => !task.completed).length;
+    // update notComplete visually
+    notComplete.textContent = "Incomplete Tasks: " + incompleteTaskCount;
+
+    // create temp variable shownTasks to distinguish between the full source dataset and the smaller subset that should appear visually
+    let shownTasks;
+
+    if (filterMode === "completed") {
+        shownTasks = tasks.filter(task => task.completed);
+    } else if (filterMode === "incomplete") {
+        shownTasks = tasks.filter(task => !task.completed);
+    } else {
+        shownTasks = tasks;
+    }
+
+    
+    // filter with search 
+    if (searchText !== "") {
+        // filter the subset again with the condition that the task's text after being lowercased includes the current value of the search text after being lowercased 
+        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
+    }
+
+    // if showntasks length is zero
+    if (shownTasks.length === 0) {
+        // create a paragraph
+        const p = document.createElement("p");
+        // set the text
+        p.textContent = "No tasks found";
+        // append it to list
+        list.appendChild(p);
+        // return early
+        return;
+    }
+
+    // if visible tasks, loop through shownTasks
+    for (const task of shownTasks) {
+        // For each task, create a li,
+        const li = document.createElement("li");
+        // set li.textContent = task.text,
+        li.textContent = task.text;
+        
+        // If task.completed is true
+        if (task.completed) {
+            // apply styling to mark completed
+            li.style.textDecoration = "line-through";
+        }
+
+        // If searchText is not empty and the task text matches it
+        if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
+            // apply styling to highlight it 
+            li.style.backgroundColor = "lightgrey";
+        } else {
+            // otherwise clear the background with ""
+            li.style.backgroundColor = "";
+        }
+
+
+        // add click listener to each li that calls togglecompleted to mark as complete or not
+        li.addEventListener("click", () => {
+            toggleCompleted(task.id);
+            renderTasks();
+        })
+
+        // append finished li to list visually
+        list.appendChild(li);
+    }
+
+
+
+}
