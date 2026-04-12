@@ -1055,6 +1055,33 @@ const conditionLi = document.querySelector("#condition-li");
 const statusLi = document.querySelector("#status-li");
 
 
+function getWeatherDescription(code) {
+    // accept a number
+    // return a string description
+    if (code === 0) {
+        return "Clear sky"
+    } else if (code === 1) {
+        return "Mainly clear";   
+    } else if (code === 2) {
+        return "Partly cloudy";   
+    } else if (code === 3) {
+        return "Overcast";  
+    } else if (code === 45 || code === 48) {
+        return "Fog";   
+    } else if (code === 51 || code === 53 || code === 55) {
+        return "Drizzle";
+    } else if (code === 61 || code === 63 || code === 65) {
+        return "Rain";   
+    } else if (code === 80 || code === 81 || code === 82) {
+        return "Rain showers";   
+    } else if (code === 95) {
+        return "Thunderstorm";
+    } else {
+        return "Unknown weather";
+    }
+}
+
+
 
 // build weather function
 async function loadWeather() {
@@ -1071,13 +1098,13 @@ async function loadWeather() {
 
 
         // fetch
-        const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&hourly=temperature_2m,weather_code&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit");
+        const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit");
         const data = await response.json();
         console.log(data);
-        locationLi.textContent = "Houston";
-        temperatureLi.textContent = `${data.hourly.temperature_2m[0]} ${data.hourly_units.temperature_2m}`;
-        conditionLi.textContent = data.hourly.weather_code[0];
+        temperatureLi.textContent = `${data.current.temperature_2m} ${data.current_units.temperature_2m}`;
+        conditionLi.textContent = getWeatherDescription(data.current.weather_code);
         statusLi.textContent = "";
+
 
         weatherButton.disabled = false;
 
