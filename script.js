@@ -1232,7 +1232,7 @@
 //     searchText = savedSearchText;
 //     // updates search.value, because the visible input field must match what the state says.
 //     search.value = searchText;
-    
+
 // }
 
 
@@ -1303,7 +1303,7 @@
 //         shownTasks = tasks;
 //     }
 
-    
+
 //     // filter with search 
 //     if (searchText !== "") {
 //         // filter the subset again with the condition that the task's text after being lowercased includes the current value of the search text after being lowercased 
@@ -1328,7 +1328,7 @@
 //         const li = document.createElement("li");
 //         // set li.textContent = task.text,
 //         li.textContent = task.text;
-        
+
 //         // If task.completed is true
 //         if (task.completed) {
 //             // apply styling to mark completed
@@ -1409,32 +1409,44 @@
 
     objectives list
 
-    1: list of tasks 
-    2: user can add a task
-    3: user can mark task as complete
-    4: user can clear all tasks
-    5: user can filter to show all tasks
-    6: user can filter to show completed tasks
-    7: user can filter to show incomplete tasks
-    8: user can type into the search bar to find a task matching the characters input
-    9: user can see how many total tasks exist
-    10: user can see how many completed tasks exist
-    11: user can see how many incomplete tasks exist
-    12: when a task is searched for, the item is highlighted with a light grey color background
-    13: when task is added the input is cleared
-    14: transition tasks into localstorage to maintain state across refreshes
-    15: transition filters into localstorage
-    16: transition search into localstorage
-    17; user should be able to fetch weather info from openmeteo API to see weather info for Houston
+    ++        1: list of tasks                  
+    ++        2: user can add a task            
+    ++        3: user can mark task as complete 
+    ++        4: user can clear all tasks       
+    ++        5: user can filter to show all tasks
+    ++        6: user can filter to show completed tasks
+    ++        7: user can filter to show incomplete tasks
+    ++        8: user can type into the search bar to find a task matching the characters input
+    ++        9: user can see how many total tasks exist
+    ++        10: user can see how many completed tasks exist
+    ++        11: user can see how many incomplete tasks exist
+    ++        12: when a task is searched for, the item is highlighted with a light grey color background
+    ++        13: when task is added the input is cleared           
+            14: transition tasks into localstorage to maintain state across refreshes
+            15: transition filters into localstorage
+            16: transition search into localstorage
+            17; user should be able to fetch weather info from openmeteo API to see weather info for Houston
 */
 
 
 
 let tasks = [];
+let filterStatus = "all";
+let searchValue = "";
+
+
 
 const taskButton = document.querySelector("#new-task-button");
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
+const clearTaskButton = document.querySelector("#clear-tasks");
+const allTasksFilterButton = document.querySelector("#all-tasks");
+const completeTasksFilterButton = document.querySelector("#completed-tasks");
+const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
+const searchInput = document.querySelector("#search-input");
+const totalTaskCount = document.querySelector("#total-task-count");
+const completedTaskCount = document.querySelector("#completed-task-count");
+const incompleteTaskCount = document.querySelector("#incomplete-task-count");
 
 
 
@@ -1450,9 +1462,26 @@ function addTask(text) {
     tasks.push(newTask);
 };
 
+
+function clearTasks() {
+    tasks = [];
+}
+
+
+function toggleCompleted(id) {
+    for (const task of tasks) {
+        if (task.id === id) {
+            task.completed = !task.completed;
+        }
+    }
+}
+
+
+
+
 taskButton.addEventListener("click", () => {
     let input = taskInput.value.trim();
-    
+
     if (input !== "") {
         addTask(input);
         taskInput.value = "";
@@ -1463,15 +1492,95 @@ taskButton.addEventListener("click", () => {
 })
 
 
+clearTaskButton.addEventListener("click", () => {
+    clearTasks();
+    renderTasks();
+})
+
+
+allTasksFilterButton.addEventListener("click", () => {
+    filterStatus = "all";
+    renderTasks();
+})
+
+
+completeTasksFilterButton.addEventListener("click", () => {
+    filterStatus = "completed";
+    renderTasks();
+})
+
+incompleteTasksFilterButton.addEventListener("click", () => {
+    filterStatus = "incomplete";
+    renderTasks();
+})
+
+
+searchInput.addEventListener("input", (e) => {
+     searchValue = e.target.value;
+     renderTasks();
+})
+
+
+
+
+
 function renderTasks() {
     taskList.textContent = "";
 
-    if (tasks.length !== 0) {
-        for (const task of tasks) {
-            const li = document.createElement("li");
-            li.textContent = task.text;
-            taskList.appendChild(li);
-        }
+
+
+
+
+    const totalTasks = tasks.length;
+    totalTaskCount.textContent = "Total Task Count: " + totalTasks;
+
+    const completeTasks = tasks.filter(task => task.completed).length;
+    completedTaskCount.textContent = "Completed Task Count: " + completeTasks; 
+
+    const incompleteTasks = tasks.filter(task => !task.completed).length;
+    incompleteTaskCount.textContent = "Incomplete Task Count: " + incompleteTasks;
+
+
+    let shownTasks;
+
+    if (filterStatus === "completed") {
+        shownTasks = tasks.filter(task => task.completed);
+    } else if (filterStatus === "incomplete") {
+        shownTasks = tasks.filter(task => !task.completed);
+    } else {
+        shownTasks = tasks;
     }
+
+
+    if (searchValue !== "") {
+        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchValue.toLowerCase()));
+    }
+
     
+
+
+
+
+    for (const task of shownTasks) {
+        const li = document.createElement("li");
+        li.textContent = task.text;
+
+        if (task.completed) {
+            li.style.textDecoration = "line-through";
+        }
+
+        if (searchValue !== "" && task.text.toLowerCase().includes(searchValue.toLowerCase())) {
+            li.style.backgroundColor = "lightgrey";
+        } else {
+            li.style.backgroundColor = "";
+        }
+
+        li.addEventListener("click", () => {
+            toggleCompleted(task.id);
+            renderTasks();
+        })
+
+        taskList.appendChild(li);
+    }
+
 }
