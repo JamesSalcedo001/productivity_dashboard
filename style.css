@@ -1,4 +1,4 @@
-#filter-container {
+/* #filter-container {
     margin-bottom: 1rem;
 }
 
@@ -8,4 +8,69 @@
 
 #search {
     margin-bottom: 1rem;
+} */
+
+
+#task-filters-container {
+    display: flex;
+
+}
+
+.task-filter-buttons {
+    min-width: 100px;
+    margin: 8px;
+    padding: 10px;
+}
+
+#search-title {
+    margin-top: 1rem;
+}
+
+#search-filter-input-container {
+    border: 1px solid black;
+    padding: 12px 12px;
+    width: fit-content;
+}
+
+#search-input {
+    padding: 10px 10px;
+    border: 1px solid black;
+}
+
+
+#task-statistics-container {
+    border: 1px solid black;
+    padding: 10px 10px;
+    width: fit-content;
+}
+
+#task-filters-container {
+    border: 1px solid black;
+    padding: 5px 5px;
+    max-width: fit-content;
+}
+
+#task-user-inputs-container {
+    border: 1px solid black;
+    padding: 10px;
+    width: fit-content;
+}
+
+#task-input {
+    border: 1px solid black;
+    padding: 10px 10px;
+    margin-right: 6px;
+}
+
+.task-buttons {
+    padding: 10px;
+    min-width: 100px;
+    margin: 6px;
+}
+
+
+#task-list {
+    border: 1px solid black;
+    width: fit-content;
+    padding: 10px 10px;
 }

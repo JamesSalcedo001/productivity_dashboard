@@ -1,109 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <section id="tasks">
-            <div id="task-stats-container">
-                <p id="total-tasks">Total Tasks: 0</p>
-                <p id="completed-tasks">Completed Tasks: 0</p>
-                <p id="incomplete-tasks">Incomplete Tasks: 0</p>
-            </div>
-
-            <div id="filter-container">
-                <button id="all" class="filter-buttons">All</button>
-                <button id="completed" class="filter-buttons">Completed</button>
-                <button id="incomplete" class="filter-buttons">Incomplete</button>
-            </div>
-
-            <div id="search-container">
-                <input type="text" id="search" placeholder="search for a task">
-            </div>
-
-
-            <input type="text" id="task-input">
-            <button id="task-button">Add Task</button>
-            <button id="clear-button">Clear Tasks</button>
-            <ul id="task-list"></ul>
-
-
-        </section>
-        <section id="weather">
-            <h1 id="title">Weather</h1>
-            <button id="weather-button">Check Weather</button>
-            <ul id="weather-details-list">
-                <li id="location-li">Location</li>
-                <li id="temperature-li">Temperature</li>
-                <li id="condition-li">Condition</li>
-                <li id="status-li">Status</li>
-            </ul>
-        </section>
-        <section id="notes"></section>
-    </main>
-    
-    <script src="./script.js"></script>
-</body>
-</html>
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebuild with no guidelines</title>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
 </head>
+
 <body>
-    <header></header>
     <main>
-        <section id="tasks">
-            <div id="task-stats-container">
-                <p id="total-tasks">total tasks: 0</p>
-                <p id="completed-tasks">completed tasks: 0</p>
-                <p id="incomplete-tasks">incomplete tasks: 0</p>
+        <h1>Tasks and Weather App</h1>
+        <section id="tasks-section">
+
+            <h3 id="task-stats-title">Task Statistics</h3>
+            <div id="task-statistics-container">
+                <p id="total-task-count" class="task-stats">Total Task Count: 0</p>
+                <p id="completed-task-count" class="task-stats">Completed Task Count: 0</p>
+                <p id="incomplete-task-count" class="task-stats">Incomplete Task Count: 0</p>
             </div>
 
-            <div id="filter-container">
-                <button class="filter-buttons" id="all">All</button>
-                <button class="filter-buttons" id="completed">Completed</button>
-                <button class="filter-buttons" id="incomplete">Incomplete</button>
+            <h3 id="task-filters-title">Task Filters</h3>
+            <div id="task-filters-container">
+                <button id="all-tasks" class="task-filter-buttons">All</button>
+                <button id="completed-tasks" class="task-filter-buttons">Complete</button>
+                <button id="incomplete-tasks" class="task-filter-buttons">Incomplete</button>
             </div>
 
             <div id="search-container">
-                <input type="text" id="search" placeholder="search for a task">
+                <h3 id="search-title">Search Filter</h3>
+                <div id="search-filter-input-container">
+                    <input id="search-input" type="text" placeholder="search for something...">
+                </div>
             </div>
 
-            <input id="task-input">
-            <button id="task-button">Add Task</button>
-            <button id="clear-button">Clear Tasks</button>
-            <ul id="task-list"></ul>
-            
+            <div id="tasks-container">
+                <h3 id="tasks-title">Tasks</h3>
+
+                <div id="task-user-inputs-container">
+                    <input type="text" id="task-input" placeholder="add a task">
+                    <button id="add-task-button" class="task-buttons">Add Task</button>
+                    <button id="clear-tasks" class="task-buttons">Clear Tasks</button>
+                </div>
+
+                <ul id="task-list"></ul>
+            </div>
         </section>
-        <section id="weather">
-            <h1 id="title">Weather</h1>
-            <button id="weather-button">Load Weather</button>
-            <ul id="weather-details-list">
-                <li id="location-li" class="weather-details-item">Location</li>
-                <li id="temperature-li" class="weather-details-item">Temperature</li>
-                <li id="condition-li" class="weather-details-item">Condition</li>
-                <li id="status-li" class="weather-details-item">Status</li>
-            </ul>
-        </section>
-        <section id="notes"></section>
     </main>
-    <script src="./main.js"></script>
+
+    <script src="script.js"></script>
 </body>
-</html> -->
 
-
-
+</html>

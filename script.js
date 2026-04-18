@@ -1132,229 +1132,276 @@
 
 
 
-// new rebuild
+// // new rebuild - still needs event listeners etc
 
-// create main task array to act as source of truth for rendering, filtering, searching, saving, and stats
-let tasks = [];
+// // create main task array to act as source of truth for rendering, filtering, searching, saving, and stats
+// let tasks = [];
 
-// create filter mode variable to set all items visible by default
-let filterMode = "all";
+// // create filter mode variable to set all items visible by default
+// let filterMode = "all";
 
-// create search text variable to set the state of the search input as "" by default
-let searchText = "";
-
-
-
-// select all task dom elements
-// Select the task input into taskInput
-const taskInput = document.querySelector("#task-input");
-// the add button into addButton
-const addButton = document.querySelector("#task-button");
-// the clear button into clearButton
-const clearButton = document.querySelector("#clear-button");
-// the task list into list
-const list = document.querySelector("#task-list");
-
-// Select the three filter buttons
-
-// into allTasks
-const allTasks = document.querySelector("#all");
-
-// into completedTasks
-const completedTasks = document.querySelector("#completed");
-
-// into incompleteTasks
-const incompleteTasks = document.querySelector("#incomplete");
-
-// searchinput into search
-const search = document.querySelector("#search");
-
-
-// select stat elements 
-
-// totalTasks
-const totalTasks = document.querySelector("#total-tasks");
-// completed
-const completed = document.querySelector("#completed-tasks");
-// notComplete
-const notComplete = document.querySelector("#incomplete-tasks");
+// // create search text variable to set the state of the search input as "" by default
+// let searchText = "";
 
 
 
+// // select all task dom elements
+// // Select the task input into taskInput
+// const taskInput = document.querySelector("#task-input");
+// // the add button into addButton
+// const addButton = document.querySelector("#task-button");
+// // the clear button into clearButton
+// const clearButton = document.querySelector("#clear-button");
+// // the task list into list
+// const list = document.querySelector("#task-list");
 
-// create function saveTasks to:  
-function saveTasks() {
-    // convert tasks array into a string
-    const convertedTasks = JSON.stringify(tasks);
-    // and store it under the key 'tasks'
-    localStorage.setItem("tasks", convertedTasks);
-} 
+// // Select the three filter buttons
 
-// create a function loadTasks to:
-function loadTasks() {
-    // read the key "tasks" from localStorage
-    const savedTasks = localStorage.getItem("tasks");
-    // check if value exists
-    if (!savedTasks) return;
-    // parse it if it does
-    const parsedTasks = JSON.parse(savedTasks);
-    // assign result back into tasks array
-    tasks = parsedTasks;
-}
+// // into allTasks
+// const allTasks = document.querySelector("#all");
 
-// create function saveFilter that:
+// // into completedTasks
+// const completedTasks = document.querySelector("#completed");
 
-function saveFilter() {
-    // stores filtermode under key filterstatus
-    localStorage.setItem("filterStatus", filterMode);
-}
+// // into incompleteTasks
+// const incompleteTasks = document.querySelector("#incomplete");
 
-// create function loadFilter that:
-function loadFilter() {
-    // retrieves filterstatus and 
-    const savedFilter = localStorage.getItem("filterStatus");
-    // reassigns it back to filtermode
-    filterMode = savedFilter;
-}
+// // searchinput into search
+// const search = document.querySelector("#search");
 
 
-// create function saveSearchText that:
-function saveSearchText() {
-    // stores searchText in the browser under the key "searchText"
-    localStorage.setItem("searchText", searchText);
-}
+// // select stat elements 
 
-// create a function loadSearchText that: 
-function loadSearchText() {
-    // retrieves searchText from localstorage
-    const savedSearchText = localStorage.getItem("searchText");
-    // assigns it back into searchText
-    searchText = savedSearchText;
-    // updates search.value, because the visible input field must match what the state says.
-    search.value = searchText;
+// // totalTasks
+// const totalTasks = document.querySelector("#total-tasks");
+// // completed
+// const completed = document.querySelector("#completed-tasks");
+// // notComplete
+// const notComplete = document.querySelector("#incomplete-tasks");
+
+
+
+
+// // create function saveTasks to:  
+// function saveTasks() {
+//     // convert tasks array into a string
+//     const convertedTasks = JSON.stringify(tasks);
+//     // and store it under the key 'tasks'
+//     localStorage.setItem("tasks", convertedTasks);
+// } 
+
+// // create a function loadTasks to:
+// function loadTasks() {
+//     // read the key "tasks" from localStorage
+//     const savedTasks = localStorage.getItem("tasks");
+//     // check if value exists
+//     if (!savedTasks) return;
+//     // parse it if it does
+//     const parsedTasks = JSON.parse(savedTasks);
+//     // assign result back into tasks array
+//     tasks = parsedTasks;
+// }
+
+// // create function saveFilter that:
+
+// function saveFilter() {
+//     // stores filtermode under key filterstatus
+//     localStorage.setItem("filterStatus", filterMode);
+// }
+
+// // create function loadFilter that:
+// function loadFilter() {
+//     // retrieves filterstatus and 
+//     const savedFilter = localStorage.getItem("filterStatus");
+//     // reassigns it back to filtermode
+//     filterMode = savedFilter;
+// }
+
+
+// // create function saveSearchText that:
+// function saveSearchText() {
+//     // stores searchText in the browser under the key "searchText"
+//     localStorage.setItem("searchText", searchText);
+// }
+
+// // create a function loadSearchText that: 
+// function loadSearchText() {
+//     // retrieves searchText from localstorage
+//     const savedSearchText = localStorage.getItem("searchText");
+//     // assigns it back into searchText
+//     searchText = savedSearchText;
+//     // updates search.value, because the visible input field must match what the state says.
+//     search.value = searchText;
     
-}
+// }
 
 
-// create function createTask that:
-// accepts a text argument 
-function createTask(text) {
-    // constructs one new task object with properties id, text and completed
-    const newTask = {
-        // set id using a simple generated identifier that increments for each new task
-        id: tasks.length + 1,
-        // text to passed in text
-        text: text,
-        // completed default false because every task starts unfinished
-        completed: false
-    }
-    // store newly created task object in the list of tasks
-    tasks.push(newTask);
-}
+// // create function createTask that:
+// // accepts a text argument 
+// function createTask(text) {
+//     // constructs one new task object with properties id, text and completed
+//     const newTask = {
+//         // set id using a simple generated identifier that increments for each new task
+//         id: tasks.length + 1,
+//         // text to passed in text
+//         text: text,
+//         // completed default false because every task starts unfinished
+//         completed: false
+//     }
+//     // store newly created task object in the list of tasks
+//     tasks.push(newTask);
+// }
 
 
-// create function toggleCompleted that:
-// accepts an id to target one specific task: 
-function toggleCompleted(id) {
-    // Track the match using a boolean like taskFound
-    let taskFound = false;
-    // loop through tasks
-    for (const task of tasks) {
-        if (task.id === id) {
-            // flip task.completed (example of locating one object inside a collection and updating one property on it)
-            task.completed = !task.completed;
-            taskFound = true;
-        }
-    }
-    // only call saveTasks() if a task was actually updated
-    if (taskFound === true) saveTasks();
-}
+// // create function toggleCompleted that:
+// // accepts an id to target one specific task: 
+// function toggleCompleted(id) {
+//     // Track the match using a boolean like taskFound
+//     let taskFound = false;
+//     // loop through tasks
+//     for (const task of tasks) {
+//         if (task.id === id) {
+//             // flip task.completed (example of locating one object inside a collection and updating one property on it)
+//             task.completed = !task.completed;
+//             taskFound = true;
+//         }
+//     }
+//     // only call saveTasks() if a task was actually updated
+//     if (taskFound === true) saveTasks();
+// }
 
 
-// create function called renderTasks that: 
-function renderTasks() {
-    // rebuilds visible list from scratch using current state, starting by clearing it out
-    list.textContent = "";
+// // create function called renderTasks that: 
+// function renderTasks() {
+//     // rebuilds visible list from scratch using current state, starting by clearing it out
+//     list.textContent = "";
 
-    // calculate totalTaskCount
-    const totalTaskCount = tasks.length;
-    // Update totalTasks visually
-    totalTasks.textContent = "Total Tasks: " + totalTaskCount;
+//     // calculate totalTaskCount
+//     const totalTaskCount = tasks.length;
+//     // Update totalTasks visually
+//     totalTasks.textContent = "Total Tasks: " + totalTaskCount;
 
-    // calculate completedTaskCount
-    const completedTaskCount = tasks.filter(task => task.completed).length;
-    // update completed visually,
-    completed.textContent = "Completed Tasks: " + completedTaskCount;
+//     // calculate completedTaskCount
+//     const completedTaskCount = tasks.filter(task => task.completed).length;
+//     // update completed visually,
+//     completed.textContent = "Completed Tasks: " + completedTaskCount;
 
 
-    // calculate incompleteTaskCount
-    const incompleteTaskCount = tasks.filter(task => !task.completed).length;
-    // update notComplete visually
-    notComplete.textContent = "Incomplete Tasks: " + incompleteTaskCount;
+//     // calculate incompleteTaskCount
+//     const incompleteTaskCount = tasks.filter(task => !task.completed).length;
+//     // update notComplete visually
+//     notComplete.textContent = "Incomplete Tasks: " + incompleteTaskCount;
 
-    // create temp variable shownTasks to distinguish between the full source dataset and the smaller subset that should appear visually
-    let shownTasks;
+//     // create temp variable shownTasks to distinguish between the full source dataset and the smaller subset that should appear visually
+//     let shownTasks;
 
-    if (filterMode === "completed") {
-        shownTasks = tasks.filter(task => task.completed);
-    } else if (filterMode === "incomplete") {
-        shownTasks = tasks.filter(task => !task.completed);
-    } else {
-        shownTasks = tasks;
-    }
+//     if (filterMode === "completed") {
+//         shownTasks = tasks.filter(task => task.completed);
+//     } else if (filterMode === "incomplete") {
+//         shownTasks = tasks.filter(task => !task.completed);
+//     } else {
+//         shownTasks = tasks;
+//     }
 
     
-    // filter with search 
-    if (searchText !== "") {
-        // filter the subset again with the condition that the task's text after being lowercased includes the current value of the search text after being lowercased 
-        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
-    }
+//     // filter with search 
+//     if (searchText !== "") {
+//         // filter the subset again with the condition that the task's text after being lowercased includes the current value of the search text after being lowercased 
+//         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
+//     }
 
-    // if showntasks length is zero
-    if (shownTasks.length === 0) {
-        // create a paragraph
-        const p = document.createElement("p");
-        // set the text
-        p.textContent = "No tasks found";
-        // append it to list
-        list.appendChild(p);
-        // return early
-        return;
-    }
+//     // if showntasks length is zero
+//     if (shownTasks.length === 0) {
+//         // create a paragraph
+//         const p = document.createElement("p");
+//         // set the text
+//         p.textContent = "No tasks found";
+//         // append it to list
+//         list.appendChild(p);
+//         // return early
+//         return;
+//     }
 
-    // if visible tasks, loop through shownTasks
-    for (const task of shownTasks) {
-        // For each task, create a li,
-        const li = document.createElement("li");
-        // set li.textContent = task.text,
-        li.textContent = task.text;
+//     // if visible tasks, loop through shownTasks
+//     for (const task of shownTasks) {
+//         // For each task, create a li,
+//         const li = document.createElement("li");
+//         // set li.textContent = task.text,
+//         li.textContent = task.text;
         
-        // If task.completed is true
-        if (task.completed) {
-            // apply styling to mark completed
-            li.style.textDecoration = "line-through";
-        }
+//         // If task.completed is true
+//         if (task.completed) {
+//             // apply styling to mark completed
+//             li.style.textDecoration = "line-through";
+//         }
 
-        // If searchText is not empty and the task text matches it
-        if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
-            // apply styling to highlight it 
-            li.style.backgroundColor = "lightgrey";
-        } else {
-            // otherwise clear the background with ""
-            li.style.backgroundColor = "";
-        }
-
-
-        // add click listener to each li that calls togglecompleted to mark as complete or not
-        li.addEventListener("click", () => {
-            toggleCompleted(task.id);
-            renderTasks();
-        })
-
-        // append finished li to list visually
-        list.appendChild(li);
-    }
+//         // If searchText is not empty and the task text matches it
+//         if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
+//             // apply styling to highlight it 
+//             li.style.backgroundColor = "lightgrey";
+//         } else {
+//             // otherwise clear the background with ""
+//             li.style.backgroundColor = "";
+//         }
 
 
+//         // add click listener to each li that calls togglecompleted to mark as complete or not
+//         li.addEventListener("click", () => {
+//             toggleCompleted(task.id);
+//             renderTasks();
+//         })
 
-}
+//         // append finished li to list visually
+//         list.appendChild(li);
+//     }
+
+
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// rebuild with no guidelines
+
+
