@@ -1405,3 +1405,73 @@
 // rebuild with no guidelines
 
 
+/*
+
+    objectives list
+
+    1: list of tasks 
+    2: user can add a task
+    3: user can mark task as complete
+    4: user can clear all tasks
+    5: user can filter to show all tasks
+    6: user can filter to show completed tasks
+    7: user can filter to show incomplete tasks
+    8: user can type into the search bar to find a task matching the characters input
+    9: user can see how many total tasks exist
+    10: user can see how many completed tasks exist
+    11: user can see how many incomplete tasks exist
+    12: when a task is searched for, the item is highlighted with a light grey color background
+    13: when task is added the input is cleared
+    14: transition tasks into localstorage to maintain state across refreshes
+    15: transition filters into localstorage
+    16: transition search into localstorage
+    17; user should be able to fetch weather info from openmeteo API to see weather info for Houston
+*/
+
+
+
+let tasks = [];
+
+const taskButton = document.querySelector("#new-task-button");
+const taskInput = document.querySelector("#task-input");
+const taskList = document.querySelector("#task-list");
+
+
+
+
+
+function addTask(text) {
+    const newTask = {
+        id: tasks.length + 1,
+        text: text,
+        completed: false
+    }
+
+    tasks.push(newTask);
+};
+
+taskButton.addEventListener("click", () => {
+    let input = taskInput.value.trim();
+    
+    if (input !== "") {
+        addTask(input);
+        taskInput.value = "";
+    }
+
+    renderTasks();
+
+})
+
+
+function renderTasks() {
+    taskList.textContent = "";
+
+    if (tasks.length !== 0) {
+        for (const task of tasks) {
+            const li = document.createElement("li");
+            li.textContent = task.text;
+            taskList.appendChild(li);
+        }
+    }
+    
+}
