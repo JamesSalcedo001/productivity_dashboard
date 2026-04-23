@@ -1466,7 +1466,11 @@ function addTask(text) {
 
 const clearTasks = () => {
     tasks = [];
+    filterStatus = "all";
+    searchValue = "";
     localStorage.removeItem("savedTasks");
+    localStorage.removeItem("savedFilterStatus");
+    localStorage.removeItem("savedSearchInput");
 }
 
 
