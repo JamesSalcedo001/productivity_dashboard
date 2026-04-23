@@ -1465,14 +1465,39 @@ function addTask(text) {
 
 function clearTasks() {
     tasks = [];
+    localStorage.removeItem("tasks");
 }
 
 
 function toggleCompleted(id) {
+    let taskFound = false;
+
     for (const task of tasks) {
         if (task.id === id) {
             task.completed = !task.completed;
+            taskFound = true;
         }
+    }
+    if (taskFound) {
+        saveTasks();
+    }
+}
+
+
+function saveTasks() {
+    const convertedTasks = JSON.stringify(tasks);
+    localStorage.setItem("tasks", convertedTasks);
+}
+
+
+function loadTasks() {
+    const savedTasks = localStorage.getItem("tasks");
+    const parsedTasks = JSON.parse(savedTasks);
+    if (parsedTasks) {
+        tasks = parsedTasks;
+        console.log(parsedTasks);
+    } else {
+        console.log("no tasks saved yet");
     }
 }
 
@@ -1484,6 +1509,7 @@ taskButton.addEventListener("click", () => {
 
     if (input !== "") {
         addTask(input);
+        saveTasks();
         taskInput.value = "";
     }
 
@@ -1584,3 +1610,10 @@ function renderTasks() {
     }
 
 }
+
+
+
+loadTasks();
+renderTasks();
+
+
