@@ -1422,8 +1422,8 @@
     ++        11: user can see how many incomplete tasks exist
     ++        12: when a task is searched for, the item is highlighted with a light grey color background
     ++        13: when task is added the input is cleared           
-            14: transition tasks into localstorage to maintain state across refreshes
-            15: transition filters into localstorage
+    ++        14: transition tasks into localstorage to maintain state across refreshes
+    ++        15: transition filters into localstorage
             16: transition search into localstorage
             17; user should be able to fetch weather info from openmeteo API to see weather info for Houston
 */
@@ -1439,6 +1439,7 @@ let searchValue = "";
 const taskButton = document.querySelector("#new-task-button");
 const taskInput = document.querySelector("#task-input");
 const taskList = document.querySelector("#task-list");
+const taskInputContainer = document.querySelector("#task-user-inputs-container");
 const clearTaskButton = document.querySelector("#clear-tasks");
 const allTasksFilterButton = document.querySelector("#all-tasks");
 const completeTasksFilterButton = document.querySelector("#completed-tasks");
@@ -1463,9 +1464,9 @@ function addTask(text) {
 };
 
 
-function clearTasks() {
+const clearTasks = () => {
     tasks = [];
-    localStorage.removeItem("tasks");
+    localStorage.removeItem("savedTasks");
 }
 
 
@@ -1486,26 +1487,47 @@ function toggleCompleted(id) {
 
 function saveTasks() {
     const convertedTasks = JSON.stringify(tasks);
-    localStorage.setItem("tasks", convertedTasks);
+    localStorage.setItem("savedTasks", convertedTasks);
 }
 
 
 function loadTasks() {
-    const savedTasks = localStorage.getItem("tasks");
+    const savedTasks = localStorage.getItem("savedTasks");
     const parsedTasks = JSON.parse(savedTasks);
     if (parsedTasks) {
         tasks = parsedTasks;
-        console.log(parsedTasks);
+        console.log(tasks);
     } else {
         console.log("no tasks saved yet");
     }
 }
 
 
+const saveFilter = () => localStorage.setItem("savedFilterStatus", filterStatus);
+
+const loadFilter = () => {
+    const savedFilter = localStorage.getItem("savedFilterStatus");
+    filterStatus = savedFilter;
+}
+
+
+
 
 
 taskButton.addEventListener("click", () => {
     let input = taskInput.value.trim();
+
+    if (input === "") {
+        const emptyTaskMessage = document.createElement("p");
+            emptyTaskMessage.textContent = "Task bar is empty, would you like to add a task?";
+            emptyTaskMessage.style.color = "red";
+            taskInputContainer.appendChild(emptyTaskMessage);
+
+        setTimeout(() => {
+            emptyTaskMessage.remove();
+        }, 1000)
+
+    }
 
     if (input !== "") {
         addTask(input);
@@ -1526,24 +1548,27 @@ clearTaskButton.addEventListener("click", () => {
 
 allTasksFilterButton.addEventListener("click", () => {
     filterStatus = "all";
+    saveFilter();
     renderTasks();
 })
 
 
 completeTasksFilterButton.addEventListener("click", () => {
     filterStatus = "completed";
+    saveFilter();
     renderTasks();
 })
 
 incompleteTasksFilterButton.addEventListener("click", () => {
     filterStatus = "incomplete";
+    saveFilter();
     renderTasks();
 })
 
 
 searchInput.addEventListener("input", (e) => {
-     searchValue = e.target.value;
-     renderTasks();
+    searchValue = e.target.value;
+    renderTasks();
 })
 
 
@@ -1561,7 +1586,7 @@ function renderTasks() {
     totalTaskCount.textContent = "Total Task Count: " + totalTasks;
 
     const completeTasks = tasks.filter(task => task.completed).length;
-    completedTaskCount.textContent = "Completed Task Count: " + completeTasks; 
+    completedTaskCount.textContent = "Completed Task Count: " + completeTasks;
 
     const incompleteTasks = tasks.filter(task => !task.completed).length;
     incompleteTaskCount.textContent = "Incomplete Task Count: " + incompleteTasks;
@@ -1582,7 +1607,7 @@ function renderTasks() {
         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchValue.toLowerCase()));
     }
 
-    
+
 
 
 
@@ -1612,7 +1637,7 @@ function renderTasks() {
 }
 
 
-
+loadFilter();
 loadTasks();
 renderTasks();
 
