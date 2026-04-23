@@ -1424,7 +1424,7 @@
     ++        13: when task is added the input is cleared           
     ++        14: transition tasks into localstorage to maintain state across refreshes
     ++        15: transition filters into localstorage
-            16: transition search into localstorage
+    ++        16: transition search into localstorage
             17; user should be able to fetch weather info from openmeteo API to see weather info for Houston
 */
 
@@ -1511,6 +1511,20 @@ const loadFilter = () => {
 }
 
 
+const saveSearch = () => localStorage.setItem("savedSearchInput", searchValue);
+
+const loadSearch = () => {
+    const savedSearch = localStorage.getItem("savedSearchInput");
+
+    if (!savedSearch) {
+        console.log("no search value yet");
+        return;
+    }
+
+    searchValue = savedSearch;
+    searchInput.value = searchValue;
+}
+
 
 
 
@@ -1568,6 +1582,8 @@ incompleteTasksFilterButton.addEventListener("click", () => {
 
 searchInput.addEventListener("input", (e) => {
     searchValue = e.target.value;
+    saveSearch();
+
     renderTasks();
 })
 
@@ -1636,7 +1652,7 @@ function renderTasks() {
 
 }
 
-
+loadSearch();
 loadFilter();
 loadTasks();
 renderTasks();
