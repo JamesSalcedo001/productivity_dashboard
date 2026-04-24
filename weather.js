@@ -1,86 +1,104 @@
-// // weather.js
+// weather.js 
+
+
+function weatherCodes(code) {
+
+    const weatherCodesInterpretation = {
+
+        0: "Clear Sky",
+
+        1: "Mainly Clear",
+
+        2: "Partly Cloudy",
+
+        3: "Overcast",
+
+        45: "Fog",
+
+        48: "Depositing Rime Fog",
+
+        51: "Light Drizzle",
+
+        53: "Moderate Drizzle",
+
+        55: "Dense Drizzle",
+
+        56: "Light Freezing Drizzle",
+
+        57: "Dense Freezing Drizzle",
+
+        61: "Slight Rain",
+
+        63: "Moderate Rain",
+
+        65: "Heavy Rain",
+
+        66: "Light Freezing Rain",
+
+        67: "Heavy Freezing Rain",
+
+        71: "Slight Snow Fall",
+
+        73: "Moderate Snow Fall",
+
+        75: "Heavy Snow Fall",
+
+        77: "Snow Grains",
+
+        80: "Slight Rain Showers",
+
+        81: "Moderate Rain Showers",
+
+        82: "Violent Rain Showers",
+
+        85: "Slight Snow Showers",
+
+        86: "Heavy Snow Showers",
+
+        95: "Thunderstorm (Slight or Moderate)",
+
+        96: "Thunderstorm with Slight Hail",
+
+        99: "Thunderstorm with Heavy Hail"
+
+    };
+
+   return weatherCodesInterpretation[code] || "Unknown Weather";
+}
 
 
 
-// // weather section
 
-// // weather button
-// const weatherButton = document.querySelector("#weather-button")
-// // location li
-// const locationLi = document.querySelector("#location-li");
-// // temperature li
-// const temperatureLi = document.querySelector("#temperature-li");
-// // condition li
-// const conditionLi = document.querySelector("#condition-li");
-// // status li
-// const statusLi = document.querySelector("#status-li");
+export async function getWeather(temperatureLi, conditionLi, statusLi) {
+
+    temperatureLi.textContent = "Temperature: ";
+    conditionLi.textContent = "Condition: ";
+    statusLi.textContent = "Request Status: ";
 
 
-// function getWeatherDescription(code) {
-//     // accept a number
-//     // return a string description
-//     if (code === 0) {
-//         return "Clear sky"
-//     } else if (code === 1) {
-//         return "Mainly clear";   
-//     } else if (code === 2) {
-//         return "Partly cloudy";   
-//     } else if (code === 3) {
-//         return "Overcast";  
-//     } else if (code === 45 || code === 48) {
-//         return "Fog";   
-//     } else if (code === 51 || code === 53 || code === 55) {
-//         return "Drizzle";
-//     } else if (code === 61 || code === 63 || code === 65) {
-//         return "Rain";   
-//     } else if (code === 80 || code === 81 || code === 82) {
-//         return "Rain showers";   
-//     } else if (code === 95) {
-//         return "Thunderstorm";
-//     } else {
-//         return "Unknown weather";
-//     }
-// }
+    try {
+        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&timezone=America%2FChicago&temperature_unit=fahrenheit");
+
+        if (!res.ok) {
+            console.error(res.status);
+            statusLi.textContent = res.status;
+            return;
+        }
+
+        const result = await res.json();
+        console.log(result);
+
+        temperatureLi.textContent = `Temperature: ${result.current.temperature_2m} ${result.current_units.temperature_2m}`;
 
 
+        const currentCode = result.current.weather_code;
+        conditionLi.textContent = `Condition: ${weatherCodes(currentCode)}`;
 
-// // build weather function
-// async function loadWeather() {
-//     try {
-//         statusLi.textContent = "Loading Weather...";
-//         weatherButton.disabled = true;
-//         // loading state
+        statusLi.textContent = `Request Status: ${res.status}`;
 
 
-
-//         locationLi.textContent = "Houston";
-//         temperatureLi.textContent = "";
-//         conditionLi.textContent = "";
-
-
-//         // fetch
-//         const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&timezone=America%2FChicago&wind_speed_unit=mph&temperature_unit=fahrenheit");
-//         const data = await response.json();
-//         console.log(data);
-//         temperatureLi.textContent = `${data.current.temperature_2m} ${data.current_units.temperature_2m}`;
-//         conditionLi.textContent = getWeatherDescription(data.current.weather_code);
-//         statusLi.textContent = "";
-
-
-//         weatherButton.disabled = false;
-
-//     } catch (error) {
-//         // error
-//         console.log(error);
-//         statusLi.textContent = "Could not load weather";
-//         weatherButton.disabled = false;
-//     }
-
-// }
-
-
-
-// export function initWeather() {
-//     weatherButton.addEventListener("click", loadWeather);
-//     loadWeather();
-// }
+    } catch (err) {
+        console.error(err.message);
+        statusLi.textContent = err.message;
+    }
+}

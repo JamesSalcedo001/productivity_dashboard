@@ -1430,6 +1430,9 @@
 
 
 
+import { getWeather } from "./weather.js";
+import { saveFilter, saveSearch, saveTasks, loadFilter, loadSearch, loadTasks, clearStorage } from "./storage.js";
+
 let tasks = [];
 let filterStatus = "all";
 let searchValue = "";
@@ -1457,49 +1460,7 @@ const conditionLi = document.querySelector("#condition-li");
 const statusLi = document.querySelector("#status-li");
 
 
-function saveTasks() {
-    const convertedTasks = JSON.stringify(tasks);
-    localStorage.setItem("savedTasks", convertedTasks);
-}
 
-
-function loadTasks() {
-    const savedTasks = localStorage.getItem("savedTasks");
-    const parsedTasks = JSON.parse(savedTasks);
-    if (parsedTasks) {
-        tasks = parsedTasks;
-        console.log(tasks);
-    } else {
-        console.log("no tasks saved yet");
-    }
-}
-
-
-const saveFilter = () => localStorage.setItem("savedFilterStatus", filterStatus);
-
-const loadFilter = () => {
-    const savedFilter = localStorage.getItem("savedFilterStatus");
-    if (savedFilter) {
-        filterStatus = savedFilter;
-    } else {
-        filterStatus = "all";
-    }
-}
-
-
-const saveSearch = () => localStorage.setItem("savedSearchInput", searchValue);
-
-const loadSearch = () => {
-    const savedSearch = localStorage.getItem("savedSearchInput");
-
-    if (!savedSearch) {
-        console.log("no search value yet");
-        return;
-    }
-
-    searchValue = savedSearch;
-    searchInput.value = searchValue;
-}
 
 
 
@@ -1519,9 +1480,7 @@ const clearTasks = () => {
     filterStatus = "all";
     searchValue = "";
     searchInput.value = "";
-    localStorage.removeItem("savedTasks");
-    localStorage.removeItem("savedFilterStatus");
-    localStorage.removeItem("savedSearchInput");
+    
 }
 
 
@@ -1535,59 +1494,15 @@ function toggleCompleted(id) {
         }
     }
     if (taskFound) {
-        saveTasks();
+        saveTasks(tasks);
     }
 }
 
 
-function weatherCodes(code) {
-
-    const weatherCodesInterpretation = {
-        0: "Clear Sky",
-        1: "Mainly Clear",
-        2: "Partly Cloudy",
-        3: "Overcast",
-        45: "Fog",
-        48: "Depositing Rime Fog",
-        51: "Light Drizzle",
-    }
-
-   return weatherCodesInterpretation[code] || "Unknown Weather";
-}
 
 
-async function getWeather() {
-
-    temperatureLi.textContent = "Temperature: ";
-    conditionLi.textContent = "Condition: ";
-    statusLi.textContent = "Request Status: ";
 
 
-    try {
-        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&timezone=America%2FChicago&temperature_unit=fahrenheit");
-
-        if (!res.ok) {
-            console.error(res.status);
-            statusLi.textContent = res.status;
-        }
-
-        const result = await res.json();
-        console.log(result);
-
-        temperatureLi.textContent = `Temperature: ${result.current.temperature_2m} ${result.current_units.temperature_2m}`;
-
-
-        const currentCode = result.current.weather_code;
-        conditionLi.textContent = `Condition: ${weatherCodes(currentCode)}`;
-
-        statusLi.textContent = `Request Status: ${res.status}`;
-
-
-    } catch (err) {
-        console.error(err.message);
-        statusLi.textContent = err.message;
-    }
-}
 
 
 
@@ -1673,7 +1588,7 @@ taskButton.addEventListener("click", () => {
 
     if (input !== "") {
         addTask(input);
-        saveTasks();
+        saveTasks(tasks);
         taskInput.value = "";
     }
 
@@ -1684,33 +1599,34 @@ taskButton.addEventListener("click", () => {
 
 clearTaskButton.addEventListener("click", () => {
     clearTasks();
+    clearStorage();
     renderTasks();
 })
 
 
 allTasksFilterButton.addEventListener("click", () => {
     filterStatus = "all";
-    saveFilter();
+    saveFilter(filterStatus);
     renderTasks();
 })
 
 
 completeTasksFilterButton.addEventListener("click", () => {
     filterStatus = "completed";
-    saveFilter();
+    saveFilter(filterStatus);
     renderTasks();
 })
 
 incompleteTasksFilterButton.addEventListener("click", () => {
     filterStatus = "incomplete";
-    saveFilter();
+    saveFilter(filterStatus);
     renderTasks();
 })
 
 
 searchInput.addEventListener("input", (e) => {
     searchValue = e.target.value;
-    saveSearch();
+    saveSearch(searchValue);
 
     renderTasks();
 })
@@ -1718,7 +1634,7 @@ searchInput.addEventListener("input", (e) => {
 
 
 weatherButton.addEventListener("click", () => {
-    getWeather();
+    getWeather(temperatureLi, conditionLi, statusLi);
 })
 
 
@@ -1727,9 +1643,10 @@ weatherButton.addEventListener("click", () => {
 
 
 
-loadSearch();
-loadFilter();
-loadTasks();
+searchValue = loadSearch();
+searchInput.value = searchValue;
+filterStatus = loadFilter();
+tasks = loadTasks();
 renderTasks();
 
 
