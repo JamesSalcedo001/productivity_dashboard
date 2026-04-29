@@ -1464,15 +1464,11 @@ const statusLi = document.querySelector("#status-li");
 
 
 
-function addTask(text) {
-    const newTask = {
-        id: tasks.length + 1,
-        text: text,
-        completed: false
-    }
 
-    tasks.push(newTask);
-};
+
+
+
+
 
 
 const clearTasks = () => {
@@ -1482,27 +1478,6 @@ const clearTasks = () => {
     searchInput.value = "";
     
 }
-
-
-function toggleCompleted(id) {
-    let taskFound = false;
-
-    for (const task of tasks) {
-        if (task.id === id) {
-            task.completed = !task.completed;
-            taskFound = true;
-        }
-    }
-    if (taskFound) {
-        saveTasks(tasks);
-    }
-}
-
-
-
-
-
-
 
 
 
@@ -1567,6 +1542,8 @@ function renderTasks() {
     }
 
 }
+
+
 
 
 
