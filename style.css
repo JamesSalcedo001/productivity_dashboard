@@ -129,6 +129,7 @@
     border-radius: 10px;
     text-align: center;
     margin: auto;
+    min-width: 60%;
 }
 
 
@@ -140,6 +141,7 @@
     width: fit-content;
     border-radius: 10px;
     margin: auto;
+    min-width: 60%;
 }
 
 #task-input-container {
@@ -149,6 +151,7 @@
     width: fit-content;
     border-radius: 10px;
     margin: auto;
+    min-width: 60%;
 }
 
 #task-actions-container {
@@ -207,14 +210,15 @@
     border: 1px solid black;
     border-radius: 10px;
     margin: auto;
+    min-width: 60%;
 }
 
 #tasks-list li {
     background-color: whitesmoke;
     border: 1px solid black;
     border-radius: 5px;
-    margin-bottom: 3px;
-    padding: 5px 18px;
+    margin-bottom: 10px;
+    padding: 18px;
 }
 
 #task-stats-list {
@@ -224,6 +228,7 @@
     border-radius: 10px;
     margin-bottom: 20px;
     width: fit-content;
+    min-width: 60%;
     margin: auto;
 }
 
