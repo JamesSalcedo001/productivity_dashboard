@@ -10,7 +10,7 @@
     margin-bottom: 1rem;
 } */
 
-
+/* 
 #task-filters-container {
     display: flex;
 
@@ -80,4 +80,94 @@
     border: 1px solid black;
     padding: 20px 20px;
     width: fit-content;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#task-stats-container {
+    border: 1px solid black;
+    background-color: rgb(225, 232, 248);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
+
+#task-filters-container {
+    border: 1px solid black;
+    background-color: rgb(225, 232, 248);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+#filter-buttons-container {
+    border: 1px solid black;
+    background-color: whitesmoke;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+
+
+#tasks-search-container {
+    border: 1px solid black;
+    background-color: whitesmoke;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+#task-input-container {
+    border: 1px solid black;
+    background-color: whitesmoke;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+}
+
+#task-actions-container {
+    border: 1px solid black;
+    background-color: rgb(225, 232, 248);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#tasks-list-container {
+    border: 1px solid black;
+    background-color: rgb(225, 232, 248);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+.filter-buttons {
+    padding: 8px;
+    min-width: 100px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid black;
+    color: rgb(0, 0, 0);
+    margin-inline: 3px;
+}
+
+#tasks-search-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: black;
+}
+

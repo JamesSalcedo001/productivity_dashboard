@@ -1430,36 +1430,34 @@
 
 
 
-import { getWeather } from "./weather.js";
-import { saveFilter, saveSearch, saveTasks, loadFilter, loadSearch, loadTasks, clearStorage } from "./storage.js";
+// import { getWeather } from "./weather.js";
+// import { saveFilter, saveSearch, saveTasks, loadFilter, loadSearch, loadTasks, clearStorage } from "./storage.js";
 
-let tasks = [];
-let filterStatus = "all";
-let searchValue = "";
-
-
-
-const taskButton = document.querySelector("#new-task-button");
-const taskInput = document.querySelector("#task-input");
-const taskList = document.querySelector("#task-list");
-const taskInputContainer = document.querySelector("#task-user-inputs-container");
-const clearTaskButton = document.querySelector("#clear-tasks");
-const allTasksFilterButton = document.querySelector("#all-tasks");
-const completeTasksFilterButton = document.querySelector("#completed-tasks");
-const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
-const searchInput = document.querySelector("#search-input");
-const totalTaskCount = document.querySelector("#total-task-count");
-const completedTaskCount = document.querySelector("#completed-task-count");
-const incompleteTaskCount = document.querySelector("#incomplete-task-count");
+// let tasks = [];
+// let filterStatus = "all";
+// let searchValue = "";
 
 
 
-const weatherButton = document.querySelector("#get-weather-button")
-const temperatureLi = document.querySelector("#temp-li");
-const conditionLi = document.querySelector("#condition-li");
-const statusLi = document.querySelector("#status-li");
+// const taskButton = document.querySelector("#new-task-button");
+// const taskInput = document.querySelector("#task-input");
+// const taskList = document.querySelector("#task-list");
+// const taskInputContainer = document.querySelector("#task-user-inputs-container");
+// const clearTaskButton = document.querySelector("#clear-tasks");
+// const allTasksFilterButton = document.querySelector("#all-tasks");
+// const completeTasksFilterButton = document.querySelector("#completed-tasks");
+// const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
+// const searchInput = document.querySelector("#search-input");
+// const totalTaskCount = document.querySelector("#total-task-count");
+// const completedTaskCount = document.querySelector("#completed-task-count");
+// const incompleteTaskCount = document.querySelector("#incomplete-task-count");
 
 
+
+// const weatherButton = document.querySelector("#get-weather-button")
+// const temperatureLi = document.querySelector("#temp-li");
+// const conditionLi = document.querySelector("#condition-li");
+// const statusLi = document.querySelector("#status-li");
 
 
 
@@ -1471,148 +1469,150 @@ const statusLi = document.querySelector("#status-li");
 
 
 
-const clearTasks = () => {
-    tasks = [];
-    filterStatus = "all";
-    searchValue = "";
-    searchInput.value = "";
+
+
+// const clearTasks = () => {
+//     tasks = [];
+//     filterStatus = "all";
+//     searchValue = "";
+//     searchInput.value = "";
     
-}
+// }
 
 
 
 
-function renderTasks() {
-    taskList.textContent = "";
+// function renderTasks() {
+//     taskList.textContent = "";
 
 
 
 
 
-    const totalTasks = tasks.length;
-    totalTaskCount.textContent = "Total Task Count: " + totalTasks;
+//     const totalTasks = tasks.length;
+//     totalTaskCount.textContent = "Total Task Count: " + totalTasks;
 
-    const completeTasks = tasks.filter(task => task.completed).length;
-    completedTaskCount.textContent = "Completed Task Count: " + completeTasks;
+//     const completeTasks = tasks.filter(task => task.completed).length;
+//     completedTaskCount.textContent = "Completed Task Count: " + completeTasks;
 
-    const incompleteTasks = tasks.filter(task => !task.completed).length;
-    incompleteTaskCount.textContent = "Incomplete Task Count: " + incompleteTasks;
+//     const incompleteTasks = tasks.filter(task => !task.completed).length;
+//     incompleteTaskCount.textContent = "Incomplete Task Count: " + incompleteTasks;
 
 
-    let shownTasks;
+//     let shownTasks;
 
-    if (filterStatus === "completed") {
-        shownTasks = tasks.filter(task => task.completed);
-    } else if (filterStatus === "incomplete") {
-        shownTasks = tasks.filter(task => !task.completed);
-    } else {
-        shownTasks = tasks;
-    }
+//     if (filterStatus === "completed") {
+//         shownTasks = tasks.filter(task => task.completed);
+//     } else if (filterStatus === "incomplete") {
+//         shownTasks = tasks.filter(task => !task.completed);
+//     } else {
+//         shownTasks = tasks;
+//     }
 
 
-    if (searchValue !== "") {
-        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchValue.toLowerCase()));
-    }
+//     if (searchValue !== "") {
+//         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchValue.toLowerCase()));
+//     }
 
 
 
 
 
 
-    for (const task of shownTasks) {
-        const li = document.createElement("li");
-        li.textContent = task.text;
+//     for (const task of shownTasks) {
+//         const li = document.createElement("li");
+//         li.textContent = task.text;
 
-        if (task.completed) {
-            li.style.textDecoration = "line-through";
-        }
+//         if (task.completed) {
+//             li.style.textDecoration = "line-through";
+//         }
 
-        if (searchValue !== "" && task.text.toLowerCase().includes(searchValue.toLowerCase())) {
-            li.style.backgroundColor = "lightgrey";
-        } else {
-            li.style.backgroundColor = "";
-        }
+//         if (searchValue !== "" && task.text.toLowerCase().includes(searchValue.toLowerCase())) {
+//             li.style.backgroundColor = "lightgrey";
+//         } else {
+//             li.style.backgroundColor = "";
+//         }
 
-        li.addEventListener("click", () => {
-            toggleCompleted(task.id);
-            renderTasks();
-        })
+//         li.addEventListener("click", () => {
+//             toggleCompleted(task.id);
+//             renderTasks();
+//         })
 
-        taskList.appendChild(li);
-    }
+//         taskList.appendChild(li);
+//     }
 
-}
+// }
 
 
 
 
 
 
-taskButton.addEventListener("click", () => {
-    let input = taskInput.value.trim();
+// taskButton.addEventListener("click", () => {
+//     let input = taskInput.value.trim();
 
-    if (input === "") {
-        const emptyTaskMessage = document.createElement("p");
-        emptyTaskMessage.textContent = "Task bar is empty, would you like to add a task?";
-        emptyTaskMessage.style.color = "red";
-        taskInputContainer.appendChild(emptyTaskMessage);
+//     if (input === "") {
+//         const emptyTaskMessage = document.createElement("p");
+//         emptyTaskMessage.textContent = "Task bar is empty, would you like to add a task?";
+//         emptyTaskMessage.style.color = "red";
+//         taskInputContainer.appendChild(emptyTaskMessage);
 
-        setTimeout(() => {
-            emptyTaskMessage.remove();
-        }, 1000)
+//         setTimeout(() => {
+//             emptyTaskMessage.remove();
+//         }, 1000)
 
-    }
+//     }
 
-    if (input !== "") {
-        addTask(input);
-        saveTasks(tasks);
-        taskInput.value = "";
-    }
+//     if (input !== "") {
+//         addTask(input);
+//         saveTasks(tasks);
+//         taskInput.value = "";
+//     }
 
-    renderTasks();
+//     renderTasks();
 
-})
+// })
 
 
-clearTaskButton.addEventListener("click", () => {
-    clearTasks();
-    clearStorage();
-    renderTasks();
-})
+// clearTaskButton.addEventListener("click", () => {
+//     clearTasks();
+//     clearStorage();
+//     renderTasks();
+// })
 
 
-allTasksFilterButton.addEventListener("click", () => {
-    filterStatus = "all";
-    saveFilter(filterStatus);
-    renderTasks();
-})
+// allTasksFilterButton.addEventListener("click", () => {
+//     filterStatus = "all";
+//     saveFilter(filterStatus);
+//     renderTasks();
+// })
 
 
-completeTasksFilterButton.addEventListener("click", () => {
-    filterStatus = "completed";
-    saveFilter(filterStatus);
-    renderTasks();
-})
+// completeTasksFilterButton.addEventListener("click", () => {
+//     filterStatus = "completed";
+//     saveFilter(filterStatus);
+//     renderTasks();
+// })
 
-incompleteTasksFilterButton.addEventListener("click", () => {
-    filterStatus = "incomplete";
-    saveFilter(filterStatus);
-    renderTasks();
-})
+// incompleteTasksFilterButton.addEventListener("click", () => {
+//     filterStatus = "incomplete";
+//     saveFilter(filterStatus);
+//     renderTasks();
+// })
 
 
-searchInput.addEventListener("input", (e) => {
-    searchValue = e.target.value;
-    saveSearch(searchValue);
+// searchInput.addEventListener("input", (e) => {
+//     searchValue = e.target.value;
+//     saveSearch(searchValue);
 
-    renderTasks();
-})
+//     renderTasks();
+// })
 
 
 
-weatherButton.addEventListener("click", () => {
-    getWeather(temperatureLi, conditionLi, statusLi);
-})
+// weatherButton.addEventListener("click", () => {
+//     getWeather(temperatureLi, conditionLi, statusLi);
+// })
 
 
 
@@ -1620,11 +1620,11 @@ weatherButton.addEventListener("click", () => {
 
 
 
-searchValue = loadSearch();
-searchInput.value = searchValue;
-filterStatus = loadFilter();
-tasks = loadTasks();
-renderTasks();
+// searchValue = loadSearch();
+// searchInput.value = searchValue;
+// filterStatus = loadFilter();
+// tasks = loadTasks();
+// renderTasks();
 
 
 
@@ -1636,3 +1636,36 @@ renderTasks();
 
 
 
+
+
+
+
+// rebuild again from scratch
+
+
+// list of tasks
+
+// task stats total count
+// task stats total complete count
+// task stats total incomplete count
+
+// tasks when clicked toggle complete/incomplete with line through them
+
+// user can add a new task
+// user can clear all tasks
+// when user adds task, input is cleared visually
+
+// user can filter to show all tasks
+// user can filter only complete tasks
+// user can filter only incomplete tasks
+
+// user can search tasks to filter what matches search text
+// when user searches, matching results show gray background highlighted
+// if user searches and no tasks match, display message saying no tasks match
+
+// store tasks in localstorage
+// store task filters in localstorage
+// store task search in localstorage
+// use localstorage to display across refreshes
+
+// display weather stats for Houston 
