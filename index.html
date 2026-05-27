@@ -9,17 +9,17 @@
 </head>
 
 <body>
-    <h1>Productivity Dashboard</h1>
+    <h1 id="main-title">Productivity Dashboard</h1>
 
     <section id="tasks">
         <div id="task-stats-container">
             <h3 id="task-stats-title">Task Stats</h3>
 
-            <ul id="task-stats-list">
-                <li class="task-stats-item">total tasks: 0</li>
-                <li class="task-stats-item">tasks completed: 0</li>
-                <li class="task-stats-item">tasks not completed: 0</li>
-            </ul>
+            <div id="task-stats-list">
+                <p class="task-stats-p">total tasks: 0</p>
+                <p class="task-stats-p">tasks completed: 0</p>
+                <p class="task-stats-p">tasks not completed: 0</p>
+            </div>
         </div>
 
         <div id="task-filters-container">
@@ -42,16 +42,20 @@
             <h3 id="task-actions-title">Task Actions</h3>
 
             <div id="task-input-container">
-                <input type="text" placeholder="add a task">
-                <button id="add-task-button">Add Task</button>
-                <button id="clear-tasks-button">Clear Tasks</button>
+                <input type="text" class="task-buttons" placeholder="add a task">
+                <button class="task-buttons" id="add-task-button">Add Task</button>
+                <button class="task-buttons" id="clear-tasks-button">Clear Tasks</button>
             </div>
         </div>
 
         <div id="tasks-list-container">
             <h3 id="tasks-title">Tasks</h3>
 
-            <ul id="tasks-list"></ul>
+            <ul id="tasks-list">
+                <li>Hello</li>
+                <li>Hello</li>
+                <li>Hello</li>
+            </ul>
 
         </div>
 
