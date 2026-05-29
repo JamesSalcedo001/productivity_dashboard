@@ -1649,7 +1649,7 @@
 // task stats total complete count
 // task stats total incomplete count
 
-// tasks when clicked toggle complete/incomplete with line through them
+// ++ tasks when clicked toggle complete/incomplete with line through them
 
 // ++ user can add a new task
 // ++ user can clear all tasks
@@ -1678,6 +1678,9 @@
 
 // stores list of task objects
 let tasks = [];
+// filter state
+let filterMode = "all";
+
 // DOM selections
 const addTaskInput = document.querySelector("#new-task-input");
 const addTaskButton = document.querySelector("#new-task-button");
@@ -1736,15 +1739,18 @@ clearTasksButton.addEventListener("click", () => {
 
 
 allTasksFilterButton.addEventListener("click", () => {
-    console.log(tasks);
+    filterMode = "all";
+    renderTasks();
 })
 
 completeTasksFilterButton.addEventListener("click", () => {
-    console.log(tasks.filter(task => task.complete));
+    filterMode = "complete";
+    renderTasks();
 })
 
 incompleteTasksFilterButton.addEventListener("click", () => {
-    console.log(tasks.filter(task => !task.complete));
+    filterMode = "incomplete";
+    renderTasks();
 })
 
 
@@ -1756,8 +1762,20 @@ incompleteTasksFilterButton.addEventListener("click", () => {
 // and then appends the newly created li to the taskslist UL
 function renderTasks() {
     tasksList.textContent = "";
+    let shownTasks;
 
-    for (let task of tasks) {
+    if (filterMode === "complete") {
+        shownTasks = tasks.filter(task => task.complete);
+    } else if (filterMode === "incomplete") {
+        shownTasks = tasks.filter(task => !task.complete);
+    } else {
+        shownTasks = tasks;
+    }
+
+
+
+
+    for (let task of shownTasks) {
         const li = document.createElement('li');
         li.textContent = task.text;
 
