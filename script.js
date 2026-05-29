@@ -1643,7 +1643,7 @@
 // rebuild again from scratch
 
 
-// list of tasks
+// ++ list of tasks
 
 // task stats total count
 // task stats total complete count
@@ -1651,9 +1651,9 @@
 
 // tasks when clicked toggle complete/incomplete with line through them
 
-// user can add a new task
+// ++ user can add a new task
 // user can clear all tasks
-// when user adds task, input is cleared visually
+// ++ when user adds task, input is cleared visually
 
 // user can filter to show all tasks
 // user can filter only complete tasks
@@ -1671,13 +1671,19 @@
 // display weather stats for Houston 
 
 
-
+// stores list of task objects
 const tasks = [];
+// DOM selections
 const addTaskInput = document.querySelector("#new-task-input");
 const addTaskButton = document.querySelector("#new-task-button");
+const tasksList = document.querySelector("#tasks-list");
 
 
-
+// takes in text as an arg, 
+// creates a new object with an id(incrementing off the length of the tasks array), 
+// the text given describing the task, 
+// and setting the complete property value to false by default until marked complete, 
+// finally taking the newly created task object and pushing it into the tasks array
 function addTask(text) {
     const newTask = {
         id: tasks.length + 1,
@@ -1689,6 +1695,11 @@ function addTask(text) {
 };
 
 
+// event listener for the add task button, when clicked, takes the input from the addtaskinput and trims it, 
+// checks if the input is empty and if so returns with a message to correct the error, 
+// calls addTask with the inputValue variable as the argument, 
+// calls renderTasks to update the visual list of tasks matching the updated tasks array, 
+// and then clears the input so the user can add a new task
 addTaskButton.addEventListener("click", () => {
     let inputValue = addTaskInput.value.trim();
     if (inputValue === "") {
@@ -1697,9 +1708,25 @@ addTaskButton.addEventListener("click", () => {
     };
 
     addTask(inputValue);
-    console.log(tasks);
+    renderTasks();
 
     addTaskInput.value = "";
 })
 
 
+
+// clears task list, loops through tasks array, 
+// for each creates a new li, 
+// sets the text content to the task.text property value, 
+// and then appends the newly created li to the taskslist UL
+function renderTasks() {
+    tasksList.textContent = "";
+
+    for (let task of tasks) {
+        const li = document.createElement('li');
+        li.textContent = task.text;
+        tasksList.appendChild(li);
+    }
+}
+
+renderTasks();
