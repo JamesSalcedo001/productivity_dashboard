@@ -1760,6 +1760,18 @@ function renderTasks() {
     for (let task of tasks) {
         const li = document.createElement('li');
         li.textContent = task.text;
+
+        li.addEventListener("click", () => {
+            task.complete = !task.complete;
+            if (task.complete) {
+                li.style.textDecoration = "line-through";
+            } else {
+                li.style.textDecoration = "none";
+            }
+            console.log(tasks);
+        })
+
+
         tasksList.appendChild(li);
     }
 }
