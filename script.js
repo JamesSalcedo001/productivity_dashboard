@@ -1683,7 +1683,9 @@ const addTaskInput = document.querySelector("#new-task-input");
 const addTaskButton = document.querySelector("#new-task-button");
 const tasksList = document.querySelector("#tasks-list");
 const clearTasksButton = document.querySelector("#clear-tasks-button");
-
+const allTasksFilterButton = document.querySelector("#all-tasks");
+const completeTasksFilterButton = document.querySelector("#complete-tasks");
+const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
 
 // takes in text as an arg, 
 // creates a new object with an id(incrementing off the length of the tasks array), 
@@ -1732,6 +1734,18 @@ clearTasksButton.addEventListener("click", () => {
     renderTasks();
 })
 
+
+allTasksFilterButton.addEventListener("click", () => {
+    console.log(tasks);
+})
+
+completeTasksFilterButton.addEventListener("click", () => {
+    console.log(tasks.filter(task => task.complete));
+})
+
+incompleteTasksFilterButton.addEventListener("click", () => {
+    console.log(tasks.filter(task => !task.complete));
+})
 
 
 
