@@ -1652,7 +1652,7 @@
 // tasks when clicked toggle complete/incomplete with line through them
 
 // ++ user can add a new task
-// user can clear all tasks
+// ++ user can clear all tasks
 // ++ when user adds task, input is cleared visually
 
 // user can filter to show all tasks
@@ -1671,12 +1671,18 @@
 // display weather stats for Houston 
 
 
+
+
+
+
+
 // stores list of task objects
-const tasks = [];
+let tasks = [];
 // DOM selections
 const addTaskInput = document.querySelector("#new-task-input");
 const addTaskButton = document.querySelector("#new-task-button");
 const tasksList = document.querySelector("#tasks-list");
+const clearTasksButton = document.querySelector("#clear-tasks-button");
 
 
 // takes in text as an arg, 
@@ -1695,6 +1701,11 @@ function addTask(text) {
 };
 
 
+// empties list of tasks by setting it to a new array
+function clearTasks() {
+    tasks = [];
+}
+
 // event listener for the add task button, when clicked, takes the input from the addtaskinput and trims it, 
 // checks if the input is empty and if so returns with a message to correct the error, 
 // calls addTask with the inputValue variable as the argument, 
@@ -1712,6 +1723,16 @@ addTaskButton.addEventListener("click", () => {
 
     addTaskInput.value = "";
 })
+
+
+// event listener for clear task button, calls clearTasks function which sets tasks array to new array, 
+// and then updates the DOM with the rendertasks function
+clearTasksButton.addEventListener("click", () => {
+    clearTasks();
+    renderTasks();
+})
+
+
 
 
 
