@@ -1669,3 +1669,37 @@
 // use localstorage to display across refreshes
 
 // display weather stats for Houston 
+
+
+
+const tasks = [];
+const addTaskInput = document.querySelector("#new-task-input");
+const addTaskButton = document.querySelector("#new-task-button");
+
+
+
+function addTask(text) {
+    const newTask = {
+        id: tasks.length + 1,
+        text,
+        complete: false,
+    };
+
+    tasks.push(newTask);
+};
+
+
+addTaskButton.addEventListener("click", () => {
+    let inputValue = addTaskInput.value.trim();
+    if (inputValue === "") {
+        console.log("input left empty, please enter a task before clicking");
+        return;
+    };
+
+    addTask(inputValue);
+    console.log(tasks);
+
+    addTaskInput.value = "";
+})
+
+
