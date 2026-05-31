@@ -1697,6 +1697,12 @@ const allTasksCount = document.querySelector("#total-task-count");
 const completeTasksCount = document.querySelector("#complete-task-count");
 const incompleteTasksCount = document.querySelector("#incomplete-task-count");
 
+const weatherButton = document.querySelector("#fetch-weather-button");
+const latLng = document.querySelector("#lat-lng");
+const temp = document.querySelector("#temp");
+const weatherCode = document.querySelector("#weather-code");
+
+
 // takes in text as an arg, 
 // creates a new object with an id(incrementing off the length of the tasks array), 
 // the text given describing the task, 
@@ -1838,6 +1844,7 @@ incompleteTasksFilterButton.addEventListener("click", () => {
 
 searchInput.addEventListener("input", () => {
     let inputValue = searchInput.value.trim();
+    // should I be using event.target.value? it seems to work how it is, is there a difference?
     searchText = inputValue;
     saveSearch();
     renderTasks();
@@ -1908,16 +1915,45 @@ function renderTasks() {
 
 
 
+
+function weatherCodeConverter(code) {
+    const codeChart = {
+        0: "Clear Sky",
+        1: "Mainly Clear",
+        2: "Partly Cloudy",
+        3: "Overcast"
+    }
+
+    return codeChart[code];
+}
+
+
+
 async function loadWeather() {
     const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch");
     const data = await res.json();
-    console.log(data);
+    console.log("lat: ", data.latitude);
+    console.log("long: ", data.longitude);
+    console.log("temp: ", data.current.temperature_2m);
+    console.log("temp unit: ", data.current_units.temperature_2m);
+    console.log("weather code: ", data.current.weather_code);
+
+
+    latLng.textContent = "Latitude: " + data.latitude + "  |  " + "Longitude: " + data.longitude;
+    temp.textContent = "Temperature: " + data.current.temperature_2m + " " + data.current_units.temperature_2m;
+    weatherCode.textContent = "Conditions: " + weatherCodeConverter(data.current.weather_code);
+
+
+    
+    
 }
 
 
 
 
-
+weatherButton.addEventListener("click", () => {
+    loadWeather();
+})
 
 
 

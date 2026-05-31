@@ -254,6 +254,18 @@
     margin: auto;
 }
 
+#fetch-weather-button {
+    padding: 18px;
+    background-color: rgb(39, 40, 42);
+    color: white;
+    border: 1px solid black;
+    margin: auto;
+    display: block;
+    /* why did I have to change this to display block for it to center? */
+    border-radius: 5px;
+    min-width: 150px;
+}
+
 .weather-p {
     background-color: white;
     max-width: 60%;
@@ -262,3 +274,4 @@
     border-radius: 5px;
     padding: 18px;
 }
+
