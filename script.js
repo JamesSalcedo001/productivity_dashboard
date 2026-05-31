@@ -1710,23 +1710,83 @@ function addTask(text) {
     };
 
     tasks.push(newTask);
+    saveTasks();
 };
 
 
 // empties list of tasks by setting it to a new array
 function clearTasks() {
     tasks = [];
+    filterMode = "";
+    searchText = "";
+    searchInput.value = "";
+
+    localStorage.removeItem("tasks");
+    localStorage.removeItem("search");
+    localStorage.removeItem("filter");
+
+    // I put saveTasks here before but I was getting an error cannot read properties of undefined
+    //  and it was referencing the line I am using toLowerCase() in for the searchtext filter I believe, 
+    // why did this cause an error specifically once I started adding in the localstorage save/load searchtext functions?
+
 }
 
 // takes in id to target a specific task, 
 // loops through task array, matches task id to the given id, 
 // applies the ! to the boolean which toggles between true and false
 function toggleCompleted(id) {
+    let taskFound = false;
     for (let task of tasks) {
         if (task.id === id) {
             task.complete = !task.complete;
+            taskFound = true;
         }
     }
+    if (taskFound === true) {
+        saveTasks();
+    }
+}
+
+
+
+function saveTasks() {
+    const convertedTasks = JSON.stringify(tasks);
+    localStorage.setItem("tasks", convertedTasks);
+}
+
+function loadTasks() {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if (!savedTasks) return;
+
+    const parsedTasks = JSON.parse(savedTasks);
+    tasks = parsedTasks;
+}
+
+
+
+function saveFilter() {
+    localStorage.setItem("filter", filterMode);
+}
+
+function loadFilter() {
+    const savedFilter = localStorage.getItem("filter");
+    filterMode = savedFilter;
+}
+
+
+function saveSearch() {
+    localStorage.setItem("search", searchText);
+}
+
+function loadSearch() {
+    const savedSearch = localStorage.getItem("search");
+    if (!savedSearch) {
+        return;
+    }
+
+    searchText = savedSearch;
+    searchInput.value = searchText;
 }
 
 
@@ -1760,22 +1820,26 @@ clearTasksButton.addEventListener("click", () => {
 
 allTasksFilterButton.addEventListener("click", () => {
     filterMode = "all";
+    saveFilter();
     renderTasks();
 })
 
 completeTasksFilterButton.addEventListener("click", () => {
     filterMode = "complete";
+    saveFilter();
     renderTasks();
 })
 
 incompleteTasksFilterButton.addEventListener("click", () => {
     filterMode = "incomplete";
+    saveFilter();
     renderTasks();
 })
 
 searchInput.addEventListener("input", () => {
     let inputValue = searchInput.value.trim();
     searchText = inputValue;
+    saveSearch();
     renderTasks();
 })
 
@@ -1841,4 +1905,7 @@ function renderTasks() {
     }
 }
 
+loadTasks();
+loadFilter();
+loadSearch();
 renderTasks();
