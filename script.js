@@ -1476,7 +1476,7 @@
 //     filterStatus = "all";
 //     searchValue = "";
 //     searchInput.value = "";
-    
+
 // }
 
 
@@ -1711,6 +1711,17 @@ function clearTasks() {
     tasks = [];
 }
 
+
+function toggleCompleted(id) {
+    for (let task of tasks) {
+        if (task.id === id) {
+            task.complete = !task.complete;
+        }
+    }
+}
+
+
+
 // event listener for the add task button, when clicked, takes the input from the addtaskinput and trims it, 
 // checks if the input is empty and if so returns with a message to correct the error, 
 // calls addTask with the inputValue variable as the argument, 
@@ -1772,6 +1783,7 @@ function renderTasks() {
         shownTasks = tasks;
     }
 
+    
 
 
 
@@ -1779,14 +1791,14 @@ function renderTasks() {
         const li = document.createElement('li');
         li.textContent = task.text;
 
+        if (task.complete) {
+            li.style.textDecoration = "line-through";
+        }
+
+
         li.addEventListener("click", () => {
-            task.complete = !task.complete;
-            if (task.complete) {
-                li.style.textDecoration = "line-through";
-            } else {
-                li.style.textDecoration = "none";
-            }
-            console.log(tasks);
+            toggleCompleted(task.id);
+            renderTasks();
         })
 
 
