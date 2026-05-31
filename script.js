@@ -1662,10 +1662,10 @@
 // ++ user can search tasks to filter what matches search text
 // ++ when user searches, matching results show gray background highlighted
 
-// store tasks in localstorage
-// store task filters in localstorage
-// store task search in localstorage
-// use localstorage to display across refreshes
+// ++ store tasks in localstorage
+// ++ store task filters in localstorage
+// ++ store task search in localstorage
+
 
 // display weather stats for Houston 
 
@@ -1905,7 +1905,39 @@ function renderTasks() {
     }
 }
 
+
+
+
+async function loadWeather() {
+    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=29.7633&longitude=-95.3633&current=temperature_2m,weather_code&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch");
+    const data = await res.json();
+    console.log(data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 loadTasks();
 loadFilter();
 loadSearch();
 renderTasks();
+// loadWeather();
