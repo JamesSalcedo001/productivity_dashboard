@@ -244,3 +244,21 @@
     margin-inline: 3px;
     min-width: 100px;
 }
+
+
+#weather-card {
+    background-color: rgb(40, 45, 53);
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    margin: auto;
+}
+
+.weather-p {
+    background-color: white;
+    max-width: 60%;
+    margin: 20px auto;
+    text-align: center;
+    border-radius: 5px;
+    padding: 18px;
+}
