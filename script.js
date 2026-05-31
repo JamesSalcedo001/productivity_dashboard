@@ -1711,7 +1711,9 @@ function clearTasks() {
     tasks = [];
 }
 
-
+// takes in id to target a specific task, 
+// loops through task array, matches task id to the given id, 
+// applies the ! to the boolean which toggles between true and false
 function toggleCompleted(id) {
     for (let task of tasks) {
         if (task.id === id) {
@@ -1767,9 +1769,10 @@ incompleteTasksFilterButton.addEventListener("click", () => {
 
 
 
-// clears task list, loops through tasks array, 
+// clears task list, creates variable for tasks filters, sets conditions based on what filtermode is set to, loops through tasks array,
 // for each creates a new li, 
-// sets the text content to the task.text property value, 
+// sets the text content to the task.text property value, if task is complete, style it with a line through to indicate complete, 
+// set event listener to call togglecompleted which switches the completed property value to the opposite, call rendertasks to show updated list of tasks with changes, 
 // and then appends the newly created li to the taskslist UL
 function renderTasks() {
     tasksList.textContent = "";
@@ -1783,7 +1786,7 @@ function renderTasks() {
         shownTasks = tasks;
     }
 
-    
+
 
 
 
