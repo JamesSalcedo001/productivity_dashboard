@@ -36,6 +36,7 @@ const allTasksFilterButton = document.querySelector("#all-tasks");
 const completeTasksFilterButton = document.querySelector("#complete-tasks");
 const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
 const searchInput = document.querySelector("#tasks-search-input");
+const categoriesFilter = document.querySelector("#category-filter");
 
 // Stats elements
 const allTasksCount = document.querySelector("#total-task-count");
@@ -259,6 +260,17 @@ function renderCategories() {
 
 
 
+function renderFilterCategories() {
+    for (const c of categories) {
+        const o = document.createElement("option");
+        o.textContent = c;
+        o.value = c;
+        categoriesFilter.appendChild(o);
+    }
+}
+
+
+
 
 
 
@@ -458,6 +470,7 @@ loadTasks();
 loadFilter();
 loadSearch();
 renderCategories();
+renderFilterCategories();
 renderTasks();
 // loadWeather();
 
