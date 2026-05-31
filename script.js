@@ -1680,6 +1680,8 @@
 let tasks = [];
 // filter state
 let filterMode = "all";
+// search state
+let searchText = "";
 
 // DOM selections
 const addTaskInput = document.querySelector("#new-task-input");
@@ -1689,6 +1691,7 @@ const clearTasksButton = document.querySelector("#clear-tasks-button");
 const allTasksFilterButton = document.querySelector("#all-tasks");
 const completeTasksFilterButton = document.querySelector("#complete-tasks");
 const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
+const searchInput = document.querySelector("#tasks-search-input");
 
 // takes in text as an arg, 
 // creates a new object with an id(incrementing off the length of the tasks array), 
@@ -1766,6 +1769,12 @@ incompleteTasksFilterButton.addEventListener("click", () => {
     renderTasks();
 })
 
+searchInput.addEventListener("input", () => {
+    let inputValue = searchInput.value.trim();
+    searchText = inputValue;
+    renderTasks();
+})
+
 
 
 
@@ -1786,7 +1795,9 @@ function renderTasks() {
         shownTasks = tasks;
     }
 
-
+    if (searchText !== "") {
+        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
+    }
 
 
 
