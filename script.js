@@ -11,6 +11,9 @@ let tasks = [];
 let filterMode = "all";
 // search state
 let searchText = "";
+// task categories
+const categories = ["work", "personal", "school", "errands"];
+
 
 
 
@@ -24,6 +27,7 @@ let searchText = "";
 const addTaskInput = document.querySelector("#new-task-input");
 const addTaskButton = document.querySelector("#new-task-button");
 const tasksList = document.querySelector("#tasks-list");
+const taskCategoryInput = document.querySelector("#task-category-input");
 const clearTasksButton = document.querySelector("#clear-tasks-button");
 
 // Filter/search elements
@@ -56,16 +60,17 @@ const weatherCode = document.querySelector("#weather-code");
 
 // creates a task object and saves it
 
-function addTask(text) {
+function addTask(text, category) {
     const newTask = {
         id: tasks.length + 1,
         text,
         complete: false,
+        category
     };
 
     tasks.push(newTask);
     saveTasks();
-};
+}
 
 
 // resets task/search/filter state
@@ -76,9 +81,7 @@ function clearTasks() {
     searchText = "";
     searchInput.value = "";
 
-    localStorage.removeItem("tasks");
-    localStorage.removeItem("search");
-    localStorage.removeItem("filter");
+    clearStorage();
 
 }
 
@@ -162,12 +165,18 @@ function loadSearch() {
 
 
 
+function clearStorage() {
+    localStorage.removeItem("tasks");
+    localStorage.removeItem("search");
+    localStorage.removeItem("filter");
+}
+
 
 
 
 // =============================
 
-// 5. TASK RENDER FUNCTION
+// 5. TASK RENDER FUNCTIONS
 
 // =============================
 
@@ -214,7 +223,7 @@ function renderTasks() {
 
     for (let task of shownTasks) {
         const li = document.createElement('li');
-        li.textContent = task.text;
+        li.textContent = task.text + " - ( " + task.category + " ) ";
 
         if (task.complete) {
             li.style.textDecoration = "line-through";
@@ -237,6 +246,16 @@ function renderTasks() {
 
 
 
+
+
+function renderCategories() {
+    for (const c of categories) {
+        const o = document.createElement("option");
+        o.textContent = c;
+        o.value = c;
+        taskCategoryInput.appendChild(o);
+    }
+}
 
 
 
@@ -355,12 +374,13 @@ async function loadWeather() {
 
 addTaskButton.addEventListener("click", () => {
     let inputValue = addTaskInput.value.trim();
+    let category = taskCategoryInput.value;
     if (inputValue === "") {
         console.log("input left empty, please enter a task before clicking");
         return;
-    };
+    }
 
-    addTask(inputValue);
+    addTask(inputValue, category);
     renderTasks();
 
     addTaskInput.value = "";
@@ -437,6 +457,7 @@ weatherButton.addEventListener("click", () => {
 loadTasks();
 loadFilter();
 loadSearch();
+renderCategories();
 renderTasks();
 // loadWeather();
 

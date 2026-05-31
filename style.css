@@ -1,9 +1,46 @@
+/* =============================
+
+   1. GLOBAL / PAGE
+
+============================= */
+
 #main-title {
     text-align: center;
 }
 
 
-#task-stats-container {
+
+
+/* =============================
+
+   2. SHARED CARD SECTIONS
+
+============================= */
+
+
+
+#task-stats-container,
+#task-filters-container,
+#task-actions-container,
+#tasks-list-container {
+  border: 1px solid black;
+  background-color: rgb(234, 239, 244);
+  padding: 18px;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 60%;
+}
+
+
+
+
+
+
+
+
+/* #task-stats-container {
     border: 1px solid black;
     background-color: rgb(234, 239, 244);
     padding: 18px;
@@ -24,10 +61,37 @@
     border-radius: 10px;
     text-align: center;
     width: 60%;
-}
+} */
 
 
-#filter-buttons-container {
+
+/* #task-actions-container {
+    border: 1px solid black;
+    background-color: rgb(234, 239, 244);
+    padding: 18px;
+    border-radius: 10px;
+    margin: auto;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 60%;
+} */
+
+
+
+/* #tasks-list-container {
+    border: 1px solid black;
+    background-color: rgb(234, 239, 244);
+    padding: 18px;
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 60%;
+} */
+
+
+
+/* #filter-buttons-container {
     border: 1px solid black;
     background-color: rgb(63, 73, 82);
     padding: 18px;
@@ -36,50 +100,73 @@
     text-align: center;
     margin: auto;
     min-width: 60%;
+} */
+
+
+
+/* #tasks-search-container {
+    border: 1px solid black;
+    background-color: rgb(63, 73, 82);
+    padding: 18px;
+    width: fit-content;
+    border-radius: 10px;
+    margin: auto;
+    min-width: 60%;
+} */
+
+
+
+
+
+/* =============================
+
+   3. TASK STATS
+
+============================= */
+
+
+
+#task-stats-list {
+    border: 1px solid black;
+    background-color: rgb(63, 73, 82);
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: fit-content;
+    min-width: 60%;
+    margin: auto;
+}
+
+#task-stats-list p {
+    padding: 18px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+    margin-inline: 3px;
+    min-width: 100px;
 }
 
 
 
+
+/* =============================
+
+   4. TASK FILTERS + SEARCH
+
+============================= */
+
+
+
+
+#filter-buttons-container,
 #tasks-search-container {
-    border: 1px solid black;
-    background-color: rgb(63, 73, 82);
-    padding: 18px;
-    width: fit-content;
-    border-radius: 10px;
-    margin: auto;
-    min-width: 60%;
-}
-
-#task-input-container {
-    border: 1px solid black;
-    background-color: rgb(63, 73, 82);
-    padding: 18px;
-    width: fit-content;
-    border-radius: 10px;
-    margin: auto;
-    min-width: 60%;
-}
-
-#task-actions-container {
-    border: 1px solid black;
-    background-color: rgb(234, 239, 244);
-    padding: 18px;
-    border-radius: 10px;
-    margin: auto;
-    margin-bottom: 20px;
-    text-align: center;
-    width: 60%;
-}
-
-#tasks-list-container {
-    border: 1px solid black;
-    background-color: rgb(234, 239, 244);
-    padding: 18px;
-    margin: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    width: 60%;
+  border: 1px solid black;
+  background-color: rgb(63, 73, 82);
+  padding: 18px;
+  width: fit-content;
+  border-radius: 10px;
+  margin: auto;
+  min-width: 60%;
 }
 
 
@@ -102,6 +189,28 @@
     text-align: center;
 }
 
+
+
+
+
+/* =============================
+
+   5. TASK ACTIONS
+
+============================= */
+
+
+#task-input-container {
+    border: 1px solid black;
+    background-color: rgb(63, 73, 82);
+    padding: 18px;
+    width: fit-content;
+    border-radius: 10px;
+    margin: auto;
+    min-width: 60%;
+}
+
+
 .task-buttons {
     padding: 18px;
     border-radius: 5px;
@@ -111,6 +220,17 @@
     min-width: 160px;
     text-align: center;
 }
+
+
+
+/* =============================
+
+   6. TASK LIST
+
+============================= */
+
+
+
 
 #tasks-list {
     background-color: rgb(63, 73, 82);
@@ -131,25 +251,15 @@
     list-style: none;
 }
 
-#task-stats-list {
-    border: 1px solid black;
-    background-color: rgb(63, 73, 82);
-    padding: 18px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    width: fit-content;
-    min-width: 60%;
-    margin: auto;
-}
 
-#task-stats-list p {
-    padding: 18px;
-    border-radius: 5px;
-    border: 1px solid black;
-    background-color: rgb(255, 255, 255);
-    margin-inline: 3px;
-    min-width: 100px;
-}
+
+
+/* =============================
+
+   7. WEATHER
+
+============================= */
+
 
 
 #weather-card {
