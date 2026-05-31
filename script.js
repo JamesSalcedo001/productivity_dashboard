@@ -1645,9 +1645,9 @@
 
 // ++ list of tasks
 
-// task stats total count
-// task stats total complete count
-// task stats total incomplete count
+// ++ task stats total count
+// ++ task stats total complete count
+// ++ task stats total incomplete count
 
 // ++ tasks when clicked toggle complete/incomplete with line through them
 
@@ -1655,13 +1655,12 @@
 // ++ user can clear all tasks
 // ++ when user adds task, input is cleared visually
 
-// user can filter to show all tasks
-// user can filter only complete tasks
-// user can filter only incomplete tasks
+// ++ user can filter to show all tasks
+// ++ user can filter only complete tasks
+// ++ user can filter only incomplete tasks
 
-// user can search tasks to filter what matches search text
-// when user searches, matching results show gray background highlighted
-// if user searches and no tasks match, display message saying no tasks match
+// ++ user can search tasks to filter what matches search text
+// ++ when user searches, matching results show gray background highlighted
 
 // store tasks in localstorage
 // store task filters in localstorage
@@ -1683,6 +1682,8 @@ let filterMode = "all";
 // search state
 let searchText = "";
 
+
+
 // DOM selections
 const addTaskInput = document.querySelector("#new-task-input");
 const addTaskButton = document.querySelector("#new-task-button");
@@ -1692,6 +1693,9 @@ const allTasksFilterButton = document.querySelector("#all-tasks");
 const completeTasksFilterButton = document.querySelector("#complete-tasks");
 const incompleteTasksFilterButton = document.querySelector("#incomplete-tasks");
 const searchInput = document.querySelector("#tasks-search-input");
+const allTasksCount = document.querySelector("#total-task-count");
+const completeTasksCount = document.querySelector("#complete-task-count");
+const incompleteTasksCount = document.querySelector("#incomplete-task-count");
 
 // takes in text as an arg, 
 // creates a new object with an id(incrementing off the length of the tasks array), 
@@ -1787,6 +1791,7 @@ function renderTasks() {
     tasksList.textContent = "";
     let shownTasks;
 
+
     if (filterMode === "complete") {
         shownTasks = tasks.filter(task => task.complete);
     } else if (filterMode === "incomplete") {
@@ -1799,6 +1804,18 @@ function renderTasks() {
         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
     }
 
+    // QUESTION: Why do i have to put these inside the render function for the task stats to update when i change the task state?
+    // total tasks stat
+    const totalTaskCount = tasks.length;
+    // total complete tasks stat
+    const completedTaskCount = tasks.filter(task => task.complete).length;
+    // total incomplete tasks stat
+    const incompleteTaskCount = tasks.filter(task => !task.complete).length;
+
+    allTasksCount.textContent = "Total tasks: " + totalTaskCount;
+    completeTasksCount.textContent = "Completed tasks: " + completedTaskCount;
+    incompleteTasksCount.textContent = "Incomplete tasks: " + incompleteTaskCount;
+
 
 
     for (let task of shownTasks) {
@@ -1807,6 +1824,10 @@ function renderTasks() {
 
         if (task.complete) {
             li.style.textDecoration = "line-through";
+        }
+
+        if (searchText !== "" && task.text.toLowerCase().includes(searchText.toLowerCase())) {
+            li.style.backgroundColor = "lightgrey";
         }
 
 
