@@ -219,6 +219,7 @@ function renderTasks() {
         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
     }
 
+
     // total tasks stat
     const totalTaskCount = tasks.length;
     // total complete tasks stat
@@ -229,6 +230,23 @@ function renderTasks() {
     allTasksCount.textContent = "Total tasks: " + totalTaskCount;
     completeTasksCount.textContent = "Completed tasks: " + completedTaskCount;
     incompleteTasksCount.textContent = "Incomplete tasks: " + incompleteTaskCount;
+
+
+
+    if (shownTasks.length === 0) {
+        const li = document.createElement("li");
+
+        if (tasks.length === 0) {
+            li.textContent = "No tasks yet. Add your first task above.";
+        } else {
+            li.textContent = "No tasks match your current filters.";
+        }
+
+        tasksList.appendChild(li);
+        return;
+    }
+
+
 
 
 
@@ -391,10 +409,7 @@ async function loadWeather() {
 // =============================
 
 
-
-// Add task
-
-addTaskButton.addEventListener("click", () => {
+function handleAddTask() {
     let inputValue = addTaskInput.value.trim();
     let category = taskCategoryInput.value;
     if (inputValue === "") {
@@ -406,6 +421,19 @@ addTaskButton.addEventListener("click", () => {
     renderTasks();
 
     addTaskInput.value = "";
+}
+
+
+
+
+// Add task
+
+addTaskButton.addEventListener("click", handleAddTask);
+
+addTaskInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        handleAddTask();
+    }
 })
 
 
@@ -413,8 +441,6 @@ addTaskButton.addEventListener("click", () => {
 
 clearTasksButton.addEventListener("click", () => {
     clearTasks();
-    currentCategory = "All";
-    categoriesFilter.value = "All";
     renderTasks();
 })
 
