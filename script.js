@@ -12,7 +12,11 @@ let filterMode = "all";
 // search state
 let searchText = "";
 // task categories
-const categories = ["work", "personal", "school", "errands"];
+const categories = ["Work", "Personal", "School", "Errands"];
+// category filters (shallow copy)
+const categoryFiltersList = ["All", ...categories];
+// current category
+let currentCategory = "All";
 
 
 
@@ -81,6 +85,8 @@ function clearTasks() {
     filterMode = "all";
     searchText = "";
     searchInput.value = "";
+    currentCategory = "All";
+    categoriesFilter.value = "All";
 
     clearStorage();
 
@@ -205,6 +211,10 @@ function renderTasks() {
         shownTasks = tasks;
     }
 
+    if (currentCategory !== "All") {
+        shownTasks = shownTasks.filter(task => task.category === currentCategory);
+    }
+
     if (searchText !== "") {
         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchText.toLowerCase()));
     }
@@ -261,7 +271,7 @@ function renderCategories() {
 
 
 function renderFilterCategories() {
-    for (const c of categories) {
+    for (const c of categoryFiltersList) {
         const o = document.createElement("option");
         o.textContent = c;
         o.value = c;
@@ -403,6 +413,8 @@ addTaskButton.addEventListener("click", () => {
 
 clearTasksButton.addEventListener("click", () => {
     clearTasks();
+    currentCategory = "All";
+    categoriesFilter.value = "All";
     renderTasks();
 })
 
@@ -412,6 +424,8 @@ clearTasksButton.addEventListener("click", () => {
 
 allTasksFilterButton.addEventListener("click", () => {
     filterMode = "all";
+    currentCategory = "All";
+    categoriesFilter.value = "All";
     saveFilter();
     renderTasks();
 })
@@ -427,6 +441,18 @@ incompleteTasksFilterButton.addEventListener("click", () => {
     saveFilter();
     renderTasks();
 })
+
+
+
+categoriesFilter.addEventListener("change", (e) => {
+    const categoryInput = e.target.value;
+    currentCategory = categoryInput;
+    renderTasks();
+})
+
+
+
+
 
 
 // Search
