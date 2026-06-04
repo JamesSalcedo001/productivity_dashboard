@@ -78,6 +78,17 @@ function addTask(text, category) {
 }
 
 
+// removes individual task
+
+function removeTask(id) {
+    const filteredTasks = tasks.filter(task => task.id !== id);
+    tasks = filteredTasks;
+    saveTasks();
+}
+
+
+
+
 // resets task/search/filter state
 
 function clearTasks() {
@@ -252,7 +263,9 @@ function renderTasks() {
 
     for (let task of shownTasks) {
         const li = document.createElement('li');
+        const deleteButton = document.createElement("button");
         li.textContent = task.text + " - ( " + task.category + " ) ";
+        deleteButton.textContent = "x"
 
         if (task.complete) {
             li.style.textDecoration = "line-through";
@@ -268,7 +281,15 @@ function renderTasks() {
             renderTasks();
         })
 
+        deleteButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            // call function to filter out targeted task and rerender the list
+            removeTask(task.id);
+            renderTasks();
+        })
 
+
+        li.appendChild(deleteButton);
         tasksList.appendChild(li);
     }
 }
