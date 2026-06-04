@@ -170,6 +170,14 @@
 }
 
 
+#deleteBtn {
+    background-color: rgb(63, 73, 82);
+    color: whitesmoke;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
 
 
 /* =============================

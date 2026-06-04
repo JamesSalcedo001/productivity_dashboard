@@ -265,6 +265,7 @@ function renderTasks() {
         const li = document.createElement('li');
         const deleteButton = document.createElement("button");
         li.textContent = task.text + " - ( " + task.category + " ) ";
+        deleteButton.id = "deleteBtn";
         deleteButton.textContent = "x"
 
         if (task.complete) {
