@@ -7,6 +7,8 @@
 
 // stores list of task objects
 let tasks = [];
+// id increment state
+let nextTaskID = 1;
 // filter state
 let filterMode = "all";
 // search state
@@ -63,15 +65,18 @@ const weatherCode = document.querySelector("#weather-code");
 // =============================
 
 
+
 // creates a task object and saves it
 
 function addTask(text, category) {
     const newTask = {
-        id: tasks.length + 1,
+        id: nextTaskID,
         text,
         complete: false,
         category
     };
+
+    nextTaskID++;
 
     tasks.push(newTask);
     saveTasks();
@@ -144,6 +149,8 @@ function loadTasks() {
     };
 
     const parsedTasks = JSON.parse(savedTasks);
+
+    const parsedTaskIds = parsedTasks.map(task => task.id);
     tasks = parsedTasks;
 }
 
@@ -279,6 +286,7 @@ function renderTasks() {
 
         li.addEventListener("click", () => {
             toggleCompleted(task.id);
+            console.log(task);
             renderTasks();
         })
 
