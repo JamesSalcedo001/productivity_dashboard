@@ -351,8 +351,19 @@ function renderTasks() {
         editButton.addEventListener("click", (e) => {
             e.stopPropagation();
 
-            let input = prompt(`${task.id} ${task.text} ${task.category}`);
-            
+            const form = document.createElement("form");
+            form.classList.add("edit-btn-form");
+
+            for (const [k, v] of Object.entries(task)) {
+                const input = document.createElement("input");
+                input.value = v;
+                input.label = k;
+                // console.log(input.value);
+                console.log(input.label)
+                form.appendChild(input);
+            }
+
+            tasksList.insertAdjacentElement("beforebegin", form);
 
         })
 
