@@ -311,9 +311,12 @@ function renderTasks() {
     for (let task of shownTasks) {
         const li = document.createElement('li');
         const deleteButton = document.createElement("button");
+        const editButton = document.createElement("button");
         li.textContent = task.text + " - ( " + task.category + " ) ";
         deleteButton.classList.add("delete-btn");
-        deleteButton.textContent = "x"
+        editButton.classList.add("edit-btn");
+        deleteButton.textContent = "X"
+        editButton.textContent = "✎";
 
         if (task.complete) {
             li.style.textDecoration = "line-through";
@@ -335,8 +338,13 @@ function renderTasks() {
             renderTasks();
         })
 
+        editButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            console.log(task.text);
+        })
 
-        li.appendChild(deleteButton);
+
+        li.append(deleteButton, editButton);
         tasksList.appendChild(li);
     }
 }
