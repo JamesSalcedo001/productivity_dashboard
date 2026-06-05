@@ -356,11 +356,13 @@ function renderTasks() {
 
             for (const [k, v] of Object.entries(task)) {
                 if (k === "id") continue;
-                
+
                 const formInput = document.createElement("input");
                 const label = document.createElement("label");
                 formInput.value = v;
                 label.textContent = k;
+
+                
                 form.append(label, formInput);
             }
             li.appendChild(form)
