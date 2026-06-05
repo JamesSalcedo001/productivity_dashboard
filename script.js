@@ -1,3 +1,37 @@
+// current features
+/*
+    a user should:
+
+    - see a list of tasks with a name, category, and whether completed or not
+    - be able to add a task
+    - be able to press enter key to add a task
+    - be able to add a category to a task
+    - be able to toggle a task complete/incomplete by clicking it
+    - be able to delete a task
+    - be able to clear all tasks
+    - be able to see a message when the user enters a task without any description/name
+    - be able to see a message indicating tasks havent been added yet
+    - be able to see a message indicating when no tasks match filters
+    - see how many total tasks
+    - see how many complete total tasks
+    - see how many incomplete total tasks
+    - be able to filter all tasks
+    - be able to filter complete tasks
+    - be able to filter incomplete tasks
+    - be able to filter by category
+    - be able to search by user input characters
+    - when finding a match the task item should be highlighted, and the task list should only show matching ones
+    - be able to see their filters loaded on page reload
+    - be able to see their search loaded on page reload
+    - be able to see the existing tasks loaded on page reload
+    - be able to see houston weather with name, lat/lng, temp, and conditions
+*/
+
+
+
+
+
+
 // =============================
 
 // 1. APP STATE
@@ -98,6 +132,7 @@ function removeTask(id) {
 
 function clearTasks() {
     tasks = [];
+    nextTaskID = 1;
     filterMode = "all";
     searchText = "";
     searchInput.value = "";
@@ -151,6 +186,11 @@ function loadTasks() {
     const parsedTasks = JSON.parse(savedTasks);
 
     const parsedTaskIds = parsedTasks.map(task => task.id);
+    if (parsedTaskIds.length === 0) {
+        nextTaskID = 1;
+    } else {
+        nextTaskID = Math.max(...parsedTaskIds) + 1;
+    }
     tasks = parsedTasks;
 }
 
@@ -272,7 +312,7 @@ function renderTasks() {
         const li = document.createElement('li');
         const deleteButton = document.createElement("button");
         li.textContent = task.text + " - ( " + task.category + " ) ";
-        deleteButton.id = "deleteBtn";
+        deleteButton.classList.add("delete-btn");
         deleteButton.textContent = "x"
 
         if (task.complete) {
@@ -286,13 +326,11 @@ function renderTasks() {
 
         li.addEventListener("click", () => {
             toggleCompleted(task.id);
-            console.log(task);
             renderTasks();
         })
 
         deleteButton.addEventListener("click", (e) => {
             e.stopPropagation();
-            // call function to filter out targeted task and rerender the list
             removeTask(task.id);
             renderTasks();
         })
