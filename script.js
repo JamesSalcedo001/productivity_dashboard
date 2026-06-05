@@ -355,16 +355,15 @@ function renderTasks() {
             form.classList.add("edit-btn-form");
 
             for (const [k, v] of Object.entries(task)) {
-                const input = document.createElement("input");
-                input.value = v;
-                input.label = k;
-                // console.log(input.value);
-                console.log(input.label)
-                form.appendChild(input);
+                if (k === "id") continue;
+                
+                const formInput = document.createElement("input");
+                const label = document.createElement("label");
+                formInput.value = v;
+                label.textContent = k;
+                form.append(label, formInput);
             }
-
-            tasksList.insertAdjacentElement("beforebegin", form);
-
+            li.appendChild(form)
         })
 
 

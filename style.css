@@ -200,8 +200,13 @@
     width: 80%;
     margin: 5px auto;
     padding: 10px;
+    text-align: center;
 }
 
+.edit-btn-form label {
+    color: whitesmoke;
+    margin-bottom: 5px;
+}
 
 /* =============================
 
