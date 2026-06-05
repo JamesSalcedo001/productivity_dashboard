@@ -126,6 +126,16 @@ function removeTask(id) {
 }
 
 
+// edit task
+
+function editTask(id, text, category) {
+    const newTasks = tasks.map(task => {
+        if (task.id === id) {
+            console.log(task)
+        }
+    })
+}
+
 
 
 // resets task/search/filter state
@@ -340,7 +350,10 @@ function renderTasks() {
 
         editButton.addEventListener("click", (e) => {
             e.stopPropagation();
-            console.log(task.text);
+
+            let input = prompt(`${task.id} ${task.text} ${task.category}`);
+            
+
         })
 
 
