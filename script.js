@@ -323,16 +323,20 @@ function renderTasks() {
     for (let task of shownTasks) {
         const li = document.createElement('li');
         const buttonContainer = document.createElement("div");
+
         const deleteButton = document.createElement("button");
         const editButton = document.createElement("button");
         const checkBox = document.createElement("input");
+
         li.textContent = task.text + " - " + task.category;
-        
         buttonContainer.classList.add("btn-container");
+        
         deleteButton.classList.add("delete-btn");
-        editButton.classList.add("edit-btn");
         deleteButton.textContent = "X"
+
+        editButton.classList.add("edit-btn");
         editButton.textContent = "✎";
+
         checkBox.type = "checkbox";
         checkBox.classList.add("check-box")
         checkBox.checked = task.complete;
@@ -346,39 +350,36 @@ function renderTasks() {
         }
 
 
-        // li.addEventListener("click", () => {
-        //     toggleCompleted(task.id);
-        //     renderTasks();
-        // })
-
         checkBox.addEventListener("change", () => {
             toggleCompleted(task.id);
             renderTasks();
         })
 
         deleteButton.addEventListener("click", (e) => {
-            e.stopPropagation();
             removeTask(task.id);
             renderTasks();
         })
 
-        editButton.addEventListener("click", (e) => {
-            e.stopPropagation();
+        editButton.addEventListener("click", () => {
             isEditing = true;
 
             const form = document.createElement("form");
             const submitButton = document.createElement("input");
+
             form.classList.add("edit-btn-form");
             submitButton.classList.add("submit-btn");
+
             submitButton.value = "Submit";
             submitButton.type = "submit";
 
-            for (const [k, v] of Object.entries(task)) {
+            for (let [k, v] of Object.entries(task)) {
                 if (k === "id") continue;
 
                 const formInput = document.createElement("input");
                 const label = document.createElement("label");
+
                 formInput.value = v;
+                formInput.name = k;
                 label.textContent = k;
 
                 
@@ -386,16 +387,16 @@ function renderTasks() {
             }
 
             form.appendChild(submitButton);
-            
-            form.addEventListener("click", (e) => e.stopPropagation());
-            
+                        
             form.addEventListener("submit", (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                console.log("form submitted")
+                console.log(e)
+
+
                 isEditing = false;
             })
-            li.appendChild(form)
+
+            li.appendChild(form);
         })
 
         buttonContainer.append(deleteButton, editButton);
