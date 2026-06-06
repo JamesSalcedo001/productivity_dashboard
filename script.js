@@ -53,6 +53,8 @@ const categories = ["Work", "Personal", "School", "Errands"];
 const categoryFiltersList = ["All", ...categories];
 // current category
 let currentCategory = "All";
+// editing state
+let isEditing = false;
 
 
 
@@ -320,13 +322,20 @@ function renderTasks() {
 
     for (let task of shownTasks) {
         const li = document.createElement('li');
+        const buttonContainer = document.createElement("div");
         const deleteButton = document.createElement("button");
         const editButton = document.createElement("button");
-        li.textContent = task.text + " - ( " + task.category + " ) ";
+        const checkBox = document.createElement("input");
+        li.textContent = task.text + " - " + task.category;
+        
+        buttonContainer.classList.add("btn-container");
         deleteButton.classList.add("delete-btn");
         editButton.classList.add("edit-btn");
         deleteButton.textContent = "X"
         editButton.textContent = "✎";
+        checkBox.type = "checkbox";
+        checkBox.classList.add("check-box")
+        checkBox.checked = task.complete;
 
         if (task.complete) {
             li.style.textDecoration = "line-through";
@@ -337,7 +346,12 @@ function renderTasks() {
         }
 
 
-        li.addEventListener("click", () => {
+        // li.addEventListener("click", () => {
+        //     toggleCompleted(task.id);
+        //     renderTasks();
+        // })
+
+        checkBox.addEventListener("change", () => {
             toggleCompleted(task.id);
             renderTasks();
         })
@@ -350,9 +364,14 @@ function renderTasks() {
 
         editButton.addEventListener("click", (e) => {
             e.stopPropagation();
+            isEditing = true;
 
             const form = document.createElement("form");
+            const submitButton = document.createElement("input");
             form.classList.add("edit-btn-form");
+            submitButton.classList.add("submit-btn");
+            submitButton.value = "Submit";
+            submitButton.type = "submit";
 
             for (const [k, v] of Object.entries(task)) {
                 if (k === "id") continue;
@@ -365,11 +384,24 @@ function renderTasks() {
                 
                 form.append(label, formInput);
             }
+
+            form.appendChild(submitButton);
+            
+            form.addEventListener("click", (e) => e.stopPropagation());
+            
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("form submitted")
+                isEditing = false;
+            })
             li.appendChild(form)
         })
 
+        buttonContainer.append(deleteButton, editButton);
 
-        li.append(deleteButton, editButton);
+        li.append(checkBox, buttonContainer);
+
         tasksList.appendChild(li);
     }
 }
