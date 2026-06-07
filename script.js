@@ -35,10 +35,67 @@
 
 
 
+// STATE
+
+// tasks list
+let tasks = [];
+
+// next task id
+let nextTaskId = 1;
 
 
 
 
+
+// DOM SELECTIONS
+const newTaskInput = document.querySelector("#new-task-input");
+const newTaskButton = document.querySelector("#new-task-button");
+
+
+
+
+
+// FUNCTIONS
+
+
+function addTask(text) {
+    const newTask = {
+        id: nextTaskId,
+        text,
+        complete: false,
+    }
+
+    nextTaskId++;
+    tasks.push(newTask);
+}
+
+
+
+
+
+// EVENT LISTENERS
+newTaskButton.addEventListener("click", () => {
+    const input = newTaskInput.value.trim();
+    addTask(input);
+    newTaskInput.value = "";
+    renderTasks();
+})
+
+
+
+
+// RENDER ELEMENTS
+function renderTasks() {
+    console.log(tasks)
+}
+
+
+
+
+// PAGE LOAD
+
+
+renderTasks();
 
 
 
