@@ -167,7 +167,16 @@ body {
     border-radius: 5px;
 }
 
-
+.edit-form-select {
+    background-color: rgb(215, 223, 232);
+    width: 83%;
+    margin: 10px auto;
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+}
 
 
 

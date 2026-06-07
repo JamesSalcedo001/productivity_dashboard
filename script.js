@@ -46,6 +46,9 @@ const categories = ["work", "personal", "school", "errand"];
 // next task id
 let nextTaskId = 1;
 
+// editing state
+let isEditing = false;
+
 
 
 
@@ -93,7 +96,16 @@ function removeTask(id) {
 
 // edit task
 function editTask(id, text, category) {
-    console.log(id, text, category);
+    tasks = tasks.map(task => {
+        if (task.id === id) {
+            return {
+                ...task,
+                text,
+                category
+            }
+        } 
+        return tasks;
+    })
 }
 
 
@@ -194,7 +206,7 @@ function renderTasks() {
         buttonContainer.classList.add("btn-container");
         editButton.textContent = "✎";
         editButton.classList.add("edit-btn");
-        
+
 
         if (task.complete) {
             li.style.textDecoration = "line-through";
@@ -211,6 +223,8 @@ function renderTasks() {
         })
 
         editButton.addEventListener("click", () => {
+            isEditing = true;
+
             const form = document.createElement("form");
             const submitButton = document.createElement("input");
             form.classList.add("edit-form")
@@ -220,6 +234,29 @@ function renderTasks() {
             for ([k, v] of Object.entries(task)) {
                 if (k === "id") continue;
                 if (k === "complete") continue;
+                if (k === "category") {
+                    const label = document.createElement("label");
+                    const categorySelect = document.createElement("select");
+
+                    label.textContent = k;
+                    categorySelect.name = k;
+                    categorySelect.classList.add("edit-form-select")
+
+                    for (let c of categories) {
+                        const o = document.createElement("option");
+                        o.value = c;
+                        o.textContent = c;
+                        
+                        if (c === v) {
+                            o.selected = true;
+                        }
+                        
+                        categorySelect.appendChild(o);
+                    }
+
+                    form.append(label, categorySelect);
+                    continue;
+                }
 
 
 
@@ -242,6 +279,8 @@ function renderTasks() {
                 const newCategory = e.target.elements.category.value;
 
                 editTask(task.id, newText, newCategory);
+                renderTasks();
+                isEditing = false;
 
             })
 
