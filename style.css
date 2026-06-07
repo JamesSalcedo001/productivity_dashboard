@@ -135,9 +135,10 @@ body {
     float: right;
 }
 
-.delete-btn {
+.delete-btn, .edit-btn {
     min-width: 5%;
-    padding: 5px 10px;
+    margin-right: 8px;
+    padding: 5px 15px;
     background-color: rgb(15, 44, 72);
     color: white;
     border: none;
@@ -145,13 +146,26 @@ body {
 
 }
 
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(135, 142, 149);
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px auto;
+    gap: 10px 40px;
+    text-align: center;
+}
 
-
-
-
-
-
-
+.edit-form input {
+    background-color: rgb(215, 223, 232);
+    width: 80%;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
 
 
 

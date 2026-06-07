@@ -91,6 +91,12 @@ function removeTask(id) {
 }
 
 
+// edit task
+function editTask(id, text, category) {
+    console.log(id, text, category);
+}
+
+
 // clear tasks
 function clearTasks() {
     tasks = [];
@@ -178,13 +184,16 @@ function renderTasks() {
         const li = document.createElement("li");
         const checkBox = document.createElement("input");
         const deleteButton = document.createElement("button");
+        const editButton = document.createElement("button");
         const buttonContainer = document.createElement("div");
         li.textContent = task.text + " - " + task.category;
         checkBox.type = "checkbox";
         checkBox.checked = task.complete;
-        deleteButton.textContent = "x";
+        deleteButton.textContent = "X";
         deleteButton.classList.add("delete-btn");
         buttonContainer.classList.add("btn-container");
+        editButton.textContent = "✎";
+        editButton.classList.add("edit-btn");
         
 
         if (task.complete) {
@@ -201,7 +210,47 @@ function renderTasks() {
             renderTasks();
         })
 
-        buttonContainer.appendChild(deleteButton);
+        editButton.addEventListener("click", () => {
+            const form = document.createElement("form");
+            const submitButton = document.createElement("input");
+            form.classList.add("edit-form")
+            submitButton.type = "submit";
+            submitButton.textContent = "Submit";
+
+            for ([k, v] of Object.entries(task)) {
+                if (k === "id") continue;
+                if (k === "complete") continue;
+
+
+
+
+                const label = document.createElement("label");
+                const input = document.createElement("input");
+
+                label.textContent = k;
+                input.value = v;
+                input.name = k;
+
+                form.append(label, input);
+            }
+
+            form.appendChild(submitButton);
+
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const newText = e.target.elements.text.value;
+                const newCategory = e.target.elements.category.value;
+
+                editTask(task.id, newText, newCategory);
+
+            })
+
+            li.appendChild(form);
+
+
+        })
+
+        buttonContainer.append(deleteButton, editButton);
 
 
         li.append(checkBox, buttonContainer);
