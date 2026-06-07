@@ -50,6 +50,7 @@ let nextTaskId = 1;
 // DOM SELECTIONS
 const newTaskInput = document.querySelector("#new-task-input");
 const newTaskButton = document.querySelector("#new-task-button");
+const clearTasksButton = document.querySelector("#clear-tasks-button");
 
 
 
@@ -57,7 +58,7 @@ const newTaskButton = document.querySelector("#new-task-button");
 
 // FUNCTIONS
 
-
+// add task
 function addTask(text) {
     const newTask = {
         id: nextTaskId,
@@ -71,13 +72,30 @@ function addTask(text) {
 
 
 
+// clear tasks
+function clearTasks() {
+    tasks = [];
+    nextTaskId = 1;
+}
+
+
 
 
 // EVENT LISTENERS
+
+
+// add task listener
 newTaskButton.addEventListener("click", () => {
     const input = newTaskInput.value.trim();
     addTask(input);
     newTaskInput.value = "";
+    renderTasks();
+})
+
+
+// clear tasks listener
+clearTasksButton.addEventListener("click", () => {
+    clearTasks();
     renderTasks();
 })
 
