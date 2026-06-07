@@ -1,5 +1,11 @@
-#main-title, #task-filters-title, #task-actions-title, #weather-title {
+body {
+    background-color: lightslategray;
+}
+
+
+#main-title, #task-filters-title, #task-actions-title, #weather-title, #tasks-list-title {
     text-align: center;
+    color: rgb(3, 3, 48);
 }
 
 
@@ -8,7 +14,7 @@
     text-align: center;
     width: 80%;
     margin: auto;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
     background-color: aliceblue;
 }
@@ -18,7 +24,7 @@
 #task-filters-container, #task-actions-container, #tasks-list, #weather-card {
     margin: 20px auto;
     width: 80%;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
     background-color: aliceblue;
 }
@@ -35,7 +41,7 @@
     min-width: 10%;
     padding: 10px;
     text-align: center;
-    background-color: gray;
+    background-color: lightslategray;
     color: white;
     border: none;
     border-radius: 5px;
@@ -60,7 +66,7 @@
 }
 
 #task-actions-buttons-container button {
-    background-color: gray;
+    background-color: lightslategray;
     color: white;
 }
 
@@ -70,7 +76,7 @@
 }
 
 
-#weather-card {
+#weather-card, #task-stats-container {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -78,13 +84,42 @@
     align-items: center;
 }
 
+
 #weather-card p {
-    background-color: gray;
+    background-color: lightslategray;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 10px;
     width: 50%;
+}
+
+.task-stats {
+    background-color: lightslategray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%;
+}
+
+
+#tasks-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#tasks-list li {
+    background-color: lightslategray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%;
+    list-style: none;
 }
 
 
