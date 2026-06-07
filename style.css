@@ -1,12 +1,137 @@
+#main-title, #task-filters-title, #task-actions-title, #weather-title {
+    text-align: center;
+}
+
+
+
+#task-stats-container {
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: aliceblue;
+}
+
+
+
+#task-filters-container, #task-actions-container, #tasks-list, #weather-card {
+    margin: 20px auto;
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: aliceblue;
+}
+ 
+
+
+
+#filter-buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.task-filter-button {
+    min-width: 10%;
+    padding: 10px;
+    text-align: center;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+
+
+#task-actions-buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.task-action-input {
+    margin-inline: 20px;
+    padding: 10px;
+    min-width: 10%;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+#task-actions-buttons-container button {
+    background-color: gray;
+    color: white;
+}
+
+#task-actions-buttons-container input {
+    min-width: 30%;
+    border: 1px solid black;
+}
+
+
+#weather-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#weather-card p {
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =============================
 
    1. GLOBAL / PAGE
 
 ============================= */
 
-#main-title {
+/* #main-title {
     text-align: center;
-}
+} */
 
 
 
@@ -18,7 +143,7 @@
 ============================= */
 
 
-
+/* 
 #task-stats-container,
 #task-filters-container,
 #task-actions-container,
@@ -31,7 +156,7 @@
   border-radius: 10px;
   text-align: center;
   width: 60%;
-}
+} */
 
 
 
@@ -42,7 +167,7 @@
 ============================= */
 
 
-
+/* 
 #task-stats-list {
     border: 1px solid black;
     background-color: rgb(63, 73, 82);
@@ -61,7 +186,7 @@
     background-color: rgb(255, 255, 255);
     margin-inline: 3px;
     min-width: 100px;
-}
+} */
 
 
 
@@ -73,7 +198,7 @@
 ============================= */
 
 
-
+/* 
 
 #filter-buttons-container,
 #tasks-search-container {
@@ -106,7 +231,7 @@
     min-width: 90%;
     text-align: center;
 }
-
+ */
 
 
 
@@ -117,7 +242,7 @@
 
 ============================= */
 
-
+/* 
 #task-input-container {
     border: 1px solid black;
     background-color: rgb(63, 73, 82);
@@ -137,7 +262,7 @@
     margin-inline: 20px;
     min-width: 160px;
     text-align: center;
-}
+} */
 
 
 
@@ -149,7 +274,7 @@
 
 
 
-
+/* 
 #tasks-list {
     background-color: rgb(63, 73, 82);
     padding: 18px;
@@ -223,7 +348,7 @@
 .edit-btn-form label {
     color: whitesmoke;
     margin-bottom: 5px;
-}
+} */
 
 /* =============================
 
@@ -232,7 +357,7 @@
 ============================= */
 
 
-
+/* 
 #weather-card {
     background-color: rgb(40, 45, 53);
     padding: 20px;
@@ -260,4 +385,4 @@
     border-radius: 5px;
     padding: 18px;
 }
-
+ */

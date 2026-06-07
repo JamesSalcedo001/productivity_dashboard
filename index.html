@@ -4,6 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <h1 id="main-title">Productivity Dashboard</h1>
+
+    <section id="tasks">
+        <div id="task-stats-container">
+            <h3 id="task-stats-title">Task Statistics</h3>
+            <p class="task-stats">Total tasks count: 0</p>
+            <p class="task-stats">Complete tasks count: 0</p>
+            <p class="task-stats">Incomplete tasks count: 0</p>
+        </div>
+
+        <div id="task-filters-container">
+            <h3 id="task-filters-title">Task Filters</h3>
+            <div id="filter-buttons-container">
+                <button id="show-all-tasks" class="task-filter-button">All Tasks</button>
+                <button id="show-complete-tasks" class="task-filter-button">Complete Tasks</button>
+                <button id="show-incomplete-tasks" class="task-filter-button">Incomplete Tasks</button>
+                <select id="show-tasks-by-category" class="task-filter-button">
+                </select>
+            </div>
+        </div>
+
+        <div id="task-actions-container">
+            <h3 id="task-actions-title">Task Actions</h3>
+            <div id="task-actions-buttons-container">
+                <input type="text" id="new-task-input" class="task-action-input" placeholder="add a task...">
+                <button id="new-task-button" class="task-action-input">Add Task</button>
+                <button id="clear-tasks-button" class="task-action-input">Clear Tasks</button>
+            </div>
+        </div>
+
+        <ul id="tasks-list">
+        </ul>
+
+    </section>
+
+    <section id="weather">
+        <h3 id="weather-title">Weather</h3>
+        <div id="weather-card">
+            <p id="name" class="weather-item">Houston</p>
+            <p id="lat-lng" class="weather-item">Lat: Lng: </p>
+            <p id="temp" class="weather-item">Temperature: </p>
+            <p id="conditions" class="weather-item">Conditions: </p>
+        </div>
+    </section>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -77,4 +182,4 @@
 </html>
 
 
-
+ -->
