@@ -40,8 +40,13 @@
 // tasks list
 let tasks = [];
 
+// categories list
+const categories = ["work", "personal", "school", "errand"];
+
 // next task id
 let nextTaskId = 1;
+
+
 
 
 
@@ -51,6 +56,7 @@ let nextTaskId = 1;
 const newTaskInput = document.querySelector("#new-task-input");
 const newTaskButton = document.querySelector("#new-task-button");
 const clearTasksButton = document.querySelector("#clear-tasks-button");
+const taskCategoryInput = document.querySelector("#task-category-input");
 
 
 
@@ -59,11 +65,12 @@ const clearTasksButton = document.querySelector("#clear-tasks-button");
 // FUNCTIONS
 
 // add task
-function addTask(text) {
+function addTask(text, category) {
     const newTask = {
         id: nextTaskId,
         text,
         complete: false,
+        category
     }
 
     nextTaskId++;
@@ -86,9 +93,12 @@ function clearTasks() {
 
 // add task listener
 newTaskButton.addEventListener("click", () => {
-    const input = newTaskInput.value.trim();
-    addTask(input);
+    const text = newTaskInput.value.trim();
+    const category = taskCategoryInput.value;
+    
+    addTask(text, category);
     newTaskInput.value = "";
+    taskCategoryInput.value = categories[0];
     renderTasks();
 })
 
@@ -107,14 +117,22 @@ function renderTasks() {
     console.log(tasks)
 }
 
+function renderCategories() {
+    for (let c of categories) {
+        const o = document.createElement("option");
+        o.textContent = c;
+        o.value = c;
+        taskCategoryInput.appendChild(o);
+    }
+}
+
 
 
 
 // PAGE LOAD
 
-
+renderCategories();
 renderTasks();
-
 
 
 
