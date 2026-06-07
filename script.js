@@ -2,21 +2,21 @@
 /*
     a user should:
 
-    - see a list of tasks with a name, category, and whether completed or not
-    - be able to add a task
-    - be able to press enter key to add a task
-    - be able to add a category to a task
-    - be able to toggle a task complete/incomplete by clicking it
+    - ++ see a list of tasks with a name, category, and whether completed or not
+    - ++ be able to add a task
+    - ++ be able to press enter key to add a task
+    - ++ be able to add a category to a task
+    - ++ be able to toggle a task complete/incomplete by clicking it
     - be able to delete a task
-    - be able to clear all tasks
+    - ++ be able to clear all tasks
     - be able to edit a task
     - be able to select a category when editing the task
-    - be able to see a message when the user enters a task without any description/name
-    - be able to see a message indicating tasks havent been added yet
+    - ++ be able to see a message when the user enters a task without any description/name
+    - ++ be able to see a message indicating tasks havent been added yet
     - be able to see a message indicating when no tasks match filters
-    - see how many total tasks
-    - see how many complete total tasks
-    - see how many incomplete total tasks
+    - ++ see how many total tasks
+    - ++ see how many complete total tasks
+    - ++ see how many incomplete total tasks
     - be able to filter all tasks
     - be able to filter complete tasks
     - be able to filter incomplete tasks
@@ -57,6 +57,12 @@ const newTaskInput = document.querySelector("#new-task-input");
 const newTaskButton = document.querySelector("#new-task-button");
 const clearTasksButton = document.querySelector("#clear-tasks-button");
 const taskCategoryInput = document.querySelector("#task-category-input");
+const tasksList = document.querySelector("#tasks-list");
+
+// task stats elements
+const totalCount = document.querySelector("#total-count");
+const completeCount = document.querySelector("#complete-count");
+const incompleteCount = document.querySelector("#incomplete-count");
 
 
 
@@ -78,6 +84,12 @@ function addTask(text, category) {
 }
 
 
+// delete task
+function removeTask(id) {
+    const newTaskList = tasks.filter(task => task.id !== id);
+    tasks = newTaskList;
+}
+
 
 // clear tasks
 function clearTasks() {
@@ -86,21 +98,48 @@ function clearTasks() {
 }
 
 
+// toggle complete
+function toggleCompleted(id) {
+    for (let task of tasks) {
+        if (id === task.id) {
+            task.complete = !task.complete;
+        }
+    }
+}
+
+
 
 
 // EVENT LISTENERS
 
 
-// add task listener
-newTaskButton.addEventListener("click", () => {
+// addTask handler
+function addTaskHandler() {
     const text = newTaskInput.value.trim();
     const category = taskCategoryInput.value;
-    
+
+    if (text === "") {
+        console.log("left empty, please add text to task");
+        return;
+    }
+
     addTask(text, category);
     newTaskInput.value = "";
     taskCategoryInput.value = categories[0];
     renderTasks();
+}
+
+// add task listener
+newTaskButton.addEventListener("click", addTaskHandler);
+
+// enter key task listener
+newTaskInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addTaskHandler();
+    }
 })
+
+
 
 
 // clear tasks listener
@@ -114,8 +153,59 @@ clearTasksButton.addEventListener("click", () => {
 
 // RENDER ELEMENTS
 function renderTasks() {
-    console.log(tasks)
+    tasksList.textContent = "";
+
+    const totalTasksCount = tasks.length;
+    const totalCompleteCount = tasks.filter(task => task.complete).length;
+    const totalIncompleteCount = tasks.filter(task => !task.complete).length;
+
+    totalCount.textContent = "Total tasks count: " + totalTasksCount;
+    completeCount.textContent = "Complete tasks count: " + totalCompleteCount;
+    incompleteCount.textContent = "Incomplete tasks count: " + totalIncompleteCount;
+
+
+
+
+    if (tasks.length === 0) {
+        const p = document.createElement("p");
+        p.textContent = "task list is empty";
+        tasksList.appendChild(p);
+        return;
+    }
+
+
+    for (let task of tasks) {
+        const li = document.createElement("li");
+        const checkBox = document.createElement("input");
+        const deleteButton = document.createElement("button");
+        li.textContent = task.text + " - " + task.category;
+        checkBox.type = "checkbox";
+        checkBox.checked = task.complete;
+        deleteButton.textContent = "x";
+        
+
+        if (task.complete) {
+            li.style.textDecoration = "line-through";
+        }
+
+        checkBox.addEventListener("change", () => {
+            toggleCompleted(task.id);
+            renderTasks();
+        })
+
+        deleteButton.addEventListener("click", () => {
+            removeTask(task.id);
+            renderTasks();
+        })
+
+
+
+        li.append(checkBox, deleteButton);
+        tasksList.appendChild(li);
+    }
 }
+
+
 
 function renderCategories() {
     for (let c of categories) {
