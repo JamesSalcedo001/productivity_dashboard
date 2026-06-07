@@ -178,10 +178,13 @@ function renderTasks() {
         const li = document.createElement("li");
         const checkBox = document.createElement("input");
         const deleteButton = document.createElement("button");
+        const buttonContainer = document.createElement("div");
         li.textContent = task.text + " - " + task.category;
         checkBox.type = "checkbox";
         checkBox.checked = task.complete;
         deleteButton.textContent = "x";
+        deleteButton.classList.add("delete-btn");
+        buttonContainer.classList.add("btn-container");
         
 
         if (task.complete) {
@@ -198,9 +201,10 @@ function renderTasks() {
             renderTasks();
         })
 
+        buttonContainer.appendChild(deleteButton);
 
 
-        li.append(checkBox, deleteButton);
+        li.append(checkBox, buttonContainer);
         tasksList.appendChild(li);
     }
 }

@@ -3,7 +3,11 @@ body {
 }
 
 
-#main-title, #task-filters-title, #task-actions-title, #weather-title, #tasks-list-title {
+#main-title,
+#task-filters-title,
+#task-actions-title,
+#weather-title,
+#tasks-list-title {
     text-align: center;
     color: rgb(3, 3, 48);
 }
@@ -21,14 +25,17 @@ body {
 
 
 
-#task-filters-container, #task-actions-container, #tasks-list, #weather-card {
+#task-filters-container,
+#task-actions-container,
+#tasks-list,
+#weather-card {
     margin: 20px auto;
     width: 80%;
     padding: 20px;
     border-radius: 10px;
     background-color: aliceblue;
 }
- 
+
 
 
 
@@ -76,7 +83,8 @@ body {
 }
 
 
-#weather-card, #task-stats-container {
+#weather-card,
+#task-stats-container {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -123,6 +131,19 @@ body {
 }
 
 
+.btn-container {
+    float: right;
+}
+
+.delete-btn {
+    min-width: 5%;
+    padding: 5px 10px;
+    background-color: rgb(15, 44, 72);
+    color: white;
+    border: none;
+    border-radius: 5px;
+
+}
 
 
 
