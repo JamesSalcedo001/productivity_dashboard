@@ -7,7 +7,7 @@
     - ++ be able to press enter key to add a task
     - ++ be able to add a category to a task
     - ++ be able to toggle a task complete/incomplete by clicking it
-    - be able to delete a task
+    - ++ be able to delete a task
     - ++ be able to clear all tasks
     - be able to edit a task
     - be able to select a category when editing the task
