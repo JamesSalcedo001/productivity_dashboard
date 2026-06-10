@@ -52,6 +52,9 @@ let isEditing = false;
 // task filter state
 let filterStatus = "all";
 
+// search filter state
+let searchValue = "";
+
 
 
 
@@ -74,6 +77,8 @@ const incompleteCount = document.querySelector("#incomplete-count");
 const allTasksButton = document.querySelector("#show-all-tasks");
 const completeTasksButton = document.querySelector("#show-complete-tasks");
 const incompleteTasksButton = document.querySelector("#show-incomplete-tasks");
+const searchBar = document.querySelector("#search-bar");
+
 
 // weather elements
 const latLng = document.querySelector("#lat-lng");
@@ -132,6 +137,7 @@ function clearTasks() {
     tasks = [];
     nextTaskId = 1;
     filterStatus = "all";
+    searchValue = "";
     clearStorage();
 }
 
@@ -163,7 +169,10 @@ function loadTasks() {
     const savedTasks = localStorage.getItem("tasks");
     const parsedTasks = JSON.parse(savedTasks);
 
-    if (!parsedTasks) return;
+    if (!parsedTasks) {
+        tasks = [];
+        return;
+    }
 
     tasks = parsedTasks;
 }
@@ -171,7 +180,8 @@ function loadTasks() {
 
 function clearStorage() {
     localStorage.removeItem("tasks");
-    localStorage.removeItem("filterStatus")
+    localStorage.removeItem("filterStatus");
+    
 }
 
 
@@ -179,9 +189,24 @@ const saveFilter = () => localStorage.setItem("filterStatus", filterStatus);
 
 function loadFilter() {
     const savedFilter = localStorage.getItem("filterStatus");
-    if (!savedFilter) return;
+    if (!savedFilter) {
+        filterStatus = "all";
+        return;
+    }
 
     filterStatus = savedFilter;
+}
+
+const saveSearch = () => localStorage.setItem("searchValue", searchValue);
+
+function loadSearch() {
+    const savedSearch = localStorage.getItem("searchValue");
+    if (!savedSearch) {
+        searchValue = "";
+        return;
+    }
+
+    searchValue = savedSearch;
 }
 
 
@@ -247,7 +272,12 @@ incompleteTasksButton.addEventListener("click", () => {
     renderTasks();
 })
 
+searchBar.addEventListener("input", (e) => {
+    let searchText = e.target.value.trim();
+    searchValue = searchText;
 
+    renderTasks();
+})
 
 
 
@@ -275,6 +305,10 @@ function renderTasks() {
         shownTasks = tasks.filter(task => !task.complete);
     } else {
         shownTasks = tasks;
+    }
+
+    if (searchValue !== "") {
+        shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchValue.toLowerCase()));
     }
 
 
@@ -504,6 +538,7 @@ async function getWeather() {
 // PAGE LOAD
 loadTasks();
 loadFilter();
+loadSearch();
 renderCategories();
 renderTasks();
 
