@@ -17,14 +17,14 @@
     - ++ see how many total tasks
     - ++ see how many complete total tasks
     - ++ see how many incomplete total tasks
-    - be able to filter all tasks
-    - be able to filter complete tasks
-    - be able to filter incomplete tasks
-    - be able to filter by category
-    - be able to search by user input characters
+    - ++ be able to filter all tasks
+    - ++ be able to filter complete tasks
+    - ++ be able to filter incomplete tasks
+    - ++ be able to filter by category
+    - ++ be able to search by user input characters
     - when finding a match the task item should be highlighted, and the task list should only show matching ones
-    - be able to see their filters loaded on page reload
-    - be able to see their search loaded on page reload
+    - ++ be able to see their filters loaded on page reload
+    - ++ be able to see their search loaded on page reload
     - ++ be able to see the existing tasks loaded on page reload
     - ++ be able to see houston weather with name, lat/lng, temp, and conditions
 */
@@ -41,7 +41,10 @@
 let tasks = [];
 
 // categories list
-const categories = ["work", "personal", "school", "errand"];
+const categories = ["Work", "Personal", "School", "Errand"];
+
+// category filter list
+const categoryFiltersList = ["All", ...categories];
 
 // next task id
 let nextTaskId = 1;
@@ -55,6 +58,8 @@ let filterStatus = "all";
 // search filter state
 let searchValue = "";
 
+// current category state
+let currentCategory = "All";
 
 
 
@@ -78,13 +83,14 @@ const allTasksButton = document.querySelector("#show-all-tasks");
 const completeTasksButton = document.querySelector("#show-complete-tasks");
 const incompleteTasksButton = document.querySelector("#show-incomplete-tasks");
 const searchBar = document.querySelector("#search-bar");
-
+const categoryFilterSelect = document.querySelector("#show-tasks-by-category");
 
 // weather elements
 const latLng = document.querySelector("#lat-lng");
 const temp = document.querySelector("#temp");
 const conditions = document.querySelector("#conditions");
 const weatherButton = document.querySelector("#get-weather-button");
+
 
 
 
@@ -138,6 +144,7 @@ function clearTasks() {
     nextTaskId = 1;
     filterStatus = "all";
     searchValue = "";
+    currentCategory = "All";
     clearStorage();
 }
 
@@ -210,6 +217,19 @@ function loadSearch() {
 }
 
 
+const saveCategory = () => localStorage.setItem("currentCategory", currentCategory);
+
+function loadCategory() {
+    const savedCategory = localStorage.getItem("currentCategory");
+    if (!savedCategory) {
+        currentCategory = "All";
+        return;
+    }
+    currentCategory = savedCategory;
+    
+
+}
+
 
 
 // EVENT LISTENERS
@@ -280,6 +300,13 @@ searchBar.addEventListener("input", (e) => {
     renderTasks();
 })
 
+categoryFilterSelect.addEventListener("change", (e) => {
+    let input = e.target.value;
+    currentCategory = input;
+    saveCategory();
+    renderTasks();
+})
+
 
 
 // weather button listener
@@ -310,6 +337,10 @@ function renderTasks() {
 
     if (searchValue !== "") {
         shownTasks = shownTasks.filter(task => task.text.toLowerCase().includes(searchValue.toLowerCase()));
+    }
+
+    if (currentCategory !== "All") {
+        shownTasks = shownTasks.filter(task => task.category === currentCategory);
     }
 
 
@@ -446,6 +477,16 @@ function renderCategories() {
 }
 
 
+function renderCategoriesFilters() {
+    for (let c of categoryFiltersList) {
+        const o = document.createElement("option");
+        o.textContent = c;
+        o.value = c;
+        categoryFilterSelect.appendChild(o);
+    }
+}
+
+
 
 
 
@@ -539,8 +580,10 @@ async function getWeather() {
 // PAGE LOAD
 loadTasks();
 loadFilter();
+loadCategory();
 loadSearch();
 renderCategories();
+renderCategoriesFilters();
 renderTasks();
 
 
