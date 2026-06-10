@@ -49,6 +49,9 @@ let nextTaskId = 1;
 // editing state
 let isEditing = false;
 
+// task filter state
+let filterStatus = "all";
+
 
 
 
@@ -67,11 +70,17 @@ const totalCount = document.querySelector("#total-count");
 const completeCount = document.querySelector("#complete-count");
 const incompleteCount = document.querySelector("#incomplete-count");
 
+// task filters
+const allTasksButton = document.querySelector("#show-all-tasks");
+const completeTasksButton = document.querySelector("#show-complete-tasks");
+const incompleteTasksButton = document.querySelector("#show-incomplete-tasks");
+
 // weather elements
 const latLng = document.querySelector("#lat-lng");
 const temp = document.querySelector("#temp");
 const conditions = document.querySelector("#conditions");
 const weatherButton = document.querySelector("#get-weather-button");
+
 
 
 
@@ -111,7 +120,7 @@ function editTask(id, text, category) {
                 text,
                 category
             }
-        } 
+        }
         return task;
     })
     saveTasks();
@@ -122,6 +131,7 @@ function editTask(id, text, category) {
 function clearTasks() {
     tasks = [];
     nextTaskId = 1;
+    filterStatus = "all";
     clearStorage();
 }
 
@@ -208,6 +218,27 @@ clearTasksButton.addEventListener("click", () => {
 
 
 
+// task filter listeners
+
+allTasksButton.addEventListener("click", () => {
+    filterStatus = "all";
+    renderTasks();
+})
+
+completeTasksButton.addEventListener("click", () => {
+    filterStatus = "complete";
+    renderTasks();
+})
+
+incompleteTasksButton.addEventListener("click", () => {
+    filterStatus = "incomplete";
+    renderTasks();
+})
+
+
+
+
+
 // weather button listener
 weatherButton.addEventListener("click", () => {
     getWeather();
@@ -223,6 +254,17 @@ weatherButton.addEventListener("click", () => {
 // RENDER ELEMENTS
 function renderTasks() {
     tasksList.textContent = "";
+    let shownTasks;
+
+
+    if (filterStatus === "complete") {
+        shownTasks = tasks.filter(task => task.complete);
+    } else if (filterStatus === "incomplete") {
+        shownTasks = tasks.filter(task => !task.complete);
+    } else {
+        shownTasks = tasks;
+    }
+
 
     const totalTasksCount = tasks.length;
     const totalCompleteCount = tasks.filter(task => task.complete).length;
@@ -232,10 +274,7 @@ function renderTasks() {
     completeCount.textContent = "Complete tasks count: " + totalCompleteCount;
     incompleteCount.textContent = "Incomplete tasks count: " + totalIncompleteCount;
 
-
-
-
-    if (tasks.length === 0) {
+    if (shownTasks.length === 0) {
         const p = document.createElement("p");
         p.textContent = "task list is empty";
         tasksList.appendChild(p);
@@ -243,7 +282,7 @@ function renderTasks() {
     }
 
 
-    for (let task of tasks) {
+    for (let task of shownTasks) {
         const li = document.createElement("li");
         const checkBox = document.createElement("input");
         const deleteButton = document.createElement("button");
@@ -297,11 +336,11 @@ function renderTasks() {
                         const o = document.createElement("option");
                         o.value = c;
                         o.textContent = c;
-                        
+
                         if (c === v) {
                             o.selected = true;
                         }
-                        
+
                         categorySelect.appendChild(o);
                     }
 
@@ -368,7 +407,7 @@ function renderCategories() {
 
 // WEATHER 
 function weatherCodeConverter(code) {
-    
+
 
     const weatherCodes = {
 
