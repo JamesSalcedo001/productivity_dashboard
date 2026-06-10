@@ -9,8 +9,8 @@
     - ++ be able to toggle a task complete/incomplete by clicking it
     - ++ be able to delete a task
     - ++ be able to clear all tasks
-    - be able to edit a task
-    - be able to select a category when editing the task
+    - ++ be able to edit a task
+    - ++ be able to select a category when editing the task
     - ++ be able to see a message when the user enters a task without any description/name
     - ++ be able to see a message indicating tasks havent been added yet
     - be able to see a message indicating when no tasks match filters
@@ -25,8 +25,8 @@
     - when finding a match the task item should be highlighted, and the task list should only show matching ones
     - be able to see their filters loaded on page reload
     - be able to see their search loaded on page reload
-    - be able to see the existing tasks loaded on page reload
-    - be able to see houston weather with name, lat/lng, temp, and conditions
+    - ++ be able to see the existing tasks loaded on page reload
+    - ++ be able to see houston weather with name, lat/lng, temp, and conditions
 */
 
 
@@ -90,6 +90,7 @@ function addTask(text, category) {
 
     nextTaskId++;
     tasks.push(newTask);
+    saveTasks();
 }
 
 
@@ -97,6 +98,7 @@ function addTask(text, category) {
 function removeTask(id) {
     const newTaskList = tasks.filter(task => task.id !== id);
     tasks = newTaskList;
+    saveTasks();
 }
 
 
@@ -112,6 +114,7 @@ function editTask(id, text, category) {
         } 
         return task;
     })
+    saveTasks();
 }
 
 
@@ -119,6 +122,7 @@ function editTask(id, text, category) {
 function clearTasks() {
     tasks = [];
     nextTaskId = 1;
+    clearStorage();
 }
 
 
@@ -127,9 +131,39 @@ function toggleCompleted(id) {
     for (let task of tasks) {
         if (id === task.id) {
             task.complete = !task.complete;
+            saveTasks();
         }
     }
 }
+
+
+
+
+
+
+
+// local storage functions
+function saveTasks() {
+    const convertedTasks = JSON.stringify(tasks);
+    localStorage.setItem("tasks", convertedTasks);
+}
+
+
+function loadTasks() {
+    const savedTasks = localStorage.getItem("tasks");
+    const parsedTasks = JSON.parse(savedTasks);
+
+    tasks = parsedTasks;
+}
+
+
+function clearStorage() {
+    localStorage.removeItem("tasks");
+}
+
+
+
+
 
 
 
@@ -417,7 +451,7 @@ async function getWeather() {
 
 
 // PAGE LOAD
-
+loadTasks();
 renderCategories();
 renderTasks();
 
