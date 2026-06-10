@@ -181,7 +181,7 @@ function loadTasks() {
 function clearStorage() {
     localStorage.removeItem("tasks");
     localStorage.removeItem("filterStatus");
-    
+    localStorage.removeItem("searchValue");
 }
 
 
@@ -275,6 +275,7 @@ incompleteTasksButton.addEventListener("click", () => {
 searchBar.addEventListener("input", (e) => {
     let searchText = e.target.value.trim();
     searchValue = searchText;
+    saveSearch();
 
     renderTasks();
 })
