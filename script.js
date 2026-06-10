@@ -163,17 +163,26 @@ function loadTasks() {
     const savedTasks = localStorage.getItem("tasks");
     const parsedTasks = JSON.parse(savedTasks);
 
+    if (!parsedTasks) return;
+
     tasks = parsedTasks;
 }
 
 
 function clearStorage() {
     localStorage.removeItem("tasks");
+    localStorage.removeItem("filterStatus")
 }
 
 
+const saveFilter = () => localStorage.setItem("filterStatus", filterStatus);
 
+function loadFilter() {
+    const savedFilter = localStorage.getItem("filterStatus");
+    if (!savedFilter) return;
 
+    filterStatus = savedFilter;
+}
 
 
 
@@ -222,16 +231,19 @@ clearTasksButton.addEventListener("click", () => {
 
 allTasksButton.addEventListener("click", () => {
     filterStatus = "all";
+    saveFilter();
     renderTasks();
 })
 
 completeTasksButton.addEventListener("click", () => {
     filterStatus = "complete";
+    saveFilter();
     renderTasks();
 })
 
 incompleteTasksButton.addEventListener("click", () => {
     filterStatus = "incomplete";
+    saveFilter();
     renderTasks();
 })
 
@@ -491,6 +503,7 @@ async function getWeather() {
 
 // PAGE LOAD
 loadTasks();
+loadFilter();
 renderCategories();
 renderTasks();
 
