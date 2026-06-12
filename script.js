@@ -61,6 +61,9 @@ let searchValue = "";
 // current category state
 let currentCategory = "All";
 
+// sorting state
+let sortMode = "none";
+
 
 
 
@@ -84,6 +87,8 @@ const completeTasksButton = document.querySelector("#show-complete-tasks");
 const incompleteTasksButton = document.querySelector("#show-incomplete-tasks");
 const searchBar = document.querySelector("#search-bar");
 const categoryFilterSelect = document.querySelector("#show-tasks-by-category");
+const sortTasksSelect = document.querySelector("#sort-tasks-select");
+
 
 // weather elements
 const latLng = document.querySelector("#lat-lng");
@@ -318,6 +323,13 @@ categoryFilterSelect.addEventListener("change", (e) => {
 })
 
 
+sortTasksSelect.addEventListener("change", (e) => {
+    let input = e.target.value;
+    sortMode = input;
+    renderTasks();
+})
+
+
 
 // weather button listener
 weatherButton.addEventListener("click", () => {
@@ -374,6 +386,19 @@ function renderTasks() {
 
         tasksList.appendChild(p);
         return;
+    }
+
+
+    shownTasks = [...shownTasks];
+
+    if (sortMode === "az") {
+        shownTasks.sort((a, b) => a.text.localeCompare(b.text));
+    } else if (sortMode === "za") {
+        shownTasks.sort((a, b) => b.text.localeCompare(a.text));
+    } else if (sortMode === "complete-first") {
+        shownTasks.sort((a, b) => Number(a.complete) - Number(b.complete));
+    } else if (sortMode === "incomplete-first") {
+        shownTasks.sort((a, b) => Number(b.complete) - Number(a.complete));
     }
 
 
