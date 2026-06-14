@@ -51,6 +51,9 @@ const categories = ["Work", "Personal", "School", "Errand"];
 // category filter list
 const categoryFiltersList = ["All", ...categories];
 
+// priorities state
+const priorities = ["Low", "Medium", "High"];
+
 // next task id
 let nextTaskId = 1;
 
@@ -80,6 +83,7 @@ const newTaskButton = document.querySelector("#new-task-button");
 const clearTasksButton = document.querySelector("#clear-tasks-button");
 const taskCategoryInput = document.querySelector("#task-category-input");
 const tasksList = document.querySelector("#tasks-list");
+const taskPriorityInput = document.querySelector("#task-priority-input");
 
 // task stats elements
 const totalCount = document.querySelector("#total-count");
@@ -112,12 +116,13 @@ const weatherButton = document.querySelector("#get-weather-button");
 // FUNCTIONS
 
 // add task
-function addTask(text, category) {
+function addTask(text, category, priority) {
     const newTask = {
         id: nextTaskId,
         text,
         complete: false,
-        category
+        category,
+        priority
     }
 
     nextTaskId++;
@@ -135,13 +140,14 @@ function removeTask(id) {
 
 
 // edit task
-function editTask(id, text, category) {
+function editTask(id, text, category, priority) {
     tasks = tasks.map(task => {
         if (task.id === id) {
             return {
                 ...task,
                 text,
-                category
+                category,
+                priority
             }
         }
         return task;
@@ -261,15 +267,17 @@ function loadCategory() {
 function addTaskHandler() {
     const text = newTaskInput.value.trim();
     const category = taskCategoryInput.value;
+    const priority = taskPriorityInput.value;
 
     if (text === "") {
         console.log("left empty, please add text to task");
         return;
     }
 
-    addTask(text, category);
+    addTask(text, category, priority);
     newTaskInput.value = "";
     taskCategoryInput.value = categories[0];
+    taskPriorityInput.value = priorities[0];
     renderTasks();
 }
 
@@ -426,7 +434,7 @@ function renderTasks() {
         const deleteButton = document.createElement("button");
         const editButton = document.createElement("button");
         const buttonContainer = document.createElement("div");
-        li.textContent = task.text + " - " + task.category;
+        li.textContent = "Task: " + task.text + " // " + "Category: " + task.category + " // " + "Priority: " + task.priority + " // ";
         checkBox.type = "checkbox";
         checkBox.checked = task.complete;
         deleteButton.textContent = "X";
@@ -491,6 +499,30 @@ function renderTasks() {
                     continue;
                 }
 
+                if (k === "priority") {
+                    const label = document.createElement("label");
+                    const prioritySelect = document.createElement("select");
+
+                    label.textContent = k;
+                    prioritySelect.name = k;
+                    prioritySelect.classList.add("edit-form-select");
+
+                    for (let p of priorities) {
+                        const o = document.createElement("option");
+                        o.value = p;
+                        o.textContent = p;
+
+                        if (p === v) { 
+                            o.selected = true;  
+                        }
+
+                        prioritySelect.appendChild(o);
+                    }
+
+                    form.append(label, prioritySelect);
+                    continue;
+                }
+
 
 
 
@@ -510,8 +542,9 @@ function renderTasks() {
                 e.preventDefault();
                 const newText = e.target.elements.text.value;
                 const newCategory = e.target.elements.category.value;
+                const newPriority = e.target.elements.priority.value;
 
-                editTask(task.id, newText, newCategory);
+                editTask(task.id, newText, newCategory, newPriority);
                 renderTasks();
                 isEditing = false;
                 editButton.disabled = false;
@@ -538,6 +571,15 @@ function renderCategories() {
         o.textContent = c;
         o.value = c;
         taskCategoryInput.appendChild(o);
+    }
+}
+
+function renderPriorities() {
+    for (let p of priorities) {
+        const o = document.createElement("option");
+        o.textContent = p;
+        o.value = p;
+        taskPriorityInput.appendChild(o);
     }
 }
 
@@ -670,6 +712,7 @@ function initApp() {
     loadFilter();
     loadSearch();
     renderCategories();
+    renderPriorities();
     renderCategoriesFilters();
     loadCategory();
     renderTasks();
