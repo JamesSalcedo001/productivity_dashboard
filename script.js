@@ -21,12 +21,17 @@
     - ++ be able to filter complete tasks
     - ++ be able to filter incomplete tasks
     - ++ be able to filter by category
-    - ++ be able to search by user input characters
+    - ++ be able to sort by a-z, z-a, complete first, incomplete first, and category a-z
+    - ++ be able to search by user input
     - ++ when finding a match the task item should be highlighted, and the task list should only show matching ones
     - ++ be able to see their filters loaded on page reload
     - ++ be able to see their search loaded on page reload
     - ++ be able to see the existing tasks loaded on page reload
+    - ++ be able to see their selected category filter on page reload
     - ++ be able to see houston weather with name, lat/lng, temp, and conditions
+    - ++ be able to see a progress bar with a percentage of tasks complete and styled
+    - ++ be able to see a list of categories and a tally for how many exist in the tasks list
+
 */
 
 
