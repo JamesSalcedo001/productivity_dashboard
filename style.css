@@ -15,7 +15,7 @@ body {
 
 
 
-#task-stats-container, #category-stats-container {
+#task-stats-container, #category-stats-container, #task-completion-percentage-container {
     text-align: center;
     width: 80%;
     margin: 20px auto;
@@ -213,12 +213,21 @@ body {
     text-align: center;
 }
 
+#progress-bar-container {
+    width: 50%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid lightslategray;
+    margin: auto;
+    overflow: hidden;
+}
 
-
-
-
-
-
+#progress-bar {
+    width: 0%;
+    background-color: rgb(71, 208, 121);
+    height: 100%;
+    transition: width 5s ease-in-out;
+}
 
 
 

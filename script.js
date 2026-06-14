@@ -81,6 +81,7 @@ const totalCount = document.querySelector("#total-count");
 const completeCount = document.querySelector("#complete-count");
 const incompleteCount = document.querySelector("#incomplete-count");
 const categoryStatsList = document.querySelector("#category-stats-list");
+const progressBar = document.querySelector("#progress-bar");
 
 // task filters
 const allTasksButton = document.querySelector("#show-all-tasks");
@@ -377,6 +378,12 @@ function renderTasks() {
 
     renderCategoryStats();
 
+    const percentageFormula = totalTasksCount === 0 ? 0 : Math.round((totalCompleteCount / totalTasksCount) * 100);
+
+    progressBar.style.width = percentageFormula + "%";
+    
+
+    
 
     if (shownTasks.length === 0) {
         const p = document.createElement("p");
@@ -559,8 +566,6 @@ function renderCategoryStats() {
         categoryStatsList.appendChild(p);
     }
 }
-
-
 
 
 
