@@ -428,6 +428,7 @@ function renderTasks() {
         deleteButton.classList.add("delete-btn");
         buttonContainer.classList.add("btn-container");
         editButton.textContent = "✎";
+        editButton.disabled = false;
         editButton.classList.add("edit-btn");
 
         if (task.complete) {
@@ -450,6 +451,7 @@ function renderTasks() {
 
         editButton.addEventListener("click", () => {
             isEditing = true;
+            editButton.disabled = true;
 
             const form = document.createElement("form");
             const submitButton = document.createElement("input");
@@ -507,11 +509,11 @@ function renderTasks() {
                 editTask(task.id, newText, newCategory);
                 renderTasks();
                 isEditing = false;
+                editButton.disabled = false;
 
             })
 
             li.appendChild(form);
-
 
         })
 
