@@ -381,6 +381,7 @@ function renderTasks() {
     const percentageFormula = totalTasksCount === 0 ? 0 : Math.round((totalCompleteCount / totalTasksCount) * 100);
 
     progressBar.style.width = percentageFormula + "%";
+    progressBar.textContent = percentageFormula + "%";
     
 
     

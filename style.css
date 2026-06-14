@@ -220,6 +220,8 @@ body {
     border: 1px solid lightslategray;
     margin: auto;
     overflow: hidden;
+    text-align: center;
+    line-height: 1.8em;
 }
 
 #progress-bar {
@@ -227,6 +229,7 @@ body {
     background-color: rgb(71, 208, 121);
     height: 100%;
     transition: width 5s ease-in-out;
+    
 }
 
 
