@@ -21,7 +21,7 @@
     - ++ be able to filter complete tasks
     - ++ be able to filter incomplete tasks
     - ++ be able to filter by category
-    - ++ be able to sort by a-z, z-a, complete first, incomplete first, and category a-z
+    - ++ be able to sort by a-z, z-a, complete first, incomplete first, category a-z, high priority and low priority
     - ++ be able to search by user input
     - ++ when finding a match the task item should be highlighted, and the task list should only show matching ones
     - ++ be able to see their filters loaded on page reload
@@ -434,10 +434,8 @@ function renderTasks() {
         shownTasks.sort((a, b) => a.category.localeCompare(b.category));
     } else if (sortMode === "priority-low") {
         shownTasks.sort((a, b) => priorityRank[b.priority] - priorityRank[a.priority])
-        // or priorities.sort((a, b) => priorities.indexOf(b.priority) - priorities.indexOf(a.priority))
     } else if (sortMode === "priority-high") {
         shownTasks.sort((a, b) => priorityRank[a.priority] - priorityRank[b.priority]);
-        // or priorites.sort((a, b) => priorities.indexOf(a.priority) - priorities.indexOf(b.priority))
     }
 
 
