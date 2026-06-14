@@ -7,20 +7,27 @@ body {
 #task-filters-title,
 #task-actions-title,
 #weather-title,
-#tasks-list-title {
+#tasks-list-title,
+#category-stats-title {
     text-align: center;
     color: rgb(3, 3, 48);
 }
 
 
 
-#task-stats-container {
+#task-stats-container, #category-stats-container {
     text-align: center;
     width: 80%;
-    margin: auto;
+    margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
     background-color: aliceblue;
+}
+
+#category-stats-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -103,7 +110,7 @@ body {
     width: 50%;
 }
 
-.task-stats {
+.task-stats, .category-stats {
     background-color: lightslategray;
     color: white;
     border: none;

@@ -80,6 +80,7 @@ const tasksList = document.querySelector("#tasks-list");
 const totalCount = document.querySelector("#total-count");
 const completeCount = document.querySelector("#complete-count");
 const incompleteCount = document.querySelector("#incomplete-count");
+const categoryStatsList = document.querySelector("#category-stats-list");
 
 // task filters
 const allTasksButton = document.querySelector("#show-all-tasks");
@@ -374,6 +375,8 @@ function renderTasks() {
     completeCount.textContent = "Complete tasks count: " + totalCompleteCount;
     incompleteCount.textContent = "Incomplete tasks count: " + totalIncompleteCount;
 
+    renderCategoryStats();
+
 
     if (shownTasks.length === 0) {
         const p = document.createElement("p");
@@ -530,6 +533,30 @@ function renderCategoriesFilters() {
         o.textContent = c;
         o.value = c;
         categoryFilterSelect.appendChild(o);
+    }
+}
+
+
+function renderCategoryStats() {
+    categoryStatsList.textContent = "";
+
+    const categoryCounts = {};
+
+    for (let category of categories) {
+        categoryCounts[category] = 0;
+    }
+
+    const updatedCategoryCounts = tasks.reduce((accumulator, task) => {
+        accumulator[task.category] = (accumulator[task.category] || 0) + 1
+        return accumulator;
+    }, categoryCounts);
+
+
+    for (const [k, v] of Object.entries(updatedCategoryCounts)) {
+        const p = document.createElement("p");
+        p.textContent = `${k}: ${v}`;
+        p.classList.add("category-stats");
+        categoryStatsList.appendChild(p);
     }
 }
 
