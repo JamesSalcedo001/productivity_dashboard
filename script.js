@@ -54,6 +54,13 @@ const categoryFiltersList = ["All", ...categories];
 // priorities state
 const priorities = ["Low", "Medium", "High"];
 
+// priority rank state
+const priorityRank = {
+    Low: 3,
+    Medium: 2,
+    High: 1
+}
+
 // next task id
 let nextTaskId = 1;
 
@@ -425,6 +432,12 @@ function renderTasks() {
         shownTasks.sort((a, b) => Number(a.complete) - Number(b.complete));
     } else if (sortMode === "category-az") {
         shownTasks.sort((a, b) => a.category.localeCompare(b.category));
+    } else if (sortMode === "priority-low") {
+        shownTasks.sort((a, b) => priorityRank[b.priority] - priorityRank[a.priority])
+        // or priorities.sort((a, b) => priorities.indexOf(b.priority) - priorities.indexOf(a.priority))
+    } else if (sortMode === "priority-high") {
+        shownTasks.sort((a, b) => priorityRank[a.priority] - priorityRank[b.priority]);
+        // or priorites.sort((a, b) => priorities.indexOf(a.priority) - priorities.indexOf(b.priority))
     }
 
 
