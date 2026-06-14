@@ -42,6 +42,7 @@ body {
 #filter-buttons-container {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .task-filter-button {
@@ -204,7 +205,6 @@ body {
     min-width: 30%;
     text-align: center;
 }
-
 
 
 

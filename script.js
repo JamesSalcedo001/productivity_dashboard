@@ -396,9 +396,9 @@ function renderTasks() {
     } else if (sortMode === "za") {
         shownTasks.sort((a, b) => b.text.localeCompare(a.text));
     } else if (sortMode === "complete-first") {
-        shownTasks.sort((a, b) => Number(a.complete) - Number(b.complete));
-    } else if (sortMode === "incomplete-first") {
         shownTasks.sort((a, b) => Number(b.complete) - Number(a.complete));
+    } else if (sortMode === "incomplete-first") {
+        shownTasks.sort((a, b) => Number(a.complete) - Number(b.complete));
     } else if (sortMode === "category-az") {
         shownTasks.sort((a, b) => a.category.localeCompare(b.category));
     }
