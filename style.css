@@ -68,15 +68,18 @@ body {
 
 #task-actions-buttons-container {
     display: flex;
-    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .task-action-input {
     margin-inline: 20px;
     padding: 10px;
-    min-width: 10%;
+    min-width: 52%;
+    width: 50%;
     text-align: center;
-    border: none;
+    border: 1px solid black;
     border-radius: 5px;
 }
 

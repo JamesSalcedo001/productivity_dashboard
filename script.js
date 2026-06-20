@@ -91,6 +91,7 @@ const clearTasksButton = document.querySelector("#clear-tasks-button");
 const taskCategoryInput = document.querySelector("#task-category-input");
 const tasksList = document.querySelector("#tasks-list");
 const taskPriorityInput = document.querySelector("#task-priority-input");
+const taskDueDateInput = document.querySelector("#task-due-date-input");
 
 // task stats elements
 const totalCount = document.querySelector("#total-count");
@@ -123,13 +124,14 @@ const weatherButton = document.querySelector("#get-weather-button");
 // FUNCTIONS
 
 // add task
-function addTask(text, category, priority) {
+function addTask(text, category, priority, dueDate) {
     const newTask = {
         id: nextTaskId,
         text,
         complete: false,
         category,
-        priority
+        priority,
+        dueDate
     }
 
     nextTaskId++;
@@ -147,14 +149,15 @@ function removeTask(id) {
 
 
 // edit task
-function editTask(id, text, category, priority) {
+function editTask(id, text, category, priority, dueDate) {
     tasks = tasks.map(task => {
         if (task.id === id) {
             return {
                 ...task,
                 text,
                 category,
-                priority
+                priority,
+                dueDate
             }
         }
         return task;
@@ -275,14 +278,16 @@ function addTaskHandler() {
     const text = newTaskInput.value.trim();
     const category = taskCategoryInput.value;
     const priority = taskPriorityInput.value;
+    const dueDate = taskDueDateInput.value;
 
     if (text === "") {
         console.log("left empty, please add text to task");
         return;
     }
 
-    addTask(text, category, priority);
+    addTask(text, category, priority, dueDate);
     newTaskInput.value = "";
+    taskDueDateInput.value = "";
     taskCategoryInput.value = categories[0];
     taskPriorityInput.value = priorities[0];
     renderTasks();
@@ -436,6 +441,8 @@ function renderTasks() {
         shownTasks.sort((a, b) => priorityRank[b.priority] - priorityRank[a.priority])
     } else if (sortMode === "priority-high") {
         shownTasks.sort((a, b) => priorityRank[a.priority] - priorityRank[b.priority]);
+    } else if (sortMode === "due-date") {
+        shownTasks.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
     }
 
 
@@ -445,7 +452,7 @@ function renderTasks() {
         const deleteButton = document.createElement("button");
         const editButton = document.createElement("button");
         const buttonContainer = document.createElement("div");
-        li.textContent = "Task: " + task.text + " // " + "Category: " + task.category + " // " + "Priority: " + task.priority + " // ";
+        li.textContent = "Task: " + task.text + " // " + "Category: " + task.category + " // " + "Priority: " + task.priority + " // " + "Due: " + (task.dueDate || "No due date") + " // ";
         checkBox.type = "checkbox";
         checkBox.checked = task.complete;
         deleteButton.textContent = "X";
@@ -534,6 +541,20 @@ function renderTasks() {
                     continue;
                 }
 
+                if (k === "dueDate") {
+                    const label = document.createElement("label");
+                    const dateInput = document.createElement("input");
+
+                    label.textContent = k;
+                    dateInput.name = k;
+                    dateInput.type = "date";
+                    dateInput.value = v;
+                    dateInput.classList.add("edit-date-input");
+
+                    form.append(label, dateInput);
+                    continue;
+                }
+
 
 
 
@@ -554,8 +575,9 @@ function renderTasks() {
                 const newText = e.target.elements.text.value;
                 const newCategory = e.target.elements.category.value;
                 const newPriority = e.target.elements.priority.value;
+                const newDueDate = e.target.elements.dueDate.value;
 
-                editTask(task.id, newText, newCategory, newPriority);
+                editTask(task.id, newText, newCategory, newPriority, newDueDate);
                 renderTasks();
                 isEditing = false;
                 editButton.disabled = false;
